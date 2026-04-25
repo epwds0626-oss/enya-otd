@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>えんやどっと丸 | 海鮮和食・大洗港</title>
+<meta name="description" content="茨城・大洗港。常磐の海が育む旬の恵みを、丁寧な仕事で皿に表現する海鮮和食の店。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0e0c0a;--ink2:#2e2820;--ink3:#7a6e60;
+  --washi:#faf8f3;--cream:#f2ece0;
+  --gold:#9a7d4e;--gl:#c9a96e;
+  --white:#fff;
+}
+html,body{width:100%;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+body{font-family:'Noto Serif JP',serif;font-weight:300;background:var(--ink);color:var(--ink)}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{text-decoration:none;color:inherit}
+
+/* ── FULLPAGE WRAPPER ── */
+#fp{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none}
+
+.fp-section{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  overflow:hidden;
+  opacity:0;
+  pointer-events:none;
+  z-index:0;
+  transform:translateY(0) scale(1);
+}
+/* 下から来る（next方向） */
+.fp-section.enter-down{
+  animation:enterDown .85s cubic-bezier(.16,1,.3,1) forwards;
+}
+/* 上から来る（prev方向） */
+.fp-section.enter-up{
+  animation:enterUp .85s cubic-bezier(.16,1,.3,1) forwards;
+}
+/* 下へ去る */
+.fp-section.leave-down{
+  animation:leaveDown .65s cubic-bezier(.55,0,1,.45) forwards;
+  z-index:2;pointer-events:none;
+}
+/* 上へ去る */
+.fp-section.leave-up{
+  animation:leaveUp .65s cubic-bezier(.55,0,1,.45) forwards;
+  z-index:2;pointer-events:none;
+}
+.fp-section.active{
+  opacity:1;
+  pointer-events:auto;
+  z-index:1;
+}
+@keyframes enterDown{
+  0%{opacity:0;transform:translateY(6%) scale(.98);clip-path:inset(4% 0 0 0)}
+  100%{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0% 0 0 0)}
+}
+@keyframes enterUp{
+  0%{opacity:0;transform:translateY(-6%) scale(.98);clip-path:inset(0 0 4% 0)}
+  100%{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0% 0 0 0)}
+}
+@keyframes leaveDown{
+  0%{opacity:1;transform:translateY(0) scale(1)}
+  100%{opacity:0;transform:translateY(-4%) scale(.97)}
+}
+@keyframes leaveUp{
+  0%{opacity:1;transform:translateY(0) scale(1)}
+  100%{opacity:0;transform:translateY(4%) scale(.97)}
+}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:2rem 4rem;
+  transition:padding .5s,background .5s,border-color .5s;
+  border-bottom:.5px solid transparent;
+  pointer-events:none;
+}
+#nav.light{
+  padding:1.1rem 4rem;
+  background:rgba(250,248,243,.96);
+  backdrop-filter:blur(16px);
+  border-color:rgba(154,125,78,.15);
+}
+#nav>*{pointer-events:auto}
+.nl{font-family:'Shippori Mincho B1',serif;font-size:.88rem;letter-spacing:.4em;color:rgba(255,255,255,.85);transition:color .4s}
+#nav.light .nl{color:var(--ink)}
+.nm{display:flex;gap:2.2rem;list-style:none}
+.nm a{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.78rem;letter-spacing:.28em;color:rgba(255,255,255,.55);transition:color .3s}
+#nav.light .nm a{color:var(--ink3)}
+.nm a:hover{color:var(--gl)!important}
+.nb{font-family:'Shippori Mincho B1',serif;font-size:.64rem;letter-spacing:.28em;border:.5px solid rgba(255,255,255,.4);color:rgba(255,255,255,.78);padding:.58rem 1.5rem;transition:all .3s}
+#nav.light .nb{border-color:var(--gold);color:var(--gold)}
+.nb:hover{background:var(--gl);border-color:var(--gl);color:#fff}
+
+/* ── PAGE DOTS ── */
+#dots{
+  position:fixed;right:2.5rem;top:50%;transform:translateY(-50%);
+  z-index:500;
+  display:flex;flex-direction:column;gap:.9rem;
+}
+.dot{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  cursor:pointer;
+  transition:background .3s,transform .3s;
+  border:none;padding:0;
+}
+.dot.active{background:var(--gl);transform:scale(1.5)}
+.dot-light{background:rgba(10,8,6,.2)!important}
+.dot-light.active{background:var(--gold)!important}
+
+/* ── SECTION COUNTER ── */
+.sec-num{
+  position:absolute;bottom:3rem;left:4rem;z-index:10;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:.65rem;letter-spacing:.5em;
+  color:rgba(255,255,255,.3);
+}
+.sec-num.dark-num{color:rgba(10,8,6,.25)}
+
+/* ── COMMON ── */
+.sen{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:.7rem;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.9rem}
+.sja{font-family:'Shippori Mincho B1',serif;font-weight:400;font-size:1.7rem;letter-spacing:.1em;line-height:1.55;display:block;margin-bottom:1.6rem}
+.gl{width:32px;height:.5px;background:var(--gold);margin-bottom:2rem}
+.fadeIn{opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s ease}
+.fadeIn.on{opacity:1;transform:none}
+.fadeL{opacity:0;transform:translateX(-24px);transition:opacity .9s ease,transform .9s ease}
+.fadeL.on{opacity:1;transform:none}
+.fadeR{opacity:0;transform:translateX(24px);transition:opacity .9s ease,transform .9s ease}
+.fadeR.on{opacity:1;transform:none}
+
+/* ═══════════════════════════════
+   01 HERO
+═══════════════════════════════ */
+#s-hero{background:var(--ink)}
+.hero-bg{position:absolute;inset:0;transform:scale(1.08);transition:transform 8s cubic-bezier(.25,.46,.45,.94)}
+#s-hero.rdy .hero-bg{transform:scale(1)}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(150deg,rgba(10,8,6,.68) 0%,rgba(10,8,6,.2) 48%,rgba(10,8,6,.75) 100%)}
+.hero-body{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:0 4rem 6.5rem;
+}
+.hero-kicker{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:.72rem;letter-spacing:.65em;color:var(--gl);text-transform:uppercase;margin-bottom:1.6rem;opacity:0;animation:uF 1.2s .5s forwards}
+.hero-ttl{font-family:'Shippori Mincho B1',serif;font-weight:400;font-size:clamp(2.8rem,5.5vw,4.6rem);letter-spacing:.1em;line-height:1.22;color:#faf8f3;margin-bottom:1.2rem;opacity:0;animation:uF 1.2s .8s forwards}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:1.05rem;letter-spacing:.45em;color:rgba(255,255,255,.35);margin-bottom:3.5rem;opacity:0;animation:uF 1.2s 1s forwards}
+.hero-btns{display:flex;gap:1.4rem;opacity:0;animation:uF 1.2s 1.25s forwards}
+.bg{font-family:'Shippori Mincho B1',serif;font-size:.72rem;letter-spacing:.28em;background:var(--gold);color:#fff;padding:.9rem 2.5rem;transition:background .3s,transform .3s}
+.bg:hover{background:#7e6338;transform:translateY(-2px)}
+.bw{font-family:'Shippori Mincho B1',serif;font-size:.72rem;letter-spacing:.28em;border:.5px solid rgba(255,255,255,.38);color:rgba(255,255,255,.75);padding:.9rem 2.5rem;transition:all .3s}
+.bw:hover{border-color:rgba(255,255,255,.85);color:#fff}
+.hero-scroll{position:absolute;bottom:3rem;right:4rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;opacity:0;animation:fI 1.5s 2s forwards}
+.hero-scroll span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.58rem;letter-spacing:.55em;color:rgba(255,255,255,.3);writing-mode:vertical-rl}
+.scl{width:.5px;height:52px;background:linear-gradient(to bottom,var(--gl),transparent);animation:scD 2.2s 2.2s ease-in-out infinite}
+@keyframes scD{0%{transform:scaleY(0);transform-origin:top}49%{transform:scaleY(1);transform-origin:top}50%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes uF{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+
+/* ═══════════════════════════════
+   02 CONCEPT
+═══════════════════════════════ */
+#s-concept{background:var(--washi)}
+.concept-grid{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.concept-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:7rem 5rem 7rem 4rem;
+}
+.concept-cn{font-family:'Cormorant Garamond',serif;font-size:6rem;font-weight:300;color:rgba(154,125,78,.07);line-height:1;margin-bottom:-1.5rem;display:block}
+.concept-copy{font-family:'Shippori Mincho B1',serif;font-size:1.6rem;font-weight:400;line-height:2.0;letter-spacing:.07em;color:var(--ink2);margin-bottom:2.5rem}
+.concept-copy em{font-style:normal;color:var(--gold)}
+.concept-body p{font-size:.88rem;line-height:2.7;letter-spacing:.07em;color:var(--ink3);margin-bottom:1.1rem}
+.concept-right{position:relative;overflow:hidden}
+.concept-right img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 8s ease}
+.fp-section.active .concept-right img{transform:scale(1)}
+.concept-right::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--washi) 0%,transparent 15%)}
+
+/* ═══════════════════════════════
+   03 HISTORY
+═══════════════════════════════ */
+#s-history{background:var(--ink)}
+.history-bg{position:absolute;inset:0;opacity:.025;background-image:linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px);background-size:80px 80px}
+.history-inner{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.history-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem 5rem 4rem;
+  overflow-y:auto;
+}
+.history-left::-webkit-scrollbar{display:none}
+.history-left .sen{color:var(--gl)}
+.history-left .sja{color:rgba(250,248,243,.88);font-size:1.6rem}
+.history-left .gl{background:var(--gl)}
+.history-tl{display:flex;flex-direction:column;gap:2.2rem;margin-top:.5rem}
+.htl-item{display:flex;gap:1.6rem;align-items:flex-start}
+.htl-marker{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:.3rem}
+.htl-dot{width:7px;height:7px;border-radius:50%;background:var(--gl);flex-shrink:0}
+.htl-line{width:.5px;flex:1;background:rgba(201,169,110,.18);margin-top:.5rem;min-height:40px}
+.htl-year{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:.62rem;letter-spacing:.4em;color:var(--gl);display:block;margin-bottom:.3rem}
+.htl-ttl{font-family:'Shippori Mincho B1',serif;font-size:.95rem;font-weight:500;letter-spacing:.08em;color:rgba(250,248,243,.82);margin-bottom:.5rem;display:block}
+.htl-desc{font-size:.8rem;line-height:2.4;letter-spacing:.06em;color:rgba(250,248,243,.42)}
+.history-right{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  gap:2px;
+  overflow:hidden;
+}
+.hr-img{overflow:hidden;position:relative}
+.hr-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%);transition:filter .6s,transform 8s ease;transform:scale(1.05)}
+.fp-section.active .hr-img img{transform:scale(1)}
+.hr-img:hover img{filter:grayscale(0%)}
+.hr-img-cap{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.4rem;background:linear-gradient(to top,rgba(10,8,6,.65),transparent)}
+.hr-img-cap span{font-family:'Shippori Mincho B1',serif;font-size:.65rem;letter-spacing:.22em;color:rgba(250,248,243,.7)}
+
+/* ═══════════════════════════════
+   04 PHILOSOPHY
+═══════════════════════════════ */
+#s-phi{background:var(--ink);display:flex;align-items:center;justify-content:center}
+.phi-bg-img{position:absolute;inset:0;opacity:.18;transform:scale(1.05);transition:transform 8s ease}
+.fp-section.active .phi-bg-img{transform:scale(1)}
+.phi-ov{position:absolute;inset:0;background:rgba(10,8,6,.82)}
+.phi-body{position:relative;z-index:2;text-align:center;max-width:780px;padding:0 3rem}
+.phi-deco{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:rgba(201,169,110,.12);line-height:1;margin-bottom:1.5rem;display:block}
+.phi-quote{font-family:'Shippori Mincho B1',serif;font-size:clamp(1.25rem,2.5vw,1.8rem);font-weight:400;line-height:2.2;letter-spacing:.12em;color:rgba(250,248,243,.82);margin-bottom:2.5rem}
+.phi-quote em{font-style:normal;color:var(--gl)}
+.phi-attr{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:.78rem;letter-spacing:.4em;color:rgba(201,169,110,.4)}
+
+/* ═══════════════════════════════
+   05 MENU
+═══════════════════════════════ */
+#s-menu{background:var(--cream)}
+.menu-inner{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:5rem 4rem 3rem;
+}
+.menu-head{margin-bottom:2.5rem;flex-shrink:0}
+.menu-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:rgba(154,125,78,.12);
+  flex:1;min-height:0;
+}
+.mc{background:var(--cream);overflow:hidden;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s;cursor:default}
+.mc:hover{transform:translateY(-4px);z-index:2;box-shadow:0 24px 60px rgba(0,0,0,.1)}
+.mc-img{flex:1;overflow:hidden;min-height:0}
+.mc-img img{transition:transform .8s ease}
+.mc:hover .mc-img img{transform:scale(1.07)}
+.mc-body{padding:1.5rem 1.6rem 2rem;flex-shrink:0}
+.mc-idx{font-family:'Cormorant Garamond',serif;font-size:.62rem;font-weight:300;letter-spacing:.55em;color:var(--gl);margin-bottom:.8rem;display:block}
+.mc-name{font-family:'Shippori Mincho B1',serif;font-size:1rem;font-weight:500;letter-spacing:.1em;margin-bottom:.2rem;display:block}
+.mc-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:.7rem;letter-spacing:.35em;color:var(--gold);display:block;margin-bottom:.8rem}
+.mc-desc{font-size:.78rem;line-height:2.0;letter-spacing:.05em;color:var(--ink3)}
+.menu-note{margin-top:1.2rem;font-family:'Shippori Mincho B1',serif;font-size:.7rem;letter-spacing:.22em;color:var(--gold);text-align:right;flex-shrink:0}
+
+/* ═══════════════════════════════
+   06 CHEF
+═══════════════════════════════ */
+#s-chef{background:var(--washi)}
+.chef-grid{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.chef-left{overflow:hidden;position:relative}
+.chef-left img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 8s ease}
+.fp-section.active .chef-left img{transform:scale(1)}
+.chef-left-sub{
+  position:absolute;bottom:3rem;right:-2rem;
+  width:42%;aspect-ratio:4/5;
+  overflow:hidden;
+  border:5px solid var(--washi);
+  box-shadow:0 20px 60px rgba(0,0,0,.12);
+}
+.chef-right{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem 5rem 5rem;
+}
+.chef-right .sen{color:var(--gold)}
+.chef-right .sja{font-size:1.55rem}
+.chef-body p{font-size:.87rem;line-height:2.7;letter-spacing:.07em;color:var(--ink3);margin-bottom:1.1rem}
+.chef-sig{margin-top:2.5rem;padding-top:2rem;border-top:.5px solid rgba(154,125,78,.2)}
+.chef-sig-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.65rem;letter-spacing:.4em;color:var(--gold);display:block;margin-bottom:.4rem}
+.chef-sig-ja{font-family:'Shippori Mincho B1',serif;font-size:1rem;letter-spacing:.18em;color:var(--ink2);display:block}
+.chef-sig-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.65rem;letter-spacing:.3em;color:var(--ink3);display:block;margin-top:.3rem}
+
+/* ═══════════════════════════════
+   07 FACILITY
+═══════════════════════════════ */
+#s-fac{background:var(--ink)}
+.fac-inner{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.fac-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem;
+}
+.fac-left .sen{color:var(--gl)}
+.fac-left .sja{color:rgba(250,248,243,.88)}
+.fac-left .gl{background:var(--gl)}
+.fac-desc{font-size:.87rem;line-height:2.6;letter-spacing:.07em;color:rgba(250,248,243,.45);margin-bottom:2.5rem}
+.fac-list{display:flex;flex-direction:column;gap:.8rem}
+.fac-list-item{
+  display:flex;align-items:center;gap:1rem;
+  font-family:'Shippori Mincho B1',serif;font-size:.78rem;letter-spacing:.2em;
+  color:rgba(250,248,243,.55);
+  padding-bottom:.8rem;
+  border-bottom:.5px solid rgba(201,169,110,.1);
+}
+.fac-list-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gl);flex-shrink:0}
+.fac-right{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:2px;
+}
+.fac-img{overflow:hidden;position:relative}
+.fac-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.fac-img:hover img{transform:scale(1.06)}
+.fac-cap{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.2rem;background:linear-gradient(to top,rgba(10,8,6,.7),transparent);opacity:0;transition:opacity .4s}
+.fac-img:hover .fac-cap{opacity:1}
+.fac-cap span{font-family:'Shippori Mincho B1',serif;font-size:.65rem;letter-spacing:.22em;color:rgba(250,248,243,.88)}
+
+/* ═══════════════════════════════
+   08 RESERVATION
+═══════════════════════════════ */
+#s-rsv{display:flex;align-items:center;justify-content:center}
+.rsv-bg{position:absolute;inset:0;transform:scale(1.05);transition:transform 8s ease}
+.fp-section.active .rsv-bg{transform:scale(1)}
+.rsv-ov{position:absolute;inset:0;background:rgba(10,8,6,.78)}
+.rsv-body{position:relative;z-index:2;text-align:center;max-width:580px;padding:0 2rem}
+.rsv-body .sen{color:var(--gl)}
+.rsv-body .sja{color:rgba(250,248,243,.9);font-size:1.9rem}
+.rsv-body .gl{margin:0 auto 2.2rem;background:var(--gl)}
+.rsv-note{font-size:.88rem;line-height:2.5;letter-spacing:.08em;color:rgba(250,248,243,.48);margin-bottom:2.8rem}
+.rsv-times{display:flex;justify-content:center;gap:3.5rem;margin-bottom:3.2rem}
+.rt{text-align:center}
+.rtl{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.62rem;letter-spacing:.5em;color:var(--gl);text-transform:uppercase;display:block;margin-bottom:.45rem}
+.rtt{font-family:'Shippori Mincho B1',serif;font-size:.95rem;letter-spacing:.1em;color:rgba(250,248,243,.82);display:block}
+.rtn{font-size:.68rem;letter-spacing:.1em;color:rgba(250,248,243,.38);display:block;margin-top:.22rem}
+.rsv-btn{display:inline-block;font-family:'Shippori Mincho B1',serif;font-size:.72rem;letter-spacing:.3em;border:.5px solid var(--gl);color:var(--gl);padding:1.1rem 3.8rem;transition:all .4s}
+.rsv-btn:hover{background:var(--gl);color:#fff;transform:translateY(-2px);box-shadow:0 16px 40px rgba(201,169,110,.25)}
+
+/* ═══════════════════════════════
+   09 EC SHOP
+═══════════════════════════════ */
+#s-ec{background:var(--washi)}
+.ec-grid{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.ec-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem 5rem 4rem;
+}
+.ec-body p{font-size:.87rem;line-height:2.7;letter-spacing:.07em;color:var(--ink3);margin-bottom:1.1rem}
+.ec-link{display:inline-flex;align-items:center;gap:1rem;font-family:'Shippori Mincho B1',serif;font-size:.72rem;letter-spacing:.3em;color:var(--gold);border-bottom:.5px solid rgba(154,125,78,.3);padding-bottom:.5rem;transition:all .35s;margin-top:1.2rem}
+.ec-link:hover{gap:1.8rem;border-color:var(--gold)}
+.ec-right{
+  display:grid;grid-template-columns:1fr 1fr;gap:2px;
+}
+.ec-item{overflow:hidden}
+.ec-item img{transition:transform .8s ease}
+.ec-item:hover img{transform:scale(1.07)}
+
+/* ═══════════════════════════════
+   10 ACCESS
+═══════════════════════════════ */
+#s-access{background:var(--cream)}
+.access-inner{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.access-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem;
+}
+.access-right{overflow:hidden}
+.access-right iframe{width:100%;height:100%;border:none;filter:grayscale(20%)}
+dl.ai dt{font-family:'Shippori Mincho B1',serif;font-size:.62rem;letter-spacing:.38em;color:var(--gold);margin-top:1.4rem;margin-bottom:.35rem}
+dl.ai dd{font-size:.86rem;line-height:1.9;letter-spacing:.07em;color:var(--ink2)}
+dl.ai dd a{color:var(--ink2);border-bottom:.5px solid rgba(46,40,32,.2)}
+
+/* ═══════════════════════════════
+   11 FOOTER
+═══════════════════════════════ */
+#s-footer{background:var(--ink);display:flex;align-items:center;justify-content:center}
+.ft-body{text-align:center;position:relative;z-index:1}
+.ft-logo{width:64px;height:64px;margin:0 auto 1.5rem;opacity:.4;object-fit:contain}
+.ft-name{font-family:'Shippori Mincho B1',serif;font-size:.88rem;letter-spacing:.4em;color:rgba(250,248,243,.55);margin-bottom:.35rem;display:block}
+.ft-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:.72rem;letter-spacing:.5em;color:var(--gl);display:block;margin-bottom:3rem}
+.ft-nav{display:flex;gap:2.5rem;list-style:none;justify-content:center;margin-bottom:3rem;flex-wrap:wrap}
+.ft-nav a{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.72rem;letter-spacing:.28em;color:rgba(250,248,243,.25);transition:color .3s}
+.ft-nav a:hover{color:var(--gl)}
+.ft-sep{width:120px;height:.5px;background:rgba(250,248,243,.08);margin:0 auto 2rem}
+.ft-copy{font-size:.6rem;letter-spacing:.2em;color:rgba(250,248,243,.14);display:block}
+
+/* ── NEXT/PREV ── */
+#pager{
+  position:fixed;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  z-index:500;
+  display:flex;align-items:center;gap:0;
+  pointer-events:none;
+  background:rgba(10,8,6,.35);
+  backdrop-filter:blur(12px);
+  border:.5px solid rgba(201,169,110,.2);
+  padding:.55rem 1.2rem;
+}
+#pager>*{pointer-events:auto}
+.pager-btn{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:.68rem;letter-spacing:.35em;
+  color:rgba(255,255,255,.55);
+  background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:.7rem;
+  padding:.4rem 1rem;
+  transition:color .35s,opacity .3s;
+  white-space:nowrap;
+}
+.pager-btn:hover{color:var(--gl)}
+.pager-btn:disabled{opacity:.2;cursor:default;pointer-events:none}
+.pager-btn svg{width:20px;height:8px;stroke:currentColor;fill:none;stroke-width:.8;transition:transform .35s}
+.pager-btn:not(:disabled):hover svg{transform:translateX(4px)}
+#btn-prev:not(:disabled):hover svg{transform:translateX(-4px)}
+.pager-sep{width:.5px;height:14px;background:rgba(201,169,110,.25);margin:0 .2rem}
+.pager-idx{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:.6rem;letter-spacing:.3em;
+  color:rgba(201,169,110,.5);
+  padding:0 .8rem;
+  min-width:4rem;text-align:center;
+}
+#pager.lp{background:rgba(250,248,243,.88)}
+#pager.lp .pager-btn{color:rgba(10,8,6,.4)}
+#pager.lp .pager-btn:hover{color:var(--gold)}
+#pager.lp .pager-sep{background:rgba(154,125,78,.2)}
+#pager.lp .pager-idx{color:rgba(154,125,78,.6)}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  #fp{overflow:hidden}
+  .fp-section{position:absolute;top:0;left:0;width:100%;height:100%}
+  #nav{padding:1.3rem 1.5rem}
+  #nav.light{padding:.9rem 1.5rem}
+  .nm{display:none}
+  #dots{display:none}
+  .concept-grid,.history-inner,.chef-grid,.fac-inner,.ec-grid,.access-inner{grid-template-columns:1fr}
+  .menu-inner{padding:4rem 1.5rem 2rem}
+  .concept-right{height:50vw}
+  .concept-right::after{display:none}
+  .concept-left,.chef-right,.fac-left,.ec-left,.access-left{padding:4rem 1.5rem}
+  .fac-right,.ec-right{grid-template-columns:1fr 1fr}
+  .chef-left{height:60vw}
+  .chef-left-sub{display:none}
+  .history-left{padding:3rem 1.5rem}
+  .history-right{grid-template-rows:1fr}
+  .menu-grid{grid-template-columns:1fr}
+  .history-inner{height:auto}
+  .rsv-times{gap:1.8rem;flex-wrap:wrap}
+  .hero-body{padding:0 1.5rem 5rem}
+  .hero-ttl{font-size:2.2rem}
+  .phi-body{padding:0 1.5rem}
+  .sec-num{left:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" onclick="goTo(0);return false" class="nl">えんやどっと丸</a>
+  <ul class="nm">
+    <li><a href="#" onclick="goTo(1);return false">about</a></li>
+    <li><a href="#" onclick="goTo(4);return false">menu</a></li>
+    <li><a href="#" onclick="goTo(6);return false">facility</a></li>
+    <li><a href="#" onclick="goTo(8);return false">shop</a></li>
+    <li><a href="#" onclick="goTo(9);return false">access</a></li>
+  </ul>
+  <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" class="nb">ご予約</a>
+</nav>
+
+<!-- PAGE DOTS -->
+<!-- NEXT/PREV -->
+<div id="pager">
+  <button id="btn-prev" class="pager-btn" onclick="goTo(current-1)">
+    <svg viewBox="0 0 20 8"><line x1="19" y1="4" x2="1" y2="4"/><polyline points="6,1 1,4 6,7"/></svg>
+    <span>Prev</span>
+  </button>
+  <div class="pager-sep"></div>
+  <span id="pager-idx" class="pager-idx">01 / 10</span>
+  <div class="pager-sep"></div>
+  <button id="btn-next" class="pager-btn" onclick="goTo(current+1)">
+    <span>Next</span>
+    <svg viewBox="0 0 20 8"><line x1="1" y1="4" x2="19" y2="4"/><polyline points="14,1 19,4 14,7"/></svg>
+  </button>
+</div>
+
+<div id="dots"></div>
+
+<!-- ═══ 01 HERO ═══ -->
+<div id="fp">
+
+<section class="fp-section" id="s-hero" data-dark="true">
+  <div class="hero-bg"><img src="IMG_2825.jpeg" alt="えんやどっと丸 外観" loading="eager"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-body">
+    <p class="hero-kicker">Oarai · Ibaraki · Seafood &amp; Japanese</p>
+    <h1 class="hero-ttl">大洗の海が、<br>今日も届く。</h1>
+    <p class="hero-sub">Enya Dot Maru</p>
+    <div class="hero-btns">
+      <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" class="bg">ご予約はこちら</a>
+      <a href="#" onclick="goTo(1);return false" class="bw">店について</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scl"></div><span>scroll</span></div>
+  <span class="sec-num">01 / 10</span>
+</section>
+
+<!-- ═══ 02 CONCEPT ═══ -->
+<section class="fp-section" id="s-concept" data-dark="false">
+  <div class="concept-grid">
+    <div class="concept-left fadeL">
+      <span class="concept-cn">02</span>
+      <span class="sen">Concept</span>
+      <p class="concept-copy">常磐の海が育む、<br><em>旬</em>という名の贈りもの。</p>
+      <div class="gl"></div>
+      <div class="concept-body">
+        <p>茨城・大洗港。常磐の荒波が育んだ豊かな海の恵みを、その日の朝に選び、丁寧な仕事で皿の上に表現する。</p>
+        <p>素材の声に耳を傾け、余計なものをそぎ落とした先にある、ほんとうの美味しさを。一期一会の食の時間をご用意しています。</p>
+      </div>
+    </div>
+    <div class="concept-right">
+      <img src="IMG_5036.jpeg" alt="大洗の海景">
+    </div>
+  </div>
+  <span class="sec-num dark-num">02 / 10</span>
+</section>
+
+<!-- ═══ 03 HISTORY ═══ -->
+<section class="fp-section" id="s-history" data-dark="true">
+  <div class="history-bg"></div>
+  <div class="history-inner">
+    <div class="history-left">
+      <div class="fadeL">
+        <span class="sen">History · Since 1911</span>
+        <span class="sja">明治四十四年、<br>大洗港から。</span>
+        <div class="gl"></div>
+      </div>
+      <div class="history-tl">
+        <div class="htl-item fadeIn" style="transition-delay:.1s">
+          <div class="htl-marker"><div class="htl-dot"></div><div class="htl-line"></div></div>
+          <div>
+            <span class="htl-year">1911 · 明治四十四年</span>
+            <span class="htl-ttl">清水商店、創業。</span>
+            <p class="htl-desc">大洗港を拠点に、サバ・ニシン・海藻・干物の水産加工業として産声を上げる。常磐の荒波が育んだ恵みを、陸へ、都市へ、全国へと届けた。</p>
+          </div>
+        </div>
+        <div class="htl-item fadeIn" style="transition-delay:.2s">
+          <div class="htl-marker"><div class="htl-dot"></div><div class="htl-line"></div></div>
+          <div>
+            <span class="htl-year">1950s · 昭和の大洗</span>
+            <span class="htl-ttl">港町に、にぎわいを。</span>
+            <p class="htl-desc">海水浴客で賑わう大洗海岸。変わりゆく時代の中でも、清水商店は大洗の海と向き合い続けた。</p>
+          </div>
+        </div>
+        <div class="htl-item fadeIn" style="transition-delay:.3s">
+          <div class="htl-marker"><div class="htl-dot"></div><div class="htl-line"></div></div>
+          <div>
+            <span class="htl-year">2006 · 平成十八年</span>
+            <span class="htl-ttl">えんやどっと丸、開業。</span>
+            <p class="htl-desc">先代社長・清水洋治が決意する。百年にわたる水産業の知見を、今度は食卓へ直接届けることを。「大洗の魚介の素晴らしさを、自らの手でお客様に伝えたい」——その一念から、海鮮和食えんやどっと丸は誕生した。</p>
+          </div>
+        </div>
+        <div class="htl-item fadeIn" style="transition-delay:.4s">
+          <div class="htl-marker"><div class="htl-dot"></div></div>
+          <div>
+            <span class="htl-year">Now · 現在</span>
+            <span class="htl-ttl">海と人をつなぐ、食の場として。</span>
+            <p class="htl-desc">明治から続く水産業の魂と、現代の料理の技が交わるこの場所で、今日もお客様をお迎えする。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="history-right fadeR">
+      <div class="hr-img">
+        <img src="IMG_5592.jpeg" alt="昭和の大洗海岸">
+        <div class="hr-img-cap"><span>昭和の大洗海岸</span></div>
+      </div>
+      <div class="hr-img">
+        <img src="IMG_5588.jpeg" alt="大洗の建物">
+        <div class="hr-img-cap"><span>大洗の風景</span></div>
+      </div>
+    </div>
+  </div>
+  <span class="sec-num">03 / 10</span>
+</section>
+
+<!-- ═══ 04 PHILOSOPHY ═══ -->
+<section class="fp-section" id="s-phi" data-dark="true">
+  <div class="phi-bg-img"><img src="IMG_5860.jpeg" alt=""></div>
+  <div class="phi-ov"></div>
+  <div class="phi-body fadeIn">
+    <span class="phi-deco">"</span>
+    <p class="phi-quote">料理よりも、<em>丁寧なサービス</em>を大事にしています。<br>お客様を迎えることへの誠実さが、<br>この店のすべての原点にある。</p>
+    <span class="phi-attr">— Chef Yusuke Goto, Enya Dot Maru</span>
+  </div>
+  <span class="sec-num">04 / 10</span>
+</section>
+
+<!-- ═══ 05 MENU ═══ -->
+<section class="fp-section" id="s-menu" data-dark="false">
+  <div class="menu-inner">
+    <div class="menu-head fadeIn">
+      <span class="sen">Menu</span>
+      <span class="sja">御献立</span>
+      <div class="gl"></div>
+    </div>
+    <div class="menu-grid">
+      <div class="mc fadeIn" style="transition-delay:.08s">
+        <div class="mc-img"><img src="IMG_5861.jpeg" alt="刺身・にぎり"></div>
+        <div class="mc-body">
+          <span class="mc-idx">01</span>
+          <span class="mc-name">刺身・にぎり</span>
+          <span class="mc-en">Sashimi &amp; Nigiri</span>
+          <p class="mc-desc">大洗港に揚がった鮮魚を職人の技で。その日の仕入れによる、一期一会のひと皿。</p>
+        </div>
+      </div>
+      <div class="mc fadeIn" style="transition-delay:.18s">
+        <div class="mc-img"><img src="IMG_5220.jpeg" alt="海鮮御膳"></div>
+        <div class="mc-body">
+          <span class="mc-idx">02</span>
+          <span class="mc-name">海鮮御膳</span>
+          <span class="mc-en">Kaisen Gozen</span>
+          <p class="mc-desc">焼き魚・天ぷら・小鉢を添えた丁寧な仕立ての御膳。昼の光の中で楽しむ、少し贅沢なひるごはん。</p>
+        </div>
+      </div>
+      <div class="mc fadeIn" style="transition-delay:.28s">
+        <div class="mc-img"><img src="IMG_5253.jpeg" alt="季節のおまかせ"></div>
+        <div class="mc-body">
+          <span class="mc-idx">03</span>
+          <span class="mc-name">季節のおまかせ</span>
+          <span class="mc-en">Omakase</span>
+          <p class="mc-desc">料理人の目利きによる季節の素材を、その日だけの献立で。旬の食材が持つ本来の美しさを静かに皿に映す。</p>
+        </div>
+      </div>
+    </div>
+    <p class="menu-note">※ 献立は仕入れにより変わります</p>
+  </div>
+  <span class="sec-num dark-num">05 / 10</span>
+</section>
+
+<!-- ═══ 06 CHEF ═══ -->
+<section class="fp-section" id="s-chef" data-dark="false">
+  <div class="chef-grid">
+    <div class="chef-left">
+      <img src="IMG_5860.jpeg" alt="後藤優介 料理長">
+      <div class="chef-left-sub"><img src="IMG_5859.jpeg" alt="料理"></div>
+    </div>
+    <div class="chef-right fadeR">
+      <span class="sen">Chef · Story</span>
+      <span class="sja">灯台の下で、<br>この店にこの人あり。</span>
+      <div class="gl"></div>
+      <div class="chef-body">
+        <p>茨城・水戸出身。父の影響で飲食の世界へ進み、真面目な仕事ぶりと明るい人柄で本人の目指す本質的なサービスを体現してきた。</p>
+        <p>「料理よりも丁寧なサービスを大事にしています」——お客様を迎えることへの誠実さを、調理場の外にも内にも惜しみなく注ぐ。日々の新しい料理の研究にも余念がなく、大洗の恵みをどう皿に表現するか、その問いと向き合い続けている。</p>
+      </div>
+      <div class="chef-sig">
+        <span class="chef-sig-en">Chef</span>
+        <span class="chef-sig-ja">後藤 優介</span>
+        <span class="chef-sig-sub">Yusuke Goto · 茨城・水戸出身</span>
+      </div>
+    </div>
+  </div>
+  <span class="sec-num dark-num">06 / 10</span>
+</section>
+
+<!-- ═══ 07 FACILITY ═══ -->
+<section class="fp-section" id="s-fac" data-dark="true">
+  <div class="fac-inner">
+    <div class="fac-left fadeL">
+      <span class="sen">Facility</span>
+      <span class="sja">店内のご案内</span>
+      <div class="gl"></div>
+      <p class="fac-desc">庭を望むテーブル席、一枚板のカウンター、丸窓の個室。それぞれ異なる表情を持つ空間で、非日常のひとときを。</p>
+      <div class="fac-list">
+        <div class="fac-list-item">テーブル席（庭望む）</div>
+        <div class="fac-list-item">カウンター席</div>
+        <div class="fac-list-item">個室（丸窓・大テーブル）</div>
+        <div class="fac-list-item">駐車場完備</div>
+      </div>
+    </div>
+    <div class="fac-right fadeR">
+      <div class="fac-img"><img src="IMG_5254.jpeg" alt="カウンター席"><div class="fac-cap"><span>カウンター席</span></div></div>
+      <div class="fac-img"><img src="IMG_5250.jpeg" alt="個室・丸窓"><div class="fac-cap"><span>個室（丸窓）</span></div></div>
+      <div class="fac-img"><img src="IMG_5252.jpeg" alt="外観"><div class="fac-cap"><span>外観</span></div></div>
+      <div class="fac-img"><img src="IMG_5253.jpeg" alt="テーブル席"><div class="fac-cap"><span>テーブル席</span></div></div>
+    </div>
+  </div>
+  <span class="sec-num">07 / 10</span>
+</section>
+
+<!-- ═══ 08 RESERVATION ═══ -->
+<section class="fp-section" id="s-rsv" data-dark="true">
+  <div class="rsv-bg"><img src="IMG_5861.jpeg" alt=""></div>
+  <div class="rsv-ov"></div>
+  <div class="rsv-body fadeIn">
+    <span class="sen">Reservation</span>
+    <span class="sja">ご予約</span>
+    <div class="gl"></div>
+    <p class="rsv-note">ご予約はトレタよりお気軽にどうぞ。<br>当日のご予約はお電話にてお承りします。</p>
+    <div class="rsv-times">
+      <div class="rt"><span class="rtl">Lunch</span><span class="rtt">11:00 — 14:00</span></div>
+      <div class="rt"><span class="rtl">Dinner</span><span class="rtt">17:30 — 20:30</span></div>
+      <div class="rt"><span class="rtl">Closed</span><span class="rtt">毎週木曜</span><span class="rtn">水曜はランチのみ</span></div>
+    </div>
+    <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" class="rsv-btn">予約する → Toreta</a>
+  </div>
+  <span class="sec-num">08 / 10</span>
+</section>
+
+<!-- ═══ 09 EC SHOP ═══ -->
+<section class="fp-section" id="s-ec" data-dark="false">
+  <div class="ec-grid">
+    <div class="ec-left fadeL">
+      <span class="sen">Story-Based EC</span>
+      <span class="sja">大洗の味を、<br>ご自宅へ。</span>
+      <div class="gl"></div>
+      <div class="ec-body">
+        <p>大洗港直送の海の幸を、全国へお届けします。鮟鱇鍋・生塩揉みマダコなど、えんやどっと丸が厳選した品を産地直送で。</p>
+        <p>贈りものにも、日々の食卓にも。えんやどっと丸の味を、どうぞご自宅で。</p>
+      </div>
+      <a href="https://www.enya-otd.com/story-based-ec/" target="_blank" class="ec-link">オンラインショップへ ›</a>
+    </div>
+    <div class="ec-right fadeR">
+      <div class="ec-item"><img src="IMG_5861.jpeg" alt="商品"></div>
+      <div class="ec-item"><img src="IMG_5859.jpeg" alt="商品"></div>
+      <div class="ec-item"><img src="IMG_5220.jpeg" alt="商品"></div>
+      <div class="ec-item"><img src="IMG_5860.jpeg" alt="商品"></div>
+    </div>
+  </div>
+  <span class="sec-num dark-num">09 / 10</span>
+</section>
+
+<!-- ═══ 10 ACCESS ═══ -->
+<section class="fp-section" id="s-access" data-dark="false">
+  <div class="access-inner">
+    <div class="access-left fadeL">
+      <span class="sen">Access</span>
+      <span class="sja">ご案内</span>
+      <div class="gl"></div>
+      <dl class="ai">
+        <dt>住所</dt><dd>〒311-1301<br>茨城県東茨城郡大洗町港中央9-4</dd>
+        <dt>電話</dt><dd><a href="tel:0292672278">029-267-2278</a></dd>
+        <dt>営業時間</dt><dd>ランチ　11:00〜14:00<br>ディナー　17:30〜20:30</dd>
+        <dt>定休日</dt><dd>毎週木曜日／水曜はランチのみ</dd>
+        <dt>駐車場</dt><dd>あり</dd>
+      </dl>
+    </div>
+    <div class="access-right fadeR">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3222.0!2d140.574!3d36.315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60220b2f3e2b4f8b%3A0x7c9d85da51bd17f5!2z44GI44KT44KE44Gp44Gj44GO44Go44G_!5e0!3m2!1sja!2sjp!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="えんやどっと丸 地図"></iframe>
+    </div>
+  </div>
+  <span class="sec-num dark-num">10 / 10</span>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<section class="fp-section" id="s-footer" data-dark="true">
+  <div class="ft-body fadeIn">
+    <img class="ft-logo" src="IMG_6339.png" alt="えんやどっと丸ロゴ">
+    <span class="ft-name">えんやどっと丸</span>
+    <span class="ft-en">Enya Dot Maru · Oarai · Ibaraki</span>
+    <ul class="ft-nav">
+      <li><a href="#" onclick="goTo(1);return false">about</a></li>
+      <li><a href="#" onclick="goTo(4);return false">menu</a></li>
+      <li><a href="#" onclick="goTo(5);return false">story</a></li>
+      <li><a href="#" onclick="goTo(6);return false">facility</a></li>
+      <li><a href="#" onclick="goTo(7);return false">reservation</a></li>
+      <li><a href="#" onclick="goTo(8);return false">shop</a></li>
+      <li><a href="#" onclick="goTo(9);return false">access</a></li>
+    </ul>
+    <div class="ft-sep"></div>
+    <span class="ft-copy">© 2025 えんやどっと丸 / One Table Design</span>
+  </div>
+</section>
+
+</div><!-- #fp -->
+
+<script>
+const sections = Array.from(document.querySelectorAll('.fp-section'));
+const nav = document.getElementById('nav');
+const dotsWrap = document.getElementById('dots');
+let current = 0;
+let animating = false;
+
+// ドット生成
+sections.forEach((s, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'dot';
+  btn.setAttribute('aria-label', 'Section ' + (i+1));
+  btn.addEventListener('click', () => goTo(i));
+  dotsWrap.appendChild(btn);
+});
+const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+
+function cleanClasses(el) {
+  el.classList.remove('enter-down','enter-up','leave-down','leave-up','active');
+}
+
+function goTo(idx) {
+  if (idx < 0 || idx >= sections.length || idx === current || animating) return;
+  animating = true;
+
+  const dir = idx > current ? 'down' : 'up';
+  const prev = sections[current];
+  const next = sections[idx];
+
+  // 去るセクションにleaveアニメ
+  cleanClasses(prev);
+  prev.classList.add(dir === 'down' ? 'leave-down' : 'leave-up');
+
+  // 来るセクションにenterアニメ + active
+  cleanClasses(next);
+  next.classList.add('active');
+  next.classList.add(dir === 'down' ? 'enter-down' : 'enter-up');
+
+  current = idx;
+  updateUI(current);
+
+  // アニメ完了後クリーンアップ
+  setTimeout(() => {
+    cleanClasses(prev);
+    next.classList.remove('enter-down','enter-up');
+    animating = false;
+  }, 900);
+}
+
+function updateUI(idx) {
+  const isDark = sections[idx].dataset.dark === 'true';
+
+  nav.classList.toggle('light', !isDark);
+
+  dots.forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+    d.classList.toggle('dot-light', !isDark);
+  });
+
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const pager = document.getElementById('pager');
+  if (btnPrev) btnPrev.disabled = (idx === 0);
+  if (btnNext) btnNext.disabled = (idx === sections.length - 1);
+  if (pager) pager.classList.toggle('lp', !isDark);
+  const pagerIdx = document.getElementById('pager-idx');
+  if (pagerIdx) pagerIdx.textContent = String(idx+1).padStart(2,'0') + ' / ' + String(sections.length).padStart(2,'0');
+
+  // 内部要素アニメーション（少し遅らせる）
+  setTimeout(() => {
+    sections[idx].querySelectorAll('.fadeIn,.fadeL,.fadeR').forEach(el => {
+      el.classList.remove('on');
+      void el.offsetWidth;
+      el.classList.add('on');
+    });
+  }, 200);
+}
+
+// キーボード
+window.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') goTo(current + 1);
+  if (e.key === 'ArrowUp' || e.key === 'PageUp') goTo(current - 1);
+});
+
+// スクロール・ホイール・タッチを完全封鎖
+function blockScroll(e) { e.preventDefault(); e.stopPropagation(); return false; }
+window.addEventListener('wheel', blockScroll, { passive: false });
+window.addEventListener('touchmove', blockScroll, { passive: false });
+document.addEventListener('wheel', blockScroll, { passive: false });
+document.addEventListener('touchmove', blockScroll, { passive: false });
+
+// 初期化
+window.addEventListener('load', () => {
+  document.getElementById('s-hero').classList.add('rdy');
+  sections[0].classList.add('active');
+  updateUI(0);
+  // hero内部アニメは即時
+  setTimeout(() => {
+    sections[0].querySelectorAll('.fadeIn,.fadeL,.fadeR').forEach(el => el.classList.add('on'));
+  }, 300);
+});
+</script>
+</body>
+</html>
