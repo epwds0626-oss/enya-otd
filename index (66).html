@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>えんやどっと丸 | 海鮮和食・大洗港</title>
+<meta name="description" content="茨城・大洗港。常磐の海が育む旬の恵みを、丁寧な仕事で皿に表現する海鮮和食の店。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0806;
+  --ink2:#1e1a14;
+  --ink3:#6b5f50;
+  --washi:#faf7f0;
+  --cream:#f5ede0;
+  --gold:#8c6d3f;
+  --gl:#b8935a;
+  --gl2:#d4b07a;
+  --white:#fff;
+}
+html,body{width:100%;height:100%;overflow:hidden;touch-action:none;-webkit-font-smoothing:antialiased}
+body{font-family:'Noto Serif JP',serif;font-weight:300;background:var(--ink)}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{text-decoration:none;color:inherit}
+
+/* ── FULLPAGE ── */
+#fp{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.fp-section{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  overflow:hidden;opacity:0;pointer-events:none;z-index:0;
+}
+.fp-section.enter-down{animation:enterDown .9s cubic-bezier(.16,1,.3,1) forwards}
+.fp-section.enter-up{animation:enterUp .9s cubic-bezier(.16,1,.3,1) forwards}
+.fp-section.leave-down{animation:leaveDown .6s cubic-bezier(.55,0,1,.45) forwards;z-index:2;pointer-events:none}
+.fp-section.leave-up{animation:leaveUp .6s cubic-bezier(.55,0,1,.45) forwards;z-index:2;pointer-events:none}
+.fp-section.active{opacity:1;pointer-events:auto;z-index:1}
+@keyframes enterDown{0%{opacity:0;transform:translateY(5%)}100%{opacity:1;transform:none}}
+@keyframes enterUp{0%{opacity:0;transform:translateY(-5%)}100%{opacity:1;transform:none}}
+@keyframes leaveDown{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-3%)}}
+@keyframes leaveUp{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(3%)}}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:2.2rem 4rem;
+  transition:all .6s ease;
+}
+#nav.light{
+  padding:1.4rem 4rem;
+  background:rgba(250,247,240,.95);
+  backdrop-filter:blur(20px);
+  border-bottom:.5px solid rgba(140,109,63,.12);
+}
+#nav>*{pointer-events:auto}
+.nl{
+  font-family:'Shippori Mincho B1',serif;font-size:.82rem;
+  letter-spacing:.5em;color:rgba(255,255,255,.8);transition:color .5s;
+}
+#nav.light .nl{color:var(--ink)}
+.nm{display:flex;gap:2.8rem;list-style:none}
+.nm a{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.76rem;letter-spacing:.32em;
+  color:rgba(255,255,255,.4);transition:color .3s;
+}
+#nav.light .nm a{color:var(--ink3)}
+.nm a:hover{color:var(--gl2)!important}
+.nb{
+  font-family:'Shippori Mincho B1',serif;font-size:.62rem;
+  letter-spacing:.3em;border:.5px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.7);padding:.6rem 1.8rem;transition:all .35s;
+}
+#nav.light .nb{border-color:var(--gold);color:var(--gold)}
+.nb:hover{background:var(--gold);border-color:var(--gold);color:#fff!important}
+
+/* ── PAGER ── */
+#pager{
+  position:fixed;bottom:2.8rem;left:50%;transform:translateX(-50%);
+  z-index:500;display:flex;align-items:center;gap:0;pointer-events:none;
+}
+#pager>*{pointer-events:auto}
+.pager-btn{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.65rem;letter-spacing:.4em;
+  color:rgba(255,255,255,.4);background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:.8rem;padding:.4rem 1.2rem;
+  transition:color .3s,opacity .3s;white-space:nowrap;
+}
+.pager-btn:hover{color:var(--gl2)}
+.pager-btn:disabled{opacity:.15;cursor:default;pointer-events:none}
+.pager-btn svg{width:22px;height:7px;stroke:currentColor;fill:none;stroke-width:.7;transition:transform .3s}
+.pager-btn:not(:disabled):hover svg{transform:translateX(4px)}
+#btn-prev:not(:disabled):hover svg{transform:translateX(-4px)}
+.pager-sep{width:.5px;height:12px;background:rgba(184,147,90,.2);margin:0 .2rem}
+.pager-idx{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.58rem;letter-spacing:.35em;
+  color:rgba(184,147,90,.45);padding:0 1rem;min-width:4.5rem;text-align:center;
+}
+#pager.lp .pager-btn{color:rgba(10,8,6,.3)}
+#pager.lp .pager-btn:hover{color:var(--gold)}
+#pager.lp .pager-sep{background:rgba(140,109,63,.2)}
+#pager.lp .pager-idx{color:rgba(140,109,63,.5)}
+
+/* ── DOTS ── */
+#dots{
+  position:fixed;right:2.8rem;top:50%;transform:translateY(-50%);
+  z-index:500;display:flex;flex-direction:column;gap:1rem;
+}
+.dot{
+  width:4px;height:4px;border-radius:50%;
+  background:rgba(255,255,255,.2);cursor:pointer;
+  transition:background .3s,transform .3s;border:none;padding:0;
+}
+.dot.active{background:var(--gl2);transform:scale(1.6)}
+.dot-light{background:rgba(10,8,6,.15)!important}
+.dot-light.active{background:var(--gold)!important}
+
+/* ── ANIMATION HELPERS ── */
+.riso{opacity:0;transform:translateY(18px);transition:opacity 1s ease,transform 1s ease}
+.riso.on{opacity:1;transform:none}
+.risoL{opacity:0;transform:translateX(-18px);transition:opacity 1s ease,transform 1s ease}
+.risoL.on{opacity:1;transform:none}
+.risoR{opacity:0;transform:translateX(18px);transition:opacity 1s ease,transform 1s ease}
+.risoR.on{opacity:1;transform:none}
+
+/* ── COMMON ELEMENTS ── */
+.label-en{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:.68rem;letter-spacing:.65em;color:var(--gl);
+  text-transform:uppercase;display:block;margin-bottom:1rem;
+}
+.label-en-light{color:var(--gl2)}
+.ttl-ja{
+  font-family:'Shippori Mincho B1',serif;font-weight:400;
+  font-size:1.6rem;letter-spacing:.08em;line-height:1.7;
+  display:block;margin-bottom:1.8rem;
+}
+.rule{width:28px;height:.5px;background:var(--gold);margin-bottom:2.2rem}
+.rule-light{background:var(--gl2)}
+.body-text p{
+  font-size:.84rem;line-height:2.9;letter-spacing:.07em;
+  color:var(--ink3);margin-bottom:.8rem;
+}
+.body-text-light p{color:rgba(250,247,240,.4)}
+
+/* ═══════════════════════════
+   01 HERO
+═══════════════════════════ */
+#s-hero{background:var(--ink)}
+.hero-bg{
+  position:absolute;inset:0;
+  transform:scale(1.06);transition:transform 9s cubic-bezier(.25,.46,.45,.94);
+}
+#s-hero.rdy .hero-bg{transform:scale(1)}
+.hero-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(10,8,6,.3) 0%,
+    rgba(10,8,6,.08) 40%,
+    rgba(10,8,6,.55) 75%,
+    rgba(10,8,6,.82) 100%
+  );
+}
+.hero-body{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 5rem 7rem;
+}
+.hero-eyebrow{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:.68rem;letter-spacing:.8em;color:var(--gl2);
+  text-transform:uppercase;margin-bottom:2rem;
+  opacity:0;animation:hUp 1.2s .5s forwards;
+}
+.hero-ttl{
+  font-family:'Shippori Mincho B1',serif;font-weight:400;
+  font-size:clamp(2.6rem,5vw,4.2rem);
+  letter-spacing:.06em;line-height:1.3;
+  color:rgba(250,247,240,.92);margin-bottom:1rem;
+  opacity:0;animation:hUp 1.2s .75s forwards;
+}
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+  font-size:.9rem;letter-spacing:.55em;
+  color:rgba(255,255,255,.28);margin-bottom:3.8rem;
+  opacity:0;animation:hUp 1.2s .95s forwards;
+}
+.hero-actions{
+  display:flex;align-items:center;gap:2rem;
+  opacity:0;animation:hUp 1.2s 1.15s forwards;
+}
+.btn-primary{
+  font-family:'Shippori Mincho B1',serif;font-size:.68rem;
+  letter-spacing:.3em;background:var(--gold);color:#fff;
+  padding:1rem 2.8rem;transition:background .3s;
+}
+.btn-primary:hover{background:#6e5230}
+.btn-ghost{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.72rem;letter-spacing:.35em;
+  color:rgba(255,255,255,.5);
+  display:flex;align-items:center;gap:.8rem;
+  transition:color .3s;
+}
+.btn-ghost::after{
+  content:'';display:block;width:32px;height:.5px;
+  background:currentColor;transition:width .3s;
+}
+.btn-ghost:hover{color:rgba(255,255,255,.85)}
+.btn-ghost:hover::after{width:48px}
+.hero-side{
+  position:absolute;right:4.5rem;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+  opacity:0;animation:fI 1.5s 2s forwards;
+}
+.hero-side-line{
+  width:.5px;height:60px;
+  background:linear-gradient(to bottom,transparent,var(--gl2));
+}
+.hero-side-txt{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.55rem;letter-spacing:.55em;
+  color:rgba(255,255,255,.25);writing-mode:vertical-rl;
+}
+.hero-side-line2{
+  width:.5px;height:60px;
+  background:linear-gradient(to bottom,var(--gl2),transparent);
+  animation:pulse 3s 2.5s ease-in-out infinite;
+}
+@keyframes hUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ═══════════════════════════
+   02 CONCEPT
+═══════════════════════════ */
+#s-concept{background:var(--washi)}
+.concept-wrap{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:52% 48%;
+}
+.concept-img{position:relative;overflow:hidden}
+.concept-img img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.04);transition:transform 9s ease;
+}
+.fp-section.active .concept-img img{transform:scale(1)}
+.concept-img-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,transparent 65%,var(--washi) 100%);
+}
+.concept-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:6rem 5rem 6rem 4rem;
+  position:relative;
+}
+.concept-num{
+  position:absolute;top:3.5rem;right:4rem;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:5.5rem;line-height:1;
+  color:rgba(140,109,63,.06);letter-spacing:-.02em;
+  pointer-events:none;user-select:none;
+}
+.concept-copy{
+  font-family:'Shippori Mincho B1',serif;font-weight:400;
+  font-size:1.5rem;line-height:2.1;letter-spacing:.07em;
+  color:var(--ink2);margin-bottom:2.2rem;
+}
+.concept-copy em{font-style:normal;color:var(--gold)}
+
+/* ═══════════════════════════
+   03 HISTORY
+═══════════════════════════ */
+#s-history{background:var(--ink)}
+.history-wrap{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.history-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4.5rem;overflow-y:auto;
+}
+.history-text::-webkit-scrollbar{display:none}
+.history-text .label-en{color:var(--gl2)}
+.history-text .ttl-ja{color:rgba(250,247,240,.85);font-size:1.5rem}
+.history-text .rule{background:var(--gl2)}
+.tl{display:flex;flex-direction:column;gap:2.4rem}
+.tl-item{display:flex;gap:1.8rem;align-items:flex-start}
+.tl-spine{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:.25rem}
+.tl-dot{width:6px;height:6px;border-radius:50%;background:var(--gl2);flex-shrink:0}
+.tl-line{width:.5px;flex:1;background:rgba(184,147,90,.15);margin-top:.5rem;min-height:36px}
+.tl-year{
+  font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+  font-size:.6rem;letter-spacing:.45em;color:var(--gl2);
+  display:block;margin-bottom:.3rem;
+}
+.tl-ttl{
+  font-family:'Shippori Mincho B1',serif;font-size:.9rem;
+  font-weight:500;letter-spacing:.1em;
+  color:rgba(250,247,240,.75);margin-bottom:.4rem;display:block;
+}
+.tl-desc{font-size:.76rem;line-height:2.5;letter-spacing:.06em;color:rgba(250,247,240,.35)}
+.history-imgs{
+  display:grid;grid-template-rows:1fr 1fr;gap:2px;overflow:hidden;
+}
+.hi{overflow:hidden;position:relative}
+.hi img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(25%);transform:scale(1.04);
+  transition:filter .6s,transform 9s ease;
+}
+.fp-section.active .hi img{transform:scale(1)}
+.hi:hover img{filter:grayscale(0%)}
+.hi-cap{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:.9rem 1.4rem;
+  background:linear-gradient(to top,rgba(10,8,6,.6),transparent);
+}
+.hi-cap span{
+  font-family:'Shippori Mincho B1',serif;font-size:.62rem;
+  letter-spacing:.25em;color:rgba(250,247,240,.6);
+}
+
+/* ═══════════════════════════
+   04 PHILOSOPHY
+═══════════════════════════ */
+#s-phi{display:flex;align-items:center;justify-content:center}
+.phi-bg{position:absolute;inset:0;opacity:.2;transform:scale(1.04);transition:transform 9s ease}
+.fp-section.active .phi-bg{transform:scale(1)}
+.phi-ov{position:absolute;inset:0;background:rgba(10,8,6,.88)}
+.phi-inner{position:relative;z-index:2;text-align:center;max-width:720px;padding:0 3rem}
+.phi-mark{
+  font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;
+  color:rgba(184,147,90,.1);line-height:1;margin-bottom:1.5rem;display:block;
+}
+.phi-quote{
+  font-family:'Shippori Mincho B1',serif;
+  font-size:clamp(1.1rem,2.2vw,1.65rem);
+  font-weight:400;line-height:2.4;letter-spacing:.12em;
+  color:rgba(250,247,240,.78);margin-bottom:2.8rem;
+}
+.phi-quote em{font-style:normal;color:var(--gl2)}
+.phi-rule{width:24px;height:.5px;background:rgba(184,147,90,.3);margin:0 auto 1.6rem}
+.phi-attr{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:.7rem;letter-spacing:.45em;color:rgba(184,147,90,.35);
+}
+
+/* ═══════════════════════════
+   05 MENU
+═══════════════════════════ */
+#s-menu{background:var(--cream)}
+.menu-wrap{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:5.5rem 4.5rem 3rem;
+}
+.menu-hd{margin-bottom:2.8rem;flex-shrink:0}
+.menu-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(140,109,63,.1);
+  flex:1;min-height:0;
+}
+.mc{
+  background:var(--cream);overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .5s;cursor:default;position:relative;
+}
+.mc:hover{transform:translateY(-3px);z-index:2;box-shadow:0 20px 50px rgba(0,0,0,.08)}
+.mc-img{flex:1;overflow:hidden;min-height:0}
+.mc-img img{transition:transform .9s ease}
+.mc:hover .mc-img img{transform:scale(1.05)}
+.mc-info{padding:1.4rem 1.6rem 1.8rem;flex-shrink:0}
+.mc-no{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.58rem;letter-spacing:.55em;color:var(--gl);
+  margin-bottom:.7rem;display:block;
+}
+.mc-ja{
+  font-family:'Shippori Mincho B1',serif;font-size:.95rem;
+  font-weight:500;letter-spacing:.1em;margin-bottom:.2rem;display:block;
+}
+.mc-en{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.68rem;letter-spacing:.32em;color:var(--gold);
+  display:block;margin-bottom:.75rem;
+}
+.mc-desc{font-size:.76rem;line-height:2.1;letter-spacing:.05em;color:var(--ink3)}
+.menu-note{
+  margin-top:1.2rem;font-size:.66rem;letter-spacing:.25em;
+  color:var(--gold);text-align:right;flex-shrink:0;
+}
+
+/* ═══════════════════════════
+   06 CHEF
+═══════════════════════════ */
+#s-chef{background:var(--ink)}
+.chef-wrap{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:55% 45%;
+}
+.chef-img{overflow:hidden;position:relative}
+.chef-img>img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.04);transition:transform 9s ease;
+}
+.fp-section.active .chef-img>img{transform:scale(1)}
+.chef-img-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to left,var(--ink) 0%,transparent 30%);
+}
+.chef-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 5rem 5rem 3rem;
+}
+.chef-text .label-en{color:var(--gl2)}
+.chef-text .ttl-ja{color:rgba(250,247,240,.85);font-size:1.4rem}
+.chef-text .rule{background:var(--gl2)}
+.chef-text .body-text p{color:rgba(250,247,240,.42)}
+.chef-sig{
+  margin-top:2.8rem;padding-top:2rem;
+  border-top:.5px solid rgba(184,147,90,.15);
+}
+.chef-sig-role{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.6rem;letter-spacing:.5em;color:var(--gl2);
+  display:block;margin-bottom:.4rem;
+}
+.chef-sig-name{
+  font-family:'Shippori Mincho B1',serif;font-size:.95rem;
+  letter-spacing:.2em;color:rgba(250,247,240,.75);display:block;
+}
+.chef-sig-sub{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.62rem;letter-spacing:.3em;
+  color:rgba(250,247,240,.28);display:block;margin-top:.3rem;
+}
+
+/* ═══════════════════════════
+   07 FACILITY
+═══════════════════════════ */
+#s-fac{background:var(--washi)}
+.fac-wrap{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:42% 58%;
+}
+.fac-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 3rem 5rem 4.5rem;
+}
+.fac-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.2rem}
+.fac-item{
+  display:flex;align-items:center;gap:1rem;
+  font-family:'Shippori Mincho B1',serif;font-size:.76rem;
+  letter-spacing:.18em;color:var(--ink3);
+  padding:.7rem 0;border-bottom:.5px solid rgba(140,109,63,.1);
+}
+.fac-item::before{
+  content:'';width:3px;height:3px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+}
+.fac-imgs{
+  display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;gap:2px;
+}
+.fi{overflow:hidden;position:relative}
+.fi img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s ease;
+}
+.fi:hover img{transform:scale(1.05)}
+.fi-cap{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:.8rem 1.2rem;
+  background:linear-gradient(to top,rgba(10,8,6,.6),transparent);
+  opacity:0;transition:opacity .4s;
+}
+.fi:hover .fi-cap{opacity:1}
+.fi-cap span{
+  font-family:'Shippori Mincho B1',serif;font-size:.62rem;
+  letter-spacing:.22em;color:rgba(250,247,240,.88);
+}
+
+/* ═══════════════════════════
+   08 RESERVATION
+═══════════════════════════ */
+#s-rsv{display:flex;align-items:center;justify-content:center}
+.rsv-bg{position:absolute;inset:0;transform:scale(1.04);transition:transform 9s ease}
+.fp-section.active .rsv-bg{transform:scale(1)}
+.rsv-ov{position:absolute;inset:0;background:rgba(10,8,6,.8)}
+.rsv-inner{position:relative;z-index:2;text-align:center;max-width:520px;padding:0 2rem}
+.rsv-inner .label-en-light{color:var(--gl2);margin-bottom:1.2rem}
+.rsv-inner .ttl-ja{color:rgba(250,247,240,.88);font-size:1.8rem;margin-bottom:1rem}
+.rsv-rule{width:24px;height:.5px;background:rgba(184,147,90,.4);margin:0 auto 2.2rem}
+.rsv-note{
+  font-size:.84rem;line-height:2.6;letter-spacing:.08em;
+  color:rgba(250,247,240,.38);margin-bottom:3rem;
+}
+.rsv-times{
+  display:flex;justify-content:center;gap:4rem;margin-bottom:3.5rem;
+}
+.rt{text-align:center}
+.rt-label{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.58rem;letter-spacing:.5em;color:var(--gl2);
+  text-transform:uppercase;display:block;margin-bottom:.4rem;
+}
+.rt-time{
+  font-family:'Shippori Mincho B1',serif;font-size:.9rem;
+  letter-spacing:.1em;color:rgba(250,247,240,.78);display:block;
+}
+.rt-note{font-size:.65rem;letter-spacing:.1em;color:rgba(250,247,240,.3);display:block;margin-top:.2rem}
+.rsv-btn{
+  display:inline-block;font-family:'Shippori Mincho B1',serif;
+  font-size:.68rem;letter-spacing:.32em;
+  border:.5px solid rgba(184,147,90,.5);color:var(--gl2);
+  padding:1.1rem 4rem;transition:all .4s;
+}
+.rsv-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff;transform:translateY(-2px)}
+
+/* ═══════════════════════════
+   09 EC SHOP
+═══════════════════════════ */
+#s-ec{background:var(--ink)}
+.ec-wrap{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:45% 55%;
+}
+.ec-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 3.5rem 5rem 4.5rem;
+}
+.ec-text .label-en{color:var(--gl2)}
+.ec-text .ttl-ja{color:rgba(250,247,240,.85)}
+.ec-text .rule{background:var(--gl2)}
+.ec-text .body-text p{color:rgba(250,247,240,.38)}
+.ec-link{
+  display:inline-flex;align-items:center;gap:1.2rem;
+  font-family:'Shippori Mincho B1',serif;font-size:.7rem;
+  letter-spacing:.28em;color:var(--gl2);
+  border-bottom:.5px solid rgba(184,147,90,.25);
+  padding-bottom:.5rem;transition:all .35s;margin-top:1rem;
+}
+.ec-link::after{content:'→';font-style:normal;transition:transform .3s}
+.ec-link:hover{gap:2rem;border-color:var(--gl2)}
+.ec-link:hover::after{transform:translateX(4px)}
+.ec-imgs{
+  display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;gap:2px;
+}
+.ei{overflow:hidden}
+.ei img{transition:transform .8s ease}
+.ei:hover img{transform:scale(1.06)}
+
+/* ═══════════════════════════
+   10 ACCESS
+═══════════════════════════ */
+#s-access{background:var(--cream)}
+.access-wrap{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:40% 60%;
+}
+.access-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 3.5rem 5rem 4.5rem;
+}
+dl.ai dt{
+  font-family:'Shippori Mincho B1',serif;font-size:.6rem;
+  letter-spacing:.38em;color:var(--gold);
+  margin-top:1.6rem;margin-bottom:.35rem;
+}
+dl.ai dd{font-size:.82rem;line-height:2.0;letter-spacing:.07em;color:var(--ink2)}
+dl.ai dd a{color:var(--ink2);border-bottom:.5px solid rgba(46,40,32,.2)}
+.access-map{overflow:hidden}
+.access-map iframe{width:100%;height:100%;border:none;filter:sepia(15%) contrast(.95)}
+
+/* ═══════════════════════════
+   11 FOOTER
+═══════════════════════════ */
+#s-footer{background:var(--ink);display:flex;align-items:center;justify-content:center}
+.ft-wrap{text-align:center;position:relative;z-index:1;padding:0 2rem}
+.ft-logo{width:56px;height:56px;margin:0 auto 1.6rem;opacity:.35;object-fit:contain}
+.ft-name{
+  font-family:'Shippori Mincho B1',serif;font-size:.82rem;
+  letter-spacing:.45em;color:rgba(250,247,240,.5);
+  margin-bottom:.4rem;display:block;
+}
+.ft-en{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:.7rem;letter-spacing:.52em;color:var(--gl2);
+  display:block;margin-bottom:3rem;
+}
+.ft-nav{
+  display:flex;gap:2.8rem;list-style:none;
+  justify-content:center;margin-bottom:3rem;flex-wrap:wrap;
+}
+.ft-nav a{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.7rem;letter-spacing:.3em;
+  color:rgba(250,247,240,.2);transition:color .3s;
+}
+.ft-nav a:hover{color:var(--gl2)}
+.ft-sep{width:100px;height:.5px;background:rgba(250,247,240,.06);margin:0 auto 2rem}
+.ft-copy{font-size:.58rem;letter-spacing:.2em;color:rgba(250,247,240,.12);display:block}
+
+/* ── SECTION COUNTER ── */
+.sec-num{
+  position:absolute;bottom:3rem;left:4.5rem;z-index:10;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:.6rem;letter-spacing:.5em;color:rgba(255,255,255,.2);
+}
+.sec-num.d{color:rgba(10,8,6,.2)}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  #nav{padding:1.2rem 1.6rem}
+  #nav.light{padding:1rem 1.6rem}
+  .nm{display:none}
+  #dots{display:none}
+  .sec-num{left:1.6rem;bottom:2rem}
+
+  .concept-wrap,.history-wrap,.chef-wrap,.fac-wrap,.ec-wrap,.access-wrap{
+    display:flex;flex-direction:column;
+    position:absolute;inset:0;
+    overflow-y:auto;overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
+  }
+  .concept-img{flex-shrink:0;height:60vw}
+  .concept-img-ov{display:none}
+  .concept-text{padding:3rem 1.8rem 4rem;flex-shrink:0}
+  .concept-num{display:none}
+
+  .history-text{padding:5rem 1.8rem 1.5rem;flex-shrink:0;overflow-y:visible}
+  .history-imgs{flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:2px;height:50vw}
+
+  .chef-img{flex-shrink:0;height:65vw}
+  .chef-img-ov{display:none}
+  .chef-text{padding:2.5rem 1.8rem 4rem;flex-shrink:0}
+
+  .fac-text{padding:5rem 1.8rem 1.5rem;flex-shrink:0}
+  .fac-imgs{flex-shrink:0;height:60vw}
+
+  .ec-text{padding:5rem 1.8rem 1.5rem;flex-shrink:0}
+  .ec-imgs{flex-shrink:0;height:55vw}
+
+  .access-text{padding:5rem 1.8rem 1.5rem;flex-shrink:0}
+  .access-map{flex-shrink:0;height:65vw}
+
+  .menu-wrap{padding:5rem 1.5rem 4rem;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .menu-grid{grid-template-columns:1fr;flex:none}
+  .mc-img{height:45vw}
+
+  .rsv-inner{padding:0 1.8rem}
+  .rsv-times{gap:1.5rem;flex-wrap:wrap}
+
+  .phi-inner{padding:0 1.8rem}
+
+  #pager{bottom:1.2rem}
+  .pager-btn{font-size:.6rem;padding:.35rem .8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" onclick="goTo(0);return false" class="nl">えんやどっと丸</a>
+  <ul class="nm">
+    <li><a href="#" onclick="goTo(1);return false">about</a></li>
+    <li><a href="#" onclick="goTo(4);return false">menu</a></li>
+    <li><a href="#" onclick="goTo(6);return false">facility</a></li>
+    <li><a href="#" onclick="goTo(8);return false">shop</a></li>
+    <li><a href="#" onclick="goTo(9);return false">access</a></li>
+  </ul>
+  <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" class="nb">ご予約</a>
+</nav>
+
+<!-- PAGER -->
+<div id="pager">
+  <button id="btn-prev" class="pager-btn" onclick="goTo(current-1)">
+    <svg viewBox="0 0 22 7"><line x1="21" y1="3.5" x2="1" y2="3.5"/><polyline points="6,1 1,3.5 6,6"/></svg>
+    <span>Prev</span>
+  </button>
+  <div class="pager-sep"></div>
+  <span id="pager-idx" class="pager-idx">01 / 11</span>
+  <div class="pager-sep"></div>
+  <button id="btn-next" class="pager-btn" onclick="goTo(current+1)">
+    <span>Next</span>
+    <svg viewBox="0 0 22 7"><line x1="1" y1="3.5" x2="21" y2="3.5"/><polyline points="16,1 21,3.5 16,6"/></svg>
+  </button>
+</div>
+
+<div id="dots"></div>
+
+<div id="fp">
+
+<!-- 01 HERO -->
+<section class="fp-section" id="s-hero" data-dark="true">
+  <div class="hero-bg"><img src="IMG_2825.jpeg" alt="えんやどっと丸" loading="eager"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-body">
+    <p class="hero-eyebrow">Oarai · Ibaraki · Since 1911</p>
+    <h1 class="hero-ttl">大洗の海が、<br>今日も届く。</h1>
+    <p class="hero-sub">Enya Dot Maru</p>
+    <div class="hero-actions">
+      <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" class="btn-primary">ご予約はこちら</a>
+      <a href="#" onclick="goTo(1);return false" class="btn-ghost">店について</a>
+    </div>
+  </div>
+  <div class="hero-side">
+    <div class="hero-side-line"></div>
+    <span class="hero-side-txt">scroll</span>
+    <div class="hero-side-line2"></div>
+  </div>
+  <span class="sec-num">01 / 11</span>
+</section>
+
+<!-- 02 CONCEPT -->
+<section class="fp-section" id="s-concept" data-dark="false">
+  <div class="concept-wrap">
+    <div class="concept-img risoL">
+      <img src="IMG_5036.jpeg" alt="大洗の海">
+      <div class="concept-img-ov"></div>
+    </div>
+    <div class="concept-text">
+      <span class="concept-num">02</span>
+      <div class="riso">
+        <span class="label-en">Concept</span>
+        <p class="concept-copy">常磐の海が育む、<br><em>旬</em>という名の贈りもの。</p>
+        <div class="rule"></div>
+        <div class="body-text">
+          <p>茨城・大洗港。常磐の荒波が育んだ豊かな海の恵みを、その日の朝に選び、丁寧な仕事で皿の上に表現する。</p>
+          <p>素材の声に耳を傾け、余計なものをそぎ落とした先にある、ほんとうの美味しさを。一期一会の食の時間をご用意しています。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="sec-num d">02 / 11</span>
+</section>
+
+<!-- 03 HISTORY -->
+<section class="fp-section" id="s-history" data-dark="true">
+  <div class="history-wrap">
+    <div class="history-text">
+      <div class="risoL">
+        <span class="label-en">History · Since 1911</span>
+        <span class="ttl-ja">明治四十四年、<br>大洗港から。</span>
+        <div class="rule"></div>
+      </div>
+      <div class="tl">
+        <div class="tl-item riso" style="transition-delay:.1s">
+          <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <span class="tl-year">1911 · 明治四十四年</span>
+            <span class="tl-ttl">清水商店、創業。</span>
+            <p class="tl-desc">大洗港を拠点に水産加工業として産声を上げる。常磐の恵みを陸へ、都市へ、全国へと届けた。</p>
+          </div>
+        </div>
+        <div class="tl-item riso" style="transition-delay:.2s">
+          <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <span class="tl-year">1950s · 昭和の大洗</span>
+            <span class="tl-ttl">港町に、にぎわいを。</span>
+            <p class="tl-desc">変わりゆく時代の中でも、清水商店は大洗の海と向き合い続けた。</p>
+          </div>
+        </div>
+        <div class="tl-item riso" style="transition-delay:.3s">
+          <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <span class="tl-year">2006 · 平成十八年</span>
+            <span class="tl-ttl">えんやどっと丸、開業。</span>
+            <p class="tl-desc">百年にわたる水産業の知見を、今度は食卓へ直接届けることを。大洗の魚介の素晴らしさを、自らの手でお客様に伝えたい——その一念から誕生した。</p>
+          </div>
+        </div>
+        <div class="tl-item riso" style="transition-delay:.4s">
+          <div class="tl-spine"><div class="tl-dot"></div></div>
+          <div>
+            <span class="tl-year">Now · 現在</span>
+            <span class="tl-ttl">海と人をつなぐ、食の場として。</span>
+            <p class="tl-desc">明治から続く水産業の魂と、現代の料理の技が交わるこの場所で、今日もお客様をお迎えする。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="history-imgs risoR">
+      <div class="hi">
+        <img src="IMG_5592.jpeg" alt="昭和の大洗海岸">
+        <div class="hi-cap"><span>昭和の大洗海岸</span></div>
+      </div>
+      <div class="hi">
+        <img src="IMG_5588.jpeg" alt="大洗の風景">
+        <div class="hi-cap"><span>大洗の風景</span></div>
+      </div>
+    </div>
+  </div>
+  <span class="sec-num">03 / 11</span>
+</section>
+
+<!-- 04 PHILOSOPHY -->
+<section class="fp-section" id="s-phi" data-dark="true">
+  <div class="phi-bg"><img src="IMG_5860.jpeg" alt=""></div>
+  <div class="phi-ov"></div>
+  <div class="phi-inner riso">
+    <span class="phi-mark">"</span>
+    <p class="phi-quote">料理よりも、<em>丁寧なサービス</em>を大事にしています。<br>お客様を迎えることへの誠実さが、<br>この店のすべての原点にある。</p>
+    <div class="phi-rule"></div>
+    <span class="phi-attr">— Chef Yusuke Goto, Enya Dot Maru</span>
+  </div>
+  <span class="sec-num">04 / 11</span>
+</section>
+
+<!-- 05 MENU -->
+<section class="fp-section" id="s-menu" data-dark="false">
+  <div class="menu-wrap">
+    <div class="menu-hd riso">
+      <span class="label-en">Menu</span>
+      <span class="ttl-ja">御献立</span>
+      <div class="rule"></div>
+    </div>
+    <div class="menu-grid">
+      <div class="mc riso" style="transition-delay:.08s">
+        <div class="mc-img"><img src="IMG_5861.jpeg" alt="刺身・にぎり"></div>
+        <div class="mc-info">
+          <span class="mc-no">01</span>
+          <span class="mc-ja">刺身・にぎり</span>
+          <span class="mc-en">Sashimi &amp; Nigiri</span>
+          <p class="mc-desc">大洗港に揚がった鮮魚を職人の技で。その日の仕入れによる、一期一会のひと皿。</p>
+        </div>
+      </div>
+      <div class="mc riso" style="transition-delay:.16s">
+        <div class="mc-img"><img src="IMG_5220.jpeg" alt="海鮮御膳"></div>
+        <div class="mc-info">
+          <span class="mc-no">02</span>
+          <span class="mc-ja">海鮮御膳</span>
+          <span class="mc-en">Kaisen Gozen</span>
+          <p class="mc-desc">焼き魚・天ぷら・小鉢を添えた丁寧な仕立ての御膳。少し贅沢なひるごはん。</p>
+        </div>
+      </div>
+      <div class="mc riso" style="transition-delay:.24s">
+        <div class="mc-img"><img src="IMG_5253.jpeg" alt="季節のおまかせ"></div>
+        <div class="mc-info">
+          <span class="mc-no">03</span>
+          <span class="mc-ja">季節のおまかせ</span>
+          <span class="mc-en">Omakase</span>
+          <p class="mc-desc">料理人の目利きによる季節の素材を、その日だけの献立で。旬の美しさを静かに皿に映す。</p>
+        </div>
+      </div>
+    </div>
+    <p class="menu-note">※ 献立は仕入れにより変わります</p>
+  </div>
+  <span class="sec-num d">05 / 11</span>
+</section>
+
+<!-- 06 CHEF -->
+<section class="fp-section" id="s-chef" data-dark="true">
+  <div class="chef-wrap">
+    <div class="chef-img risoL">
+      <img src="IMG_5860.jpeg" alt="後藤優介 料理長">
+      <div class="chef-img-ov"></div>
+    </div>
+    <div class="chef-text risoR">
+      <span class="label-en">Chef · Story</span>
+      <span class="ttl-ja">灯台の下で、<br>この店にこの人あり。</span>
+      <div class="rule"></div>
+      <div class="body-text">
+        <p>茨城・水戸出身。父の影響で飲食の世界へ進み、真面目な仕事ぶりと明るい人柄で本人の目指す本質的なサービスを体現してきた。</p>
+        <p>「料理よりも丁寧なサービスを大事にしています」——お客様を迎えることへの誠実さを、調理場の外にも内にも惜しみなく注ぐ。</p>
+      </div>
+      <div class="chef-sig">
+        <span class="chef-sig-role">Chef</span>
+        <span class="chef-sig-name">後藤 優介</span>
+        <span class="chef-sig-sub">Yusuke Goto · 茨城・水戸出身</span>
+      </div>
+    </div>
+  </div>
+  <span class="sec-num">06 / 11</span>
+</section>
+
+<!-- 07 FACILITY -->
+<section class="fp-section" id="s-fac" data-dark="false">
+  <div class="fac-wrap">
+    <div class="fac-text risoL">
+      <span class="label-en">Facility</span>
+      <span class="ttl-ja">店内のご案内</span>
+      <div class="rule"></div>
+      <p style="font-size:.82rem;line-height:2.7;letter-spacing:.07em;color:var(--ink3);margin-bottom:2rem">庭を望むテーブル席、一枚板のカウンター、丸窓の個室。それぞれ異なる表情を持つ空間で、非日常のひとときを。</p>
+      <div class="fac-list">
+        <div class="fac-item">テーブル席（庭望む）</div>
+        <div class="fac-item">カウンター席</div>
+        <div class="fac-item">個室（丸窓・大テーブル）</div>
+        <div class="fac-item">駐車場完備</div>
+      </div>
+    </div>
+    <div class="fac-imgs risoR">
+      <div class="fi"><img src="IMG_5254.jpeg" alt="カウンター席"><div class="fi-cap"><span>カウンター席</span></div></div>
+      <div class="fi"><img src="IMG_5250.jpeg" alt="個室・丸窓"><div class="fi-cap"><span>個室（丸窓）</span></div></div>
+      <div class="fi"><img src="IMG_5252.jpeg" alt="外観"><div class="fi-cap"><span>外観</span></div></div>
+      <div class="fi"><img src="IMG_5253.jpeg" alt="テーブル席"><div class="fi-cap"><span>テーブル席</span></div></div>
+    </div>
+  </div>
+  <span class="sec-num d">07 / 11</span>
+</section>
+
+<!-- 08 RESERVATION -->
+<section class="fp-section" id="s-rsv" data-dark="true">
+  <div class="rsv-bg"><img src="IMG_5861.jpeg" alt=""></div>
+  <div class="rsv-ov"></div>
+  <div class="rsv-inner riso">
+    <span class="label-en label-en-light">Reservation</span>
+    <span class="ttl-ja" style="color:rgba(250,247,240,.88);font-size:1.8rem">ご予約</span>
+    <div class="rsv-rule"></div>
+    <p class="rsv-note">ご予約はトレタよりお気軽にどうぞ。<br>当日のご予約はお電話にてお承りします。</p>
+    <div class="rsv-times">
+      <div class="rt"><span class="rt-label">Lunch</span><span class="rt-time">11:00 — 14:00</span></div>
+      <div class="rt"><span class="rt-label">Dinner</span><span class="rt-time">17:30 — 20:30</span></div>
+      <div class="rt"><span class="rt-label">Closed</span><span class="rt-time">毎週木曜</span><span class="rt-note">水曜はランチのみ</span></div>
+    </div>
+    <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" class="rsv-btn">予約する → Toreta</a>
+  </div>
+  <span class="sec-num">08 / 11</span>
+</section>
+
+<!-- 09 EC SHOP -->
+<section class="fp-section" id="s-ec" data-dark="true">
+  <div class="ec-wrap">
+    <div class="ec-text risoL">
+      <span class="label-en">Story-Based EC</span>
+      <span class="ttl-ja" style="color:rgba(250,247,240,.85)">大洗の味を、<br>ご自宅へ。</span>
+      <div class="rule" style="background:var(--gl2)"></div>
+      <div class="body-text">
+        <p>大洗港直送の海の幸を、全国へお届けします。鮟鱇鍋・生塩揉みマダコなど、えんやどっと丸が厳選した品を産地直送で。</p>
+        <p>贈りものにも、日々の食卓にも。えんやどっと丸の味を、どうぞご自宅で。</p>
+      </div>
+      <a href="https://www.enya-otd.com/story-based-ec/" target="_blank" class="ec-link">オンラインショップへ</a>
+    </div>
+    <div class="ec-imgs risoR">
+      <div class="ei"><img src="IMG_5861.jpeg" alt="商品"></div>
+      <div class="ei"><img src="IMG_5859.jpeg" alt="商品"></div>
+      <div class="ei"><img src="IMG_5220.jpeg" alt="商品"></div>
+      <div class="ei"><img src="IMG_5860.jpeg" alt="商品"></div>
+    </div>
+  </div>
+  <span class="sec-num">09 / 11</span>
+</section>
+
+<!-- 10 ACCESS -->
+<section class="fp-section" id="s-access" data-dark="false">
+  <div class="access-wrap">
+    <div class="access-text risoL">
+      <span class="label-en">Access</span>
+      <span class="ttl-ja">ご案内</span>
+      <div class="rule"></div>
+      <dl class="ai">
+        <dt>住所</dt><dd>〒311-1301<br>茨城県東茨城郡大洗町港中央9-4</dd>
+        <dt>電話</dt><dd><a href="tel:0292672278">029-267-2278</a></dd>
+        <dt>営業時間</dt><dd>ランチ　11:00〜14:00<br>ディナー　17:30〜20:30</dd>
+        <dt>定休日</dt><dd>毎週木曜日／水曜はランチのみ</dd>
+        <dt>駐車場</dt><dd>あり</dd>
+      </dl>
+    </div>
+    <div class="access-map risoR">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3222.0!2d140.574!3d36.315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60220b2f3e2b4f8b%3A0x7c9d85da51bd17f5!2z44GE44KT44KE44Gp44Gj44GO44Go44G_!5e0!3m2!1sja!2sjp!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="えんやどっと丸 地図"></iframe>
+    </div>
+  </div>
+  <span class="sec-num d">10 / 11</span>
+</section>
+
+<!-- 11 FOOTER -->
+<section class="fp-section" id="s-footer" data-dark="true">
+  <div class="ft-wrap riso">
+    <img class="ft-logo" src="IMG_6339.png" alt="えんやどっと丸ロゴ">
+    <span class="ft-name">えんやどっと丸</span>
+    <span class="ft-en">Enya Dot Maru · Oarai · Ibaraki</span>
+    <ul class="ft-nav">
+      <li><a href="#" onclick="goTo(1);return false">about</a></li>
+      <li><a href="#" onclick="goTo(4);return false">menu</a></li>
+      <li><a href="#" onclick="goTo(5);return false">story</a></li>
+      <li><a href="#" onclick="goTo(6);return false">facility</a></li>
+      <li><a href="#" onclick="goTo(7);return false">reservation</a></li>
+      <li><a href="#" onclick="goTo(8);return false">shop</a></li>
+      <li><a href="#" onclick="goTo(9);return false">access</a></li>
+    </ul>
+    <div class="ft-sep"></div>
+    <span class="ft-copy">© 2025 えんやどっと丸 / One Table Design</span>
+  </div>
+</section>
+
+</div><!-- #fp -->
+
+<script>
+const sections = Array.from(document.querySelectorAll('.fp-section'));
+const nav = document.getElementById('nav');
+const dotsWrap = document.getElementById('dots');
+let current = 0;
+let animating = false;
+
+sections.forEach((s,i) => {
+  const btn = document.createElement('button');
+  btn.className = 'dot';
+  btn.setAttribute('aria-label','Section '+(i+1));
+  btn.addEventListener('click', () => goTo(i));
+  dotsWrap.appendChild(btn);
+});
+const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+
+function clean(el){el.classList.remove('enter-down','enter-up','leave-down','leave-up','active')}
+
+function goTo(idx){
+  if(idx<0||idx>=sections.length||idx===current||animating)return;
+  animating=true;
+  const dir=idx>current?'down':'up';
+  const prev=sections[current];
+  const next=sections[idx];
+  clean(prev);
+  prev.classList.add(dir==='down'?'leave-down':'leave-up');
+  clean(next);
+  next.classList.add('active');
+  next.classList.add(dir==='down'?'enter-down':'enter-up');
+  current=idx;
+  updateUI(current);
+  setTimeout(()=>{clean(prev);next.classList.remove('enter-down','enter-up');animating=false},950);
+}
+
+function updateUI(idx){
+  const isDark=sections[idx].dataset.dark==='true';
+  nav.classList.toggle('light',!isDark);
+  dots.forEach((d,i)=>{
+    d.classList.toggle('active',i===idx);
+    d.classList.toggle('dot-light',!isDark);
+  });
+  const bp=document.getElementById('btn-prev');
+  const bn=document.getElementById('btn-next');
+  const pg=document.getElementById('pager');
+  if(bp)bp.disabled=(idx===0);
+  if(bn)bn.disabled=(idx===sections.length-1);
+  if(pg)pg.classList.toggle('lp',!isDark);
+  const pi=document.getElementById('pager-idx');
+  if(pi)pi.textContent=String(idx+1).padStart(2,'0')+' / '+String(sections.length).padStart(2,'0');
+  setTimeout(()=>{
+    sections[idx].querySelectorAll('.riso,.risoL,.risoR').forEach(el=>{
+      el.classList.remove('on');void el.offsetWidth;el.classList.add('on');
+    });
+  },180);
+}
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='PageDown')goTo(current+1);
+  if(e.key==='ArrowUp'||e.key==='PageUp')goTo(current-1);
+});
+window.addEventListener('wheel',e=>e.preventDefault(),{passive:false});
+document.addEventListener('wheel',e=>e.preventDefault(),{passive:false});
+
+let tY=null;
+document.addEventListener('touchstart',e=>{tY=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchmove',e=>{
+  let el=e.target;
+  while(el&&el!==document.body){
+    const st=window.getComputedStyle(el);
+    if((st.overflow+st.overflowY).match(/auto|scroll/))return;
+    el=el.parentElement;
+  }
+  e.preventDefault();
+},{passive:false});
+document.addEventListener('touchend',e=>{
+  if(tY===null)return;
+  const dy=tY-e.changedTouches[0].clientY;
+  if(Math.abs(dy)>50)goTo(dy>0?current+1:current-1);
+  tY=null;
+},{passive:true});
+
+window.addEventListener('load',()=>{
+  document.getElementById('s-hero').classList.add('rdy');
+  sections[0].classList.add('active');
+  updateUI(0);
+  setTimeout(()=>{
+    sections[0].querySelectorAll('.riso,.risoL,.risoR').forEach(el=>el.classList.add('on'));
+  },300);
+});
+</script>
+</body>
+</html>
