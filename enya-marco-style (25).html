@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="ja" translate="no">
+<head>
+<meta name="google" content="notranslate">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>えんやどっと丸 | 海鮮和食・大洗港</title>
+<meta name="description" content="茨城・大洗港。常磐の海が育む旬の恵みを、丁寧な仕事で皿に表現する海鮮和食の店。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&family=Shippori+Mincho+B1:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cg:'Cormorant Garamond',serif;
+  --ns:'Noto Serif JP',serif;
+  --sm:'Shippori Mincho B1',serif;
+  --w:#fff;--w55:rgba(255,255,255,.55);--w30:rgba(255,255,255,.30);--w06:rgba(255,255,255,.06);
+  --ink:#0d0b08;--off:#f5f1ea;--cream:#e8e2d6;
+  --gold:#9a7d4e;--gl:#c4a06a;--gl2:#d4b47a;
+  --sea:#0c1018;--sea2:#121820;
+}
+html{font-size:16px}
+body{font-family:var(--ns);font-weight:300;background:var(--sea);color:var(--w);overflow:hidden;cursor:none;width:100%;height:100vh}
+@media(max-width:900px){body{cursor:auto;overflow:hidden}}
+
+/* CURSOR */
+#cd,#cr{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cd{width:6px;height:6px;background:#fff;mix-blend-mode:difference;transition:width .2s,height .2s}
+#cr{width:36px;height:36px;border:1px solid rgba(255,255,255,.25);transition:left .13s cubic-bezier(.23,1,.32,1),top .13s cubic-bezier(.23,1,.32,1),width .3s,height .3s}
+@media(max-width:900px){#cd,#cr{display:none}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;justify-content:space-between;align-items:center;padding:20px 36px;background:rgba(12,16,24,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--w06)}
+.nav-logo{font-family:var(--sm);font-size:.75rem;letter-spacing:.35em;color:rgba(255,255,255,.8);text-decoration:none;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:16px;list-style:none}
+.nav-links a{font-family:var(--ns);font-size:12px;font-weight:300;letter-spacing:.12em;color:var(--w55);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--w)}
+.nav-res{color:var(--w)!important;border:1px solid rgba(255,255,255,.28);padding:7px 16px;letter-spacing:.1em!important}
+.nav-res:hover{background:rgba(255,255,255,.1)!important}
+.hamb{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamb span{display:block;width:22px;height:1px;background:#fff;transition:all .3s}
+.hamb.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hamb.open span:nth-child(2){opacity:0}
+.hamb.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+
+/* DRAWER */
+.dmask{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:590;opacity:0;pointer-events:none;transition:opacity .35s}
+.dmask.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:-100%;width:min(300px,80vw);height:100dvh;background:var(--sea2);z-index:595;display:flex;flex-direction:column;justify-content:center;padding:0 44px;transition:right .55s cubic-bezier(.76,0,.24,1)}
+.drawer.open{right:0}
+.drawer a{font-family:var(--cg);font-size:15px;font-weight:300;letter-spacing:.3em;color:var(--w55);text-decoration:none;padding:20px 0;border-bottom:1px solid var(--w06);transition:color .2s}
+.drawer a:hover{color:var(--w)}
+
+/* DOTS */
+.dots{position:fixed;right:26px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px;z-index:500}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:background .3s,transform .3s;position:relative}
+.dot.on{background:var(--gl2);transform:scale(1.7)}
+.dot-tip{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--w55);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+.dot:hover .dot-tip,.dot.on .dot-tip{opacity:1}
+@media(max-width:900px){.dots{display:none}}
+
+/* SECTION */
+.sec{position:fixed;inset:0;display:none;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:var(--off)}
+.sec.active{display:flex}
+
+/* VISUAL PART */
+.vp{position:relative;width:100%;height:100vh;height:100dvh;flex-shrink:0;overflow:hidden}
+.vbg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);transition:transform 14s ease-out}
+.sec.active .vbg{transform:scale(1)}
+.vov{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,14,20,.82) 0%,rgba(10,14,20,.35) 55%,rgba(10,14,20,.75) 100%)}
+.vcatch{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:100px 56px 80px;max-width:800px}
+.vlbl{font-family:var(--cg);font-size:13px;font-weight:300;letter-spacing:.55em;color:rgba(255,255,255,.45);margin-bottom:28px;opacity:0;animation:riLeft 1s .2s cubic-bezier(.16,1,.3,1) forwards}
+.vh{font-family:var(--sm);font-weight:400;font-size:clamp(28px,4vw,62px);line-height:1.35;letter-spacing:.04em;color:var(--w);margin-bottom:28px;opacity:0;animation:riLeft 1.2s .38s cubic-bezier(.16,1,.3,1) forwards;max-width:700px}
+.vh .em{color:var(--gl2);font-weight:400}
+.vsub{font-family:var(--ns);font-size:14px;line-height:2.2;color:var(--w55);max-width:360px;opacity:0;animation:riLeft 1s .62s cubic-bezier(.16,1,.3,1) forwards}
+.vinfo{position:absolute;bottom:36px;right:52px;z-index:2;text-align:right;opacity:0;animation:riUp .9s 1.2s forwards}
+.vinfo dt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:var(--w30);margin-bottom:4px}
+.vinfo dd{font-family:var(--cg);font-size:13px;font-weight:300;color:var(--w55);letter-spacing:.08em;line-height:1.9}
+.shint{position:absolute;bottom:36px;left:56px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:riUp .8s 1.4s forwards}
+.shint-line{width:1px;height:48px;background:rgba(255,255,255,.18);position:relative;overflow:hidden}
+.shint-line::after{content:'';position:absolute;top:-100%;left:0;width:1px;height:100%;background:rgba(255,255,255,.65);animation:scanLine 2.2s 2.5s ease-in-out infinite}
+.shint-txt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:rgba(255,255,255,.22);writing-mode:vertical-rl}
+.sfade{position:absolute;bottom:0;left:0;right:0;height:60vh;background:linear-gradient(to bottom,transparent 0%,var(--off) 100%);pointer-events:none;opacity:0;z-index:2}
+
+/* TEXT PART */
+.tp{position:relative;width:100%;min-height:100vh;min-height:100dvh;background:var(--off);display:flex;align-items:center;justify-content:center;padding:100px 56px 120px;visibility:hidden}
+.tp.revealed{visibility:visible}
+.tp.revealed .ri.on{opacity:1;transform:none}
+.ti{max-width:660px;width:100%}
+.ti.wide{max-width:860px}
+
+/* ブロック単位フェードイン */
+.ri{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.ri.d1{transition-delay:.05s}
+.ri.d2{transition-delay:.18s}
+.ri.d3{transition-delay:.32s}
+.ri.d4{transition-delay:.48s}
+.ri.d5{transition-delay:.65s}
+.ri.d6{transition-delay:.82s}
+.ri.d7{transition-delay:1s}
+
+/* 文字単位スライドアニメ */
+.ch{display:inline-block;opacity:0;transform:translateX(-18px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.ch.in{opacity:1;transform:none}
+
+/* 塊スライドアニメ */
+.bl{opacity:0;transform:translateX(-24px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.bl.in{opacity:1;transform:none}
+
+
+/* TYPOGRAPHY */
+.tlbl{font-family:var(--cg);font-size:14px;font-weight:300;letter-spacing:.5em;color:rgba(13,11,8,.45);display:block;margin-bottom:28px}
+.trule{width:40px;height:1px;background:rgba(13,11,8,.15);margin-bottom:32px}
+.tbody{font-size:15px;line-height:2.7;color:rgba(13,11,8,.65)}
+.tbody p+p{margin-top:1.4em}
+.textra{margin-top:44px}
+.tnext{margin-top:60px;display:inline-flex;align-items:center;gap:14px;font-family:var(--cg);font-size:12px;font-weight:300;letter-spacing:.4em;color:rgba(13,11,8,.3);background:none;border:none;padding:0;cursor:pointer;transition:color .2s}
+.tnext:hover{color:var(--gold)}
+.tnext::after{content:'';display:block;width:40px;height:1px;background:currentColor;transition:width .3s}
+.tnext:hover::after{width:60px}
+@media(max-width:900px){.tnext{display:none}}
+
+/* BG IMAGES */
+#sec-home    .vbg{background-image:url('IMG_2825.jpeg');background-position:center 30%}
+#sec-concept .vbg{background-image:url('IMG_5036.jpeg');background-position:center 40%}
+#sec-history .vbg{background-image:url('IMG_5592.jpeg');background-position:center 35%}
+#sec-phi     .vbg{background-image:url('IMG_5860.jpeg');background-position:center 45%}
+#sec-phi     .vov{background:linear-gradient(160deg,rgba(10,14,20,.55) 0%,rgba(10,14,20,.2) 55%,rgba(10,14,20,.6) 100%)!important}
+#sec-menu    .vbg{background-image:url('IMG_5859.jpeg');background-position:center 50%}
+#sec-chef    .vbg{background-image:url('IMG_5861.jpeg');background-position:center 30%}
+#sec-fac     .vbg{background-image:url('IMG_2302.jpeg');background-position:center 40%}
+#sec-rsv     .vbg{background-image:url('A01EB89C-2729-45E3-8AAC-6CDB6B22F99B.jpeg');background-position:center 45%}
+#sec-ec      .vbg{background-image:url('IMG_1290.jpeg');background-position:center 40%}
+#sec-access  .vbg{background-image:url('IMG_2590.jpeg');background-position:center 50%}
+
+#sec-ec{background:var(--off)}
+#sec-ec .tp{background:var(--off);min-height:100vh;min-height:100dvh;visibility:visible!important;display:flex;align-items:center;justify-content:center}
+.tl{display:flex;flex-direction:column;gap:2rem}
+.tl-item{display:flex;gap:1.8rem;align-items:flex-start}
+.tl-spine{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:.3rem}
+.tl-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.tl-line{width:1px;flex:1;background:rgba(154,125,78,.18);margin-top:.5rem;min-height:36px}
+.tl-year{font-family:var(--cg);font-style:italic;font-size:.6rem;letter-spacing:.45em;color:var(--gold);display:block;margin-bottom:.3rem}
+.tl-ttl{font-family:var(--sm);font-size:.9rem;font-weight:500;letter-spacing:.1em;color:var(--ink);margin-bottom:.35rem;display:block}
+.tl-desc{font-size:.78rem;line-height:2.4;letter-spacing:.06em;color:rgba(13,11,8,.45)}
+
+.mgrid{display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(13,11,8,.1);margin-top:8px}
+.mc{border-right:1px solid rgba(13,11,8,.1);border-bottom:1px solid rgba(13,11,8,.1);cursor:pointer;transition:background .25s;overflow:hidden}
+.mc:hover{background:rgba(13,11,8,.025)}
+.mc:nth-child(even){border-right:none}
+.mc-img{width:100%;aspect-ratio:4/3;overflow:hidden;position:relative}
+.mc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.mc:hover .mc-img img{transform:scale(1.04)}
+.mc-img-empty{background:rgba(13,11,8,.04);display:flex;align-items:center;justify-content:center}
+.mc-img-empty span{font-family:var(--cg);font-size:.6rem;letter-spacing:.3em;color:rgba(13,11,8,.25)}
+.mc-body{padding:20px 22px 24px}
+.mc-cat{font-family:var(--cg);font-size:10px;letter-spacing:.45em;color:var(--gold);margin-bottom:8px;display:block}
+.mc-desc{font-size:12px;line-height:2;color:rgba(13,11,8,.52)}
+
+/* MENU SLIDER */
+.mc-slider{position:relative;width:100%;overflow:hidden;cursor:pointer}
+.mc-slides{display:flex;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.mc-slide{flex-shrink:0;width:100%;overflow:hidden}
+.mc-slide img{width:100%;height:auto;display:block;transition:transform .6s ease}
+.mc-slider:hover .mc-slide.active img{transform:scale(1.04)}
+.mc-slide-empty{background:rgba(13,11,8,.04);display:flex;align-items:center;justify-content:center}
+.mc-slide-empty span{font-family:var(--cg);font-size:.6rem;letter-spacing:.3em;color:rgba(13,11,8,.25)}
+.mc-slider-dots{display:flex;gap:5px;justify-content:center;padding:6px 0 2px;min-height:18px}
+.mc-sdot{width:4px;height:4px;border-radius:50%;background:rgba(13,11,8,.18);cursor:pointer;transition:background .2s,transform .2s;border:none;padding:0}
+.mc-sdot.on{background:var(--gold);transform:scale(1.4)}
+/* slider nav arrows */
+.mc-sarr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(250,247,240,.75);border:none;width:26px;height:26px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--ink);opacity:0;transition:opacity .2s;z-index:5}
+.mc-slider:hover .mc-sarr{opacity:1}
+.mc-sarr-l{left:6px}
+.mc-sarr-r{right:6px}
+@media(max-width:900px){.mc-sarr{opacity:1;width:22px;height:22px}}
+#lb{position:fixed;inset:0;z-index:2000;background:rgba(10,8,6,.93);display:none;align-items:center;justify-content:center;padding:2rem 5rem;backdrop-filter:blur(8px)}
+#lb.open{display:flex}
+#lb-inner{max-width:900px;width:100%;position:relative;animation:lbIn .4s cubic-bezier(.16,1,.3,1)}
+@keyframes lbIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+#lb-img{width:100%;height:auto;max-height:78vh;object-fit:contain;display:block}
+#lb-foot{margin-top:.8rem;display:flex;justify-content:center;align-items:center;gap:1.5rem}
+#lb-cap{font-family:var(--cg);font-size:.72rem;letter-spacing:.4em;color:rgba(255,255,255,.32);text-align:center}
+#lb-counter{font-family:var(--cg);font-size:.62rem;letter-spacing:.4em;color:rgba(255,255,255,.22)}
+#lb-close{position:absolute;top:-1.2rem;right:0;background:none;border:none;color:rgba(255,255,255,.4);font-size:1.4rem;cursor:pointer;line-height:1;font-family:var(--cg);transition:color .2s}
+#lb-close:hover{color:rgba(255,255,255,.85)}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);width:42px;height:42px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2001}
+.lb-nav:hover{background:rgba(255,255,255,.18)}
+.lb-nav:disabled{opacity:.12;pointer-events:none}
+#lb-prev{left:1rem}
+#lb-next{right:1rem}
+@media(max-width:900px){#lb{padding:1rem 3.5rem}.lb-nav{width:34px;height:34px;font-size:1rem}#lb-prev{left:.2rem}#lb-next{right:.2rem}}
+.menu-note{font-size:.7rem;letter-spacing:.22em;color:rgba(13,11,8,.32);margin-top:20px;text-align:right}
+
+.chef-sig{margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(13,11,8,.1)}
+.chef-sig-role{font-family:var(--cg);font-style:italic;font-size:.62rem;letter-spacing:.5em;color:var(--gold);display:block;margin-bottom:.4rem}
+.chef-sig-name{font-family:var(--sm);font-size:1rem;letter-spacing:.18em;color:var(--ink);display:block}
+.chef-sig-sub{font-family:var(--cg);font-style:italic;font-size:.62rem;letter-spacing:.3em;color:rgba(13,11,8,.35);display:block;margin-top:.3rem}
+
+.seats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(13,11,8,.12);margin-top:8px}
+.seat{padding:24px 24px 24px 0;border-bottom:1px solid rgba(13,11,8,.12)}
+.seat:nth-child(2){padding-left:24px;border-left:1px solid rgba(13,11,8,.12);border-right:1px solid rgba(13,11,8,.12)}
+.seat:nth-child(3){padding-left:24px}
+.seat-en{font-family:var(--cg);font-style:italic;font-size:12px;letter-spacing:.35em;color:var(--gold);margin-bottom:8px}
+.seat-jp{font-size:14px;color:var(--ink);margin-bottom:10px;letter-spacing:.06em}
+.seat-body{font-size:12px;line-height:2;color:rgba(13,11,8,.52)}
+.ftags{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px}
+.fac-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:24px}
+.fac-photo{position:relative;overflow:hidden;aspect-ratio:4/3;cursor:pointer}
+.fac-photo img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.fac-photo:hover img{transform:scale(1.06)}
+.fac-photo span{position:absolute;bottom:0;left:0;right:0;padding:.5rem .7rem;background:linear-gradient(to top,rgba(10,8,6,.65),transparent);font-family:var(--sm);font-size:.6rem;letter-spacing:.22em;color:rgba(255,255,255,.85)}
+@media(max-width:900px){.fac-photos{grid-template-columns:repeat(2,1fr)}}
+.ftag{font-family:var(--cg);font-size:11px;letter-spacing:.2em;color:rgba(13,11,8,.42);border:1px solid rgba(13,11,8,.16);padding:6px 16px;transition:all .2s}
+.ftag:hover{color:var(--gold);border-color:var(--gold)}
+
+.rsv-times{display:flex;gap:3rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.rt-block{text-align:center}
+.rt-lbl{font-family:var(--cg);font-style:italic;font-size:.6rem;letter-spacing:.5em;color:var(--gold);display:block;margin-bottom:.4rem}
+.rt-time{font-family:var(--sm);font-size:.9rem;letter-spacing:.1em;color:var(--ink);display:block}
+.rt-note{font-size:.65rem;letter-spacing:.1em;color:rgba(13,11,8,.38);display:block;margin-top:.2rem}
+.rsv-btn{display:inline-block;font-family:var(--sm);font-size:.68rem;letter-spacing:.3em;border:1px solid rgba(154,125,78,.5);color:var(--gold);padding:1rem 3.5rem;transition:all .4s;cursor:pointer;background:none;margin-top:2rem;text-decoration:none}
+.rsv-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff;transform:translateY(-2px)}
+
+.ec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:1.5rem}
+.ec-item{overflow:hidden;aspect-ratio:4/3}
+.ec-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.ec-item:hover img{transform:scale(1.06)}
+.ec-link{display:inline-flex;align-items:center;gap:1rem;font-family:var(--sm);font-size:.7rem;letter-spacing:.28em;color:var(--gold);border-bottom:1px solid rgba(154,125,78,.3);padding-bottom:.5rem;transition:all .35s;margin-top:1.5rem;text-decoration:none}
+.ec-link:hover{gap:1.8rem;border-color:var(--gold)}
+
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.adl{display:flex;flex-direction:column;gap:16px}
+.adl dt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:rgba(13,11,8,.28);margin-bottom:3px}
+.adl dd{font-family:var(--cg);font-size:14px;font-weight:300;color:rgba(13,11,8,.68);line-height:1.9}
+.adl a{color:var(--gold)}
+.map-wrap{aspect-ratio:4/3;overflow:hidden;border:1px solid rgba(13,11,8,.1)}
+.map-wrap iframe{width:100%;height:100%;border:none;filter:saturate(.55)}
+
+.sfooter{background:var(--sea2);padding:20px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--w06);flex-shrink:0;gap:12px}
+.sfooter a{font-family:var(--cg);font-size:11px;font-weight:300;letter-spacing:.22em;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
+.sfooter a:hover{color:rgba(255,255,255,.65)}
+.sfooter-links{display:flex;gap:24px;flex-wrap:wrap}
+.sfooter-c{font-family:var(--cg);font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.14);white-space:nowrap}
+
+/* MNAV */
+.mnav{position:fixed;bottom:0;left:0;right:0;z-index:700;display:flex;justify-content:space-between;align-items:center;padding:16px 52px 24px;background:linear-gradient(to top,rgba(10,14,20,.9) 0%,transparent 100%);pointer-events:none;transition:background .4s}
+.mnav.light{background:linear-gradient(to top,rgba(245,241,234,.98) 0%,rgba(245,241,234,.5) 100%)}
+.mbtn{pointer-events:all;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.65);font-family:var(--cg);font-size:11px;letter-spacing:.3em;padding:10px 24px;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.mbtn:hover{background:rgba(255,255,255,.18)}
+.mbtn:disabled{opacity:.2;pointer-events:none}
+.mnav.light .mbtn{background:rgba(13,11,8,.06);border-color:rgba(13,11,8,.18);color:rgba(13,11,8,.52)}
+.mnav.light .mbtn:hover{background:rgba(13,11,8,.12)}
+.mcnt{font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.38);transition:color .4s}
+.mnav.light .mcnt{color:rgba(13,11,8,.32)}
+
+@keyframes riLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+@keyframes riUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes scanLine{0%{top:-100%}100%{top:220%}}
+@keyframes secIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes secOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-16px)}}
+
+/* MOBILE */
+@media(max-width:900px){
+  .nav{padding:14px 20px}
+  .nav-links{display:none}.hamb{display:flex}
+  .vp{height:55vh;height:55dvh}
+  .vcatch{padding:72px 20px 32px}
+  .vh{font-size:clamp(26px,7vw,42px);line-height:1.3}
+  .vlbl{font-size:13px;letter-spacing:.4em}
+  .vsub{font-size:13px}
+  .shint,.vinfo{display:none}
+  .sfade{display:none}
+  .tp{padding:40px 20px 100px;min-height:auto;visibility:visible!important}
+  .tp .ri{opacity:1!important;transform:none!important}
+  .tbody{font-size:15px!important;line-height:2.5!important}
+  .seats{grid-template-columns:1fr}
+  .seat{padding:20px 0!important;border-right:none!important;border-left:none!important}
+  .mgrid{grid-template-columns:1fr}
+  .agrid{grid-template-columns:1fr;gap:24px}
+  .sfooter{flex-direction:column;gap:8px;padding:20px 20px 80px;text-align:center}
+  .sfooter-links{justify-content:center;gap:16px}
+  .mnav{padding:12px 20px 20px}
+  .rsv-times{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+<div id="cd"></div><div id="cr"></div>
+
+<nav class="nav">
+  <a class="nav-logo" href="#" data-to="home">えんやどっと丸</a>
+  <ul class="nav-links">
+    <li><a href="#" data-to="concept">想い</a></li>
+    <li><a href="#" data-to="history">歴史</a></li>
+    <li><a href="#" data-to="phi">心得</a></li>
+    <li><a href="#" data-to="menu">献立</a></li>
+    <li><a href="#" data-to="chef">料理人</a></li>
+    <li><a href="#" data-to="fac">店内</a></li>
+    <li><a href="#" data-to="ec">通販</a></li>
+    <li><a href="#" data-to="access">道案内</a></li>
+    <li><a href="#" data-to="rsv" class="nav-res">ご予約</a></li>
+  </ul>
+  <button class="hamb" id="hamb"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="dmask" id="dmask"></div>
+<div class="drawer" id="drawer">
+  <a href="#" data-to="home">はじめに</a>
+  <a href="#" data-to="concept">想い</a>
+  <a href="#" data-to="history">歴史</a>
+  <a href="#" data-to="phi">心得</a>
+  <a href="#" data-to="menu">献立</a>
+  <a href="#" data-to="chef">料理人</a>
+  <a href="#" data-to="fac">店内</a>
+  <a href="#" data-to="rsv">ご予約</a>
+  <a href="#" data-to="ec">通販</a>
+  <a href="#" data-to="access">道案内</a>
+</div>
+
+<div class="dots" id="dots">
+  <div class="dot on" data-to="home"><span class="dot-tip">はじめに</span></div>
+  <div class="dot" data-to="concept"><span class="dot-tip">想い</span></div>
+  <div class="dot" data-to="history"><span class="dot-tip">歴史</span></div>
+  <div class="dot" data-to="phi"><span class="dot-tip">心得</span></div>
+  <div class="dot" data-to="menu"><span class="dot-tip">献立</span></div>
+  <div class="dot" data-to="chef"><span class="dot-tip">料理人</span></div>
+  <div class="dot" data-to="fac"><span class="dot-tip">店内</span></div>
+  <div class="dot" data-to="rsv"><span class="dot-tip">ご予約</span></div>
+  <div class="dot" data-to="ec"><span class="dot-tip">通販</span></div>
+  <div class="dot" data-to="access"><span class="dot-tip">道案内</span></div>
+</div>
+
+<div class="mnav" id="mnav">
+  <button class="mbtn" id="mprev">← 前へ</button>
+  <span class="mcnt" id="mcnt">1 / 10</span>
+  <button class="mbtn" id="mnext">次へ →</button>
+</div>
+
+<!-- ===== HOME ===== -->
+<div class="sec active" id="sec-home">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-home"></div>
+    <div class="vcatch">
+      <p class="vlbl">大洗 · 茨城 · 創業 明治四十年</p>
+      <h1 class="vh">大洗の海が、<br>今日も<span class="em">届く。</span></h1>
+      <p class="vsub">茨城・大洗港。常磐の荒波が育んだ<br>旬の恵みを、丁寧な仕事で皿に表現する。</p>
+    </div>
+    <dl class="vinfo">
+      <dt>Lunch</dt><dd>11:00 — 14:00</dd>
+      <dt style="margin-top:12px">Dinner</dt><dd>17:30 — 20:30</dd>
+      <dt style="margin-top:12px">Closed</dt><dd>毎週木曜日</dd>
+    </dl>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+  <div class="tp">
+    <div class="ti">
+      <span class="tlbl">ようこそ</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>明治四十年、大洗港で水産加工業として産声を上げた清水商店。百年にわたる海との対話を礎に、大洗港直送の旬の魚介を丁寧な仕事で皿に表現する海鮮和食の店です。</p>
+        <p>素材の声に耳を傾け、余計なものをそぎ落とした先にある、ほんとうの美味しさを。一期一会の食の時間をご用意しています。</p>
+      </div>
+      <button class="tnext" data-to="concept">想い</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONCEPT ===== -->
+<div class="sec" id="sec-concept">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-concept"></div>
+    <div class="vcatch">
+      <p class="vlbl">想い</p>
+      <h2 class="vh">常磐の海が育む、<span class="em">旬</span>という名の贈りもの。</h2>
+    </div>
+  </div>
+  <div class="tp">
+    <div class="ti">
+      <span class="tlbl">想い</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>茨城・大洗港。常磐の荒波が育んだ豊かな海の恵みを、その日の朝に選び、丁寧な仕事で皿の上に表現する。</p>
+        <p>素材の声に耳を傾け、余計なものをそぎ落とした先にある、ほんとうの美味しさを。一期一会の食の時間をご用意しています。</p>
+        <p style="margin-top:1.6em;font-family:var(--cg);font-style:italic;font-size:17px;color:var(--gold);line-height:2">「大洗の魚介の素晴らしさを、自らの手でお客様に伝えたい。」</p>
+      </div>
+      <button class="tnext" data-to="history">歴史</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HISTORY ===== -->
+<div class="sec" id="sec-history">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-history"></div>
+    <div class="vcatch">
+      <p class="vlbl">歴史 · 創業 明治四十年</p>
+      <h2 class="vh">明治四十年、<br><span class="em">大洗港から。</span></h2>
+    </div>
+  </div>
+  <div class="tp" style="align-items:flex-start">
+    <div class="ti">
+      <span class="tlbl">歴史</span>
+      <div class="trule"></div>
+      <div class="textra">
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div>
+              <span class="tl-year">1907 · 明治四十年</span>
+              <span class="tl-ttl">清水商店、創業。</span>
+              <p class="tl-desc">大洗港を拠点に、水産加工業として産声を上げる。サバ・ニシン・海藻・干物など常磐の恵みを、陸へ、都市へ、全国へと届けた。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div>
+              <span class="tl-year">1950s · 昭和の大洗</span>
+              <span class="tl-ttl">港町に、にぎわいを。</span>
+              <p class="tl-desc">海水浴客で賑わう大洗海岸。変わりゆく時代の中でも、清水商店は大洗の海と向き合い続けた。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div>
+              <span class="tl-year">2006 · 平成十八年</span>
+              <span class="tl-ttl">えんやどっと丸、開業。</span>
+              <p class="tl-desc">百年にわたる水産業の知見を、今度は食卓へ直接届けることを決意。大洗の魚介の素晴らしさを自らの手でお客様に伝えたい——その一念から海鮮和食えんやどっと丸が誕生した。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-spine"><div class="tl-dot"></div></div>
+            <div>
+              <span class="tl-year">Now · 現在</span>
+              <span class="tl-ttl">海と人をつなぐ、食の場として。</span>
+              <p class="tl-desc">明治から続く水産業の魂と、現代の料理の技が交わるこの場所で、今日もお客様をお迎えする。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="tnext" data-to="phi">心得</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHILOSOPHY ===== -->
+<div class="sec" id="sec-phi">
+  <div class="vp">
+    <div class="vbg"></div>
+    <div class="vov" style="background:rgba(10,14,20,.88)"></div>
+    <div class="sfade" id="sf-phi"></div>
+    <div class="vcatch" style="max-width:900px">
+      <p class="vlbl">心得</p>
+      <h2 class="vh" style="font-size:clamp(22px,3.5vw,52px);line-height:1.7">お客様との時間が、<br><span class="em">すべての原点。</span></h2>
+    </div>
+  </div>
+  <div class="tp">
+    <div class="ti">
+      <span class="tlbl">心得</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>一皿一皿に向き合う誠実さと、お客様を迎えることへの敬意。その両方が重なり合う場所に、えんやどっと丸がある。</p>
+        <p>食材の美しさを引き出す技術も、空間を心地よく整えることも、すべてはお客様との時間のために。料理と、サービスと、場所が一体となったとき、ほんとうの「おもてなし」が生まれる。</p>
+        <p style="margin-top:1.6em;font-family:var(--cg);font-style:italic;font-size:14px;color:rgba(13,11,8,.38);line-height:2">— 料理長 青木 優介</p>
+      </div>
+      <button class="tnext" data-to="menu">献立</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MENU ===== -->
+<div class="sec" id="sec-menu">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-menu"></div>
+    <div class="vcatch">
+      <p class="vlbl">献立</p>
+      <h2 class="vh">この海の恵みを、<br><span class="em">一皿に込めて。</span></h2>
+    </div>
+  </div>
+  <div class="tp" style="align-items:flex-start">
+    <div class="ti wide">
+      <span class="tlbl">献立</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>大洗港に揚がった鮮魚を、職人の目利きで選び、その日だけの献立で表現します。</p>
+      </div>
+      <div class="textra">
+        <div class="mgrid">
+          <div class="mc">
+            <div class="mc-slider" data-name="御膳" data-desc="焼き魚・天ぷら・小鉢を添えた丁寧な仕立ての御膳。大洗の恵みをひと膳に。" data-priceex="" data-pricein="">
+              <div class="mc-slides">
+                <div class="mc-slide active"><img src="20241031.png" alt="福寿膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2016.png" alt="福寿膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2022.png" alt="椿寿膳"></div>
+                <div class="mc-slide"><img src="20251205_094958000_iOS_5.png" alt="椿寿膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2023.png" alt="万寿膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2025.png" alt="好々膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2029.png" alt="煮魚膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2031.png" alt="お子様膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2033.png" alt="御膳"></div>
+                <div class="mc-slide"><img src="20241031%20-%2037.png" alt="御膳"></div>
+              </div>
+              <div class="mc-slider-dots"></div>
+            </div>
+            <div class="mc-body">
+              <p class="mc-cat">御膳</p>
+              <p class="mc-desc">焼き魚・天ぷら・小鉢を添えた丁寧な仕立ての御膳。大洗の恵みをひと膳に。</p>
+            </div>
+          </div>
+          <div class="mc">
+            <div class="mc-slider" data-name="丼" data-desc="大洗港直送の鮮魚や海の幸をたっぷりのせた、食べ応えのある一杯。" data-priceex="" data-pricein="">
+              <div class="mc-slides">
+                <div class="mc-slide active"><img src="20251205_094958000_iOS_12.png" alt="ほげほげ丼"></div>
+                <div class="mc-slide"><img src="20251205_094958000_iOS_3.png" alt="バラチラシ鮨"></div>
+                <div class="mc-slide"><img src="20251205_094958000_iOS_6.png" alt="地魚丼"></div>
+                <div class="mc-slide"><img src="20251205_094958000_iOS_7.jpg" alt="まぐろ丼"></div>
+                <div class="mc-slide"><img src="20251205_094958000_iOS_11.jpg" alt="三色海鮮丼"></div>
+                <div class="mc-slide"><img src="20251205_094958000_iOS_2.jpg" alt="海老天丼"></div>
+              </div>
+              <div class="mc-slider-dots"></div>
+            </div>
+            <div class="mc-body">
+              <p class="mc-cat">丼</p>
+              <p class="mc-desc">大洗港直送の鮮魚や海の幸をたっぷりのせた、食べ応えのある一杯。</p>
+            </div>
+          </div>
+          <div class="mc">
+            <div class="mc-slider" data-name="一品" data-desc="旬の食材をシンプルに、丁寧に。その日の仕入れによる一品料理。" data-priceex="" data-pricein="">
+              <div class="mc-slides">
+                <div class="mc-slide mc-slide-empty active"><span>写真準備中</span></div>
+              </div>
+              <div class="mc-slider-dots"></div>
+            </div>
+            <div class="mc-body">
+              <p class="mc-cat">一品</p>
+              <p class="mc-desc">旬の食材をシンプルに、丁寧に。その日の仕入れによる一品料理。</p>
+            </div>
+          </div>
+          <div class="mc">
+            <div class="mc-slider" data-name="お飲物" data-desc="茨城の地酒・ビール・ソフトドリンクなど、料理に合わせてお選びください。" data-priceex="" data-pricein="">
+              <div class="mc-slides">
+                <div class="mc-slide mc-slide-empty active"><span>写真準備中</span></div>
+              </div>
+              <div class="mc-slider-dots"></div>
+            </div>
+            <div class="mc-body">
+              <p class="mc-cat">お飲物</p>
+              <p class="mc-desc">茨城の地酒・ビール・ソフトドリンクなど、料理に合わせてお選びください。</p>
+            </div>
+          </div>
+        </div>
+        <p class="menu-note">※ 献立は仕入れにより変わります　　写真をタップで拡大表示</p>
+      </div>
+      <button class="tnext" data-to="chef">料理人</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHEF ===== -->
+<div class="sec" id="sec-chef">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-chef"></div>
+    <div class="vcatch">
+      <p class="vlbl">料理人</p>
+      <h2 class="vh">灯台の下で、<br>この店に<span class="em">この人あり。</span></h2>
+    </div>
+  </div>
+  <div class="tp">
+    <div class="ti">
+      <span class="tlbl">料理人</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>茨城・水戸出身。父の影響で飲食の世界へ進み、真面目な仕事ぶりと明るい人柄で、本人が目指す本質的なサービスを体現してきた。</p>
+        <p>旬の食材を活かした料理と、心のこもったサービス。どちらも欠かすことのできない、えんやどっと丸の二本柱。大洗の恵みをどう皿に表現するか、その問いと日々向き合い続けている。</p>
+      </div>
+      <div class="textra">
+        <div class="chef-sig">
+          <span class="chef-sig-role">料理人</span>
+          <span class="chef-sig-name">青木 優介</span>
+          <span class="chef-sig-sub">Yusuke Aoki · 茨城・水戸出身</span>
+        </div>
+      </div>
+      <button class="tnext" data-to="fac">店内</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FACILITY ===== -->
+<div class="sec" id="sec-fac">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-fac"></div>
+    <div class="vcatch">
+      <p class="vlbl">店内案内</p>
+      <h2 class="vh">それぞれの時間に<br>寄り添う、<br><span class="em">静かな席。</span></h2>
+    </div>
+  </div>
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">店内案内</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>一枚板のカウンター、個室、お座敷席。それぞれ異なる表情を持つ空間で、非日常のひとときをお楽しみください。</p>
+      </div>
+      <div class="textra">
+        <div class="seats">
+          <div class="seat">
+            <p class="seat-en">Counter</p>
+            <p class="seat-jp">カウンター席</p>
+            <p class="seat-body">職人の仕事を間近に感じながら、静かに料理と向き合う特等席。</p>
+          </div>
+          <div class="seat">
+            <p class="seat-en">Tatami</p>
+            <p class="seat-jp">お座敷席</p>
+            <p class="seat-body">ゆったりとくつろげる和の空間。ご家族やご友人との大切な時間に。</p>
+          </div>
+          <div class="seat">
+            <p class="seat-en">Private</p>
+            <p class="seat-jp">個室</p>
+            <p class="seat-body">丸窓が印象的な個室。記念日や接待など、特別なシーンに。</p>
+          </div>
+        </div>
+        <div class="fac-photos">
+          <div class="fac-photo" onclick="lbImages=[{src:'IMG_5254.jpeg',cap:'カウンター席'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_5254.jpeg" alt="カウンター席"><span>カウンター席</span></div>
+          <div class="fac-photo" onclick="lbImages=[{src:'IMG_2765.jpeg',cap:'テーブル席'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_2765.jpeg" alt="テーブル席"><span>テーブル席</span></div>
+          <div class="fac-photo" onclick="lbImages=[{src:'IMG_5250.jpeg',cap:'お座敷席'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_5250.jpeg" alt="お座敷席"><span>お座敷席</span></div>
+          <div class="fac-photo" onclick="lbImages=[{src:'IMG_5253.jpeg',cap:'個室'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_5253.jpeg" alt="個室"><span>個室</span></div>
+        </div>
+        <div class="ftags">
+          <span class="ftag">個室あり</span>
+          <span class="ftag">カウンター席</span>
+          <span class="ftag">お座敷席</span>
+          <span class="ftag">駐車場完備</span>
+          <span class="ftag">接待・記念日</span>
+          <span class="ftag">お子様連れ歓迎</span>
+        </div>
+      </div>
+      <button class="tnext" data-to="rsv">ご予約</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESERVATION ===== -->
+<div class="sec" id="sec-rsv">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-rsv"></div>
+    <div class="vcatch">
+      <p class="vlbl">ご予約</p>
+      <h2 class="vh">ご予約は<br><span class="em">こちらからどうぞ。</span></h2>
+    </div>
+  </div>
+  <div class="tp">
+    <div class="ti">
+      <span class="tlbl">ご予約</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>ご予約はトレタよりお気軽にどうぞ。当日のご予約はお電話にてお承りします。</p>
+        <p>お電話 <a href="tel:0292672278" style="color:var(--gold)">029-267-2278</a></p>
+      </div>
+      <div class="textra">
+        <div class="rsv-times">
+          <div class="rt-block">
+            <span class="rt-lbl">Lunch</span>
+            <span class="rt-time">11:00 — 14:00</span>
+          </div>
+          <div class="rt-block">
+            <span class="rt-lbl">Dinner</span>
+            <span class="rt-time">17:30 — 20:30</span>
+          </div>
+          <div class="rt-block">
+            <span class="rt-lbl">Closed</span>
+            <span class="rt-time">毎週木曜</span>
+            <span class="rt-note">水曜はランチのみ</span>
+          </div>
+        </div>
+        <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" class="rsv-btn">予約する → Toreta</a>
+      </div>
+      <button class="tnext" data-to="ec">通販</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EC SHOP ===== -->
+<div class="sec" id="sec-ec">
+  <div class="tp" style="padding-top:120px">
+    <div class="ti wide">
+      <span class="tlbl">通販</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>大洗港直送の海の幸を、全国へお届けします。えんやどっと丸が厳選した旬の品を産地直送で。</p>
+        <p>冬はあんこう鍋セット・金目鯛の煮付けセット。夏は岩牡蠣・お造りセット。年間通してたこの商品もご用意しています。贈りものにも、日々の食卓にも。</p>
+      </div>
+      <div class="textra">
+        <div class="ec-grid">
+          <div class="ec-item" onclick="lbImages=[{src:'IMG_1646.jpeg',cap:'煮付け'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_1646.jpeg" alt="お料理"></div>
+          <div class="ec-item" onclick="lbImages=[{src:'IMG_0724.jpeg',cap:'お弁当'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_0724.jpeg" alt="お弁当"></div>
+          <div class="ec-item" onclick="lbImages=[{src:'IMG_0752.jpeg',cap:'海鮮鍋'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_0752.jpeg" alt="海鮮鍋"></div>
+          <div class="ec-item" onclick="lbImages=[{src:'IMG_0781.jpeg',cap:'お造り'}];lbIdx=0;lbShow();document.getElementById('lb').classList.add('open')"><img src="IMG_0781.jpeg" alt="お造り"></div>
+        </div>
+        <a href="https://www.enya-otd.com/story-based-ec/" target="_blank" class="ec-link">オンラインショップへ</a>
+      </div>
+      <button class="tnext" data-to="access">道案内</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACCESS ===== -->
+<div class="sec" id="sec-access">
+  <div class="vp">
+    <div class="vbg"></div><div class="vov"></div>
+    <div class="sfade" id="sf-access"></div>
+    <div class="vcatch">
+      <p class="vlbl">道案内</p>
+      <h2 class="vh">初めての方も安心。<br><span class="em">お店までのご案内。</span></h2>
+    </div>
+  </div>
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">道案内</span>
+      <div class="trule"></div>
+      <div class="textra">
+        <div class="agrid">
+          <dl class="adl">
+            <div><dt>Shop</dt><dd>えんやどっと丸</dd></div>
+            <div><dt>Address</dt><dd>〒311-1305<br>茨城県東茨城郡大洗町港中央9-4</dd></div>
+            <div><dt>Tel</dt><dd><a href="tel:0292672278">029-267-2278</a></dd></div>
+            <div><dt>Hours</dt><dd>ランチ 11:00 〜 14:00<br>ディナー 17:30 〜 20:30</dd></div>
+            <div><dt>Closed</dt><dd>毎週木曜日<br>水曜日はランチのみ</dd></div>
+            <div><dt>Parking</dt><dd>あり</dd></div>
+            <div><dt>Payment</dt><dd>クレジット各種<br>QRコード決済<br>電子マネー各種</dd></div>
+          </dl>
+          <div class="map-wrap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3222.5!2d140.5672917!3d36.3079861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60220b2f3e2b4f8b%3AChIJZemg8joxImARYcOGSTbuuJ8!2z44GE44KT44KE44Gp44Gj44GO44Go44G_!5e0!3m2!1sja!2sjp!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="えんやどっと丸 地図"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sfooter">
+    <div class="sfooter-links">
+      <a href="https://epwds0626-oss.github.io/pasta-marco/" target="_blank">パスタのマルコ</a>
+      <a href="https://epwds0626-oss.github.io/fish-hack/" target="_blank">Fish Hack</a>
+      <a href="https://epwds0626-oss.github.io/onetable-design/" target="_blank">One Table Design</a>
+    </div>
+    <span class="sfooter-c">© 2025 えんやどっと丸 / One Table Design</span>
+  </div>
+</div>
+
+<button class="lb-nav" id="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+<div id="lb" onclick="if(event.target===this)closeLb()">
+  <div id="lb-inner">
+    <button id="lb-close" onclick="closeLb()">✕</button>
+    <img id="lb-img" src="" alt="">
+    <div id="lb-foot">
+      <span id="lb-cap"></span>
+      <span id="lb-counter"></span>
+    </div>
+  </div>
+</div>
+<button class="lb-nav" id="lb-next" onclick="lbNav(1)">&#8250;</button>
+
+<script>
+// LIGHTBOX
+let lbImages=[], lbIdx=0, lbTouchX=null;
+
+function openLb(name, desc, img, priceEx, priceIn){
+  // スライダーから全画像を収集
+  const sl = event && event.currentTarget && event.currentTarget.closest ? event.currentTarget.closest('.mc-slider') : null;
+  if(sl){
+    lbImages = Array.from(sl.querySelectorAll('.mc-slide img')).map(i=>({src:i.src,cap:name}));
+    lbIdx = sliderCur(sl);
+  } else {
+    lbImages = [{src:img||'', cap:name||''}];
+    lbIdx = 0;
+  }
+  lbShow();
+  document.getElementById('lb').classList.add('open');
+}
+function lbShow(){
+  const item = lbImages[lbIdx];
+  document.getElementById('lb-img').src = item ? item.src : '';
+  document.getElementById('lb-cap').textContent = item ? item.cap : '';
+  document.getElementById('lb-counter').textContent = lbImages.length>1 ? (lbIdx+1)+' / '+lbImages.length : '';
+  document.getElementById('lb-prev').disabled = (lbIdx===0);
+  document.getElementById('lb-next').disabled = (lbIdx===lbImages.length-1);
+}
+function lbNav(dir){
+  lbIdx = Math.max(0, Math.min(lbImages.length-1, lbIdx+dir));
+  lbShow();
+}
+function closeLb(){
+  document.getElementById('lb').classList.remove('open');
+  lbImages=[]; lbIdx=0;
+}
+// キーボード・スワイプ
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowRight')lbNav(1);
+  if(e.key==='ArrowLeft')lbNav(-1);
+});
+document.getElementById('lb').addEventListener('touchstart',e=>{lbTouchX=e.touches[0].clientX;},{passive:true});
+document.getElementById('lb').addEventListener('touchend',e=>{
+  if(lbTouchX===null)return;
+  const dx=lbTouchX-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>50)lbNav(dx>0?1:-1);
+  lbTouchX=null;
+},{passive:true});
+
+// MENU SLIDER INIT
+function initSliders(){
+  document.querySelectorAll('.mc-slider').forEach(sl=>{
+    if(sl.dataset.inited)return;
+    sl.dataset.inited='1';
+    const slides=sl.querySelectorAll('.mc-slide');
+    // dots & arrows（2枚以上の時のみ）
+    if(slides.length>1){
+      const dotsWrap=sl.querySelector('.mc-slider-dots');
+      slides.forEach((_,i)=>{
+        const d=document.createElement('button');
+        d.className='mc-sdot'+(i===0?' on':'');
+        d.addEventListener('click',e=>{e.stopPropagation();sliderGo(sl,i);});
+        dotsWrap.appendChild(d);
+      });
+      const l=document.createElement('button');l.className='mc-sarr mc-sarr-l';l.innerHTML='&#8249;';
+      const r=document.createElement('button');r.className='mc-sarr mc-sarr-r';r.innerHTML='&#8250;';
+      l.addEventListener('click',e=>{e.stopPropagation();const c=sliderCur(sl);sliderGo(sl,Math.max(0,c-1));});
+      r.addEventListener('click',e=>{e.stopPropagation();const c=sliderCur(sl);sliderGo(sl,Math.min(slides.length-1,c+1));});
+      sl.appendChild(l);sl.appendChild(r);
+    }
+    // click to open lightbox
+    sl.addEventListener('click',function(e){
+      if(e.target.closest('.mc-sarr')||e.target.closest('.mc-sdot'))return;
+      const allSlides=Array.from(sl.querySelectorAll('.mc-slide'));
+      const name=sl.dataset.name||'';
+      const imgs=allSlides.map(s=>{const img=s.querySelector('img');return img?{src:img.src,cap:name}:null;}).filter(Boolean);
+      if(!imgs.length)return;
+      const idx=sliderCur(sl);
+      lbImages=imgs;
+      lbIdx=Math.min(idx,imgs.length-1);
+      lbShow();
+      document.getElementById('lb').classList.add('open');
+    });
+  });
+}
+function sliderCur(sl){
+  const dots=sl.querySelectorAll('.mc-sdot');
+  for(let i=0;i<dots.length;i++){if(dots[i].classList.contains('on'))return i;}
+  // dotsがない場合はactiveスライドのindexを返す
+  const slides=Array.from(sl.querySelectorAll('.mc-slide'));
+  return Math.max(0,slides.findIndex(s=>s.classList.contains('active')));
+}
+function sliderGo(sl,idx){
+  const slides=sl.querySelectorAll('.mc-slide');
+  const dots=sl.querySelectorAll('.mc-sdot');
+  sl.querySelector('.mc-slides').style.transform='translateX(-'+idx+'00%)';
+  slides.forEach((s,i)=>s.classList.toggle('active',i===idx));
+  dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+}
+document.addEventListener('DOMContentLoaded',initSliders);
+
+const SECS=['home','concept','history','phi','menu','chef','fac','rsv','ec','access'];
+let cur='home',busy=false;
+const isMob=()=>window.innerWidth<=900;
+
+/* CURSOR */
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+document.addEventListener('mousemove',e=>{
+  cd.style.left=e.clientX+'px';cd.style.top=e.clientY+'px';
+  cr.style.left=e.clientX+'px';cr.style.top=e.clientY+'px';
+});
+document.querySelectorAll('a,button,.dot,.ftag').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cd.style.width='12px';cd.style.height='12px';cr.style.opacity='.2';cr.style.width='56px';cr.style.height='56px'});
+  el.addEventListener('mouseleave',()=>{cd.style.width='6px';cd.style.height='6px';cr.style.opacity='1';cr.style.width='36px';cr.style.height='36px'});
+});
+
+/* SECTION SWITCH */
+function goTo(id){
+  if(id===cur||busy)return;busy=true;
+  const from=document.getElementById('sec-'+cur);
+  const to=document.getElementById('sec-'+id);
+  from.style.animation='secOut .5s cubic-bezier(.76,0,.24,1) forwards';
+  setTimeout(()=>{
+    from.classList.remove('active');from.style.animation='';
+    from.scrollTop=0;delete from.dataset.revealed;
+    to.classList.add('active');to.style.animation='secIn .8s cubic-bezier(.16,1,.3,1) forwards';
+    to.scrollTop=0;
+    const toTp=to.querySelector('.tp');
+    if(toTp){
+      toTp.classList.remove('revealed');
+      toTp.querySelectorAll('.ch').forEach(c=>c.classList.remove('in'));
+      toTp.querySelectorAll('.bl').forEach(b=>b.classList.remove('in'));
+    }
+    delete to.dataset.revealed;
+    const sf=document.getElementById('sf-'+id);if(sf)sf.style.opacity=0;
+    if(isMob()&&toTp){
+      setTimeout(()=>{to.dataset.revealed='1';toTp.classList.add('revealed');revealSection(to);},400);
+    }
+    // ec は即表示
+    if(id==='ec'&&toTp){
+      setTimeout(()=>{to.dataset.revealed='1';toTp.classList.add('revealed');revealSection(to);},500);
+    }
+    // ビジュアルアニメリセット
+    setTimeout(()=>{
+      to.querySelectorAll('.vlbl,.vh,.vsub,.vinfo,.shint').forEach(el=>{
+        el.style.animation='none';el.style.opacity='0';void el.offsetHeight;el.style.animation='';
+      });
+    },50);
+    setTimeout(()=>{to.style.animation='';busy=false;},900);
+  },460);
+  cur=id;updateUI();
+}
+
+function updateUI(){
+  document.querySelectorAll('.dot').forEach(d=>d.classList.toggle('on',d.dataset.to===cur));
+  updateMnav();
+}
+
+/* TEXT SPLIT — tlbl・tbody p は文字単位、それ以外は塊 */
+function splitChars(el){
+  if(el.dataset.split)return;
+  const txt=el.textContent||'';
+  if(!txt.trim())return;
+  el.dataset.split='1';
+  el.innerHTML='';
+  txt.split('').forEach(ch=>{
+    const s=document.createElement('span');
+    s.className='ch';
+    s.textContent=(ch===' '||ch==='\u00a0')?'\u00a0':ch;
+    el.appendChild(s);
+  });
+}
+function prepBlock(el){if(el.dataset.split)return;el.dataset.split='1';el.classList.add('bl');}
+function prepSection(sec){
+  const tp=sec.querySelector('.tp');
+  if(!tp||tp.dataset.prepped)return;
+  tp.dataset.prepped='1';
+  tp.querySelectorAll('.tlbl').forEach(el=>splitChars(el));
+  tp.querySelectorAll('.tbody p').forEach(el=>{
+    if(!el.closest('.mc')&&!el.closest('.rform'))splitChars(el);
+  });
+  tp.querySelectorAll('.trule,.textra,.tnext').forEach(el=>prepBlock(el));
+}
+function revealSection(sec){
+  const tp=sec.querySelector('.tp');if(!tp)return;
+  let t=0;const step=36,bstep=160;
+  tp.querySelectorAll('.tlbl .ch').forEach(c=>{setTimeout(()=>c.classList.add('in'),t);t+=step;});
+  t+=100;
+  const rule=tp.querySelector('.trule');
+  if(rule){setTimeout(()=>rule.classList.add('in'),t);t+=bstep;}
+  tp.querySelectorAll('.tbody p').forEach(p=>{
+    p.querySelectorAll('.ch').forEach(c=>{setTimeout(()=>c.classList.add('in'),t);t+=step*.8;});
+    t+=180;
+  });
+  const extra=tp.querySelector('.textra');
+  if(extra){setTimeout(()=>extra.classList.add('in'),t);t+=bstep;}
+  const next=tp.querySelector('.tnext');
+  if(next){setTimeout(()=>next.classList.add('in'),t);}
+}
+
+/* SCROLL → REVEAL */
+function setupScroll(id){
+  const sec=document.getElementById('sec-'+id);
+  const sf=document.getElementById('sf-'+id);
+  const tp=sec?sec.querySelector('.tp'):null;
+  if(!sec)return;
+  prepSection(sec);
+  // ec は即表示
+  if(id==='ec'){
+    sec.dataset.revealed='1';
+    if(tp){tp.classList.add('revealed');revealSection(sec);}
+    return;
+  }
+  if(isMob()&&tp&&!sec.dataset.revealed){
+    sec.dataset.revealed='1';tp.classList.add('revealed');revealSection(sec);
+  }
+  sec.addEventListener('scroll',()=>{
+    if(isMob())return;
+    const sy=sec.scrollTop,vh=window.innerHeight;
+    const fp=Math.min(sy/(vh*.6),1);
+    if(sf)sf.style.opacity=fp;
+    if(fp>=.95&&!sec.dataset.revealed&&tp){
+      sec.dataset.revealed='1';tp.classList.add('revealed');revealSection(sec);updateMnav();
+    }
+  },{passive:true});
+}
+SECS.forEach(setupScroll);
+
+/* CLICK */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-to]');if(!el)return;
+  e.preventDefault();goTo(el.dataset.to);closeDrawer();
+});
+
+/* KEYBOARD */
+document.addEventListener('keydown',e=>{
+  if(busy)return;
+  const i=SECS.indexOf(cur);
+  if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();goTo(SECS[Math.min(i+1,SECS.length-1)]);}
+  if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();goTo(SECS[Math.max(i-1,0)]);}
+});
+
+/* MNAV */
+const mnav=document.getElementById('mnav'),mprev=document.getElementById('mprev'),mnext=document.getElementById('mnext'),mcnt=document.getElementById('mcnt');
+function updateMnav(){
+  const i=SECS.indexOf(cur);
+  mcnt.textContent=(i+1)+' / '+SECS.length;
+  mprev.disabled=(i===0);mnext.disabled=(i===SECS.length-1);
+  const sec=document.getElementById('sec-'+cur);
+  mnav.classList.toggle('light',!!(sec&&sec.dataset.revealed==='1'));
+}
+mprev.addEventListener('click',()=>{const i=SECS.indexOf(cur);if(i>0)goTo(SECS[i-1]);});
+mnext.addEventListener('click',()=>{const i=SECS.indexOf(cur);if(i<SECS.length-1)goTo(SECS[i+1]);});
+window.addEventListener('resize',updateMnav);
+updateMnav();
+
+/* DRAWER */
+const hamb=document.getElementById('hamb'),drawer=document.getElementById('drawer'),dmask=document.getElementById('dmask');
+function closeDrawer(){drawer.classList.remove('open');dmask.classList.remove('open');hamb.classList.remove('open');}
+hamb.addEventListener('click',()=>{const o=drawer.classList.toggle('open');dmask.classList.toggle('open',o);hamb.classList.toggle('open',o);});
+dmask.addEventListener('click',closeDrawer);
+</script>
+</body>
+</html>
