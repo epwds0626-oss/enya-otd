@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ja" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>えんやどっと丸 | 海鮮和食・大洗港</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&family=Shippori+Mincho+B1:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cg:'Cormorant Garamond',serif;
+  --ns:'Noto Serif JP',serif;
+  --sm:'Shippori Mincho B1',serif;
+  --w:#fff;--w55:rgba(255,255,255,.55);--w30:rgba(255,255,255,.30);--w06:rgba(255,255,255,.06);
+  --ink:#111009;--off:#f5f1ea;--cream:#e8e2d6;
+  --sea:#0c1018;--sea2:#131b24;--sea3:#1a2535;
+  --gold:#9a7d4e;--goldlt:#c4a96a;--golddim:rgba(154,125,78,.18);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);overflow:hidden;cursor:none;width:100%;height:100vh}
+@media(max-width:900px){body{cursor:auto;overflow:hidden}}
+
+/* CURSOR */
+#cd,#cr{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cd{width:6px;height:6px;background:#fff;mix-blend-mode:difference;transition:width .2s,height .2s}
+#cr{width:36px;height:36px;border:1px solid rgba(255,255,255,.28);transition:left .13s cubic-bezier(.23,1,.32,1),top .13s cubic-bezier(.23,1,.32,1),width .3s,height .3s}
+@media(max-width:900px){#cd,#cr{display:none}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;justify-content:space-between;align-items:center;padding:22px 52px;background:rgba(12,16,24,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--w06);transition:padding .3s}
+.nav-logo{display:flex;align-items:center;text-decoration:none;height:48px}
+.nav-logo img{height:42px;width:auto;filter:invert(1);opacity:.88;max-width:180px}
+.nav-logo-fb{font-family:var(--sm);font-size:18px;color:var(--w);letter-spacing:.2em;display:none}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-family:var(--cg);font-size:13px;font-weight:300;letter-spacing:.28em;color:var(--w55);text-decoration:none;transition:color .2s,letter-spacing .25s}
+.nav-links a:hover{color:var(--w);letter-spacing:.38em}
+.nav-rsv{color:var(--w)!important;background:var(--gold);border:1px solid var(--gold);padding:10px 26px;letter-spacing:.3em!important;font-weight:300!important;transition:background .2s,border-color .2s!important}
+.nav-rsv:hover{background:var(--goldlt)!important;border-color:var(--goldlt)!important;letter-spacing:.3em!important}
+.hamb{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px}
+.hamb span{display:block;width:22px;height:1px;background:#fff;transition:all .3s}
+.hamb.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hamb.open span:nth-child(2){opacity:0}
+.hamb.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.dmask{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:590;opacity:0;pointer-events:none;transition:opacity .35s}
+.dmask.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:-100%;width:min(300px,80vw);height:100dvh;background:var(--sea2);z-index:595;display:flex;flex-direction:column;justify-content:center;padding:0 44px;transition:right .55s cubic-bezier(.76,0,.24,1)}
+.drawer.open{right:0}
+.drawer a{font-family:var(--sm);font-size:14px;letter-spacing:.25em;color:var(--w55);text-decoration:none;padding:20px 0;border-bottom:1px solid var(--w06);transition:color .2s}
+.drawer a:hover{color:var(--w)}
+.drawer .da-rsv{color:var(--goldlt)!important}
+
+/* DOTS */
+.dots{position:fixed;right:26px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px;z-index:500}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);cursor:none;transition:background .3s,transform .3s;position:relative}
+.dot.on{background:var(--gold);transform:scale(1.7)}
+.dot-tip{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:var(--sm);font-size:10px;letter-spacing:.2em;color:var(--w55);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+.dot:hover .dot-tip,.dot.on .dot-tip{opacity:1}
+@media(max-width:900px){.dots{display:none}}
+
+/* SECTION BASE */
+.sec{position:fixed;inset:0;display:none;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:transparent}
+.sec.active{display:flex}
+
+/* VISUAL PANEL */
+.vp{position:relative;width:100%;height:100vh;height:100dvh;flex-shrink:0;overflow:hidden;background:var(--sea)}
+/* VISUAL BG */
+.vbg{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform;transform-origin:center center}
+.vbg{will-change:transform}
+.sec.active .vbg{transform:scale(1)}
+.vov{position:absolute;inset:0;background:linear-gradient(160deg,rgba(8,12,18,.85) 0%,rgba(8,12,18,.40) 55%,rgba(8,12,18,.78) 100%)}
+.vcatch{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:110px 60px 80px;max-width:800px}
+.vlbl{font-family:var(--cg);font-size:12px;font-weight:300;letter-spacing:.6em;color:rgba(255,255,255,.45);margin-bottom:24px;opacity:0;animation:riLeft 1s .2s cubic-bezier(.16,1,.3,1) forwards}
+.vh{font-family:var(--sm);font-weight:400;font-size:clamp(32px,4.8vw,68px);line-height:1.55;letter-spacing:.08em;color:var(--w);margin-bottom:28px;opacity:0;animation:riLeft 1.2s .38s cubic-bezier(.16,1,.3,1) forwards}
+.vh em{font-style:normal;color:var(--goldlt)}
+.vsub{font-family:var(--ns);font-size:14px;line-height:2.4;color:var(--w55);max-width:380px;opacity:0;animation:riLeft 1s .62s cubic-bezier(.16,1,.3,1) forwards}
+.vinfo{position:absolute;bottom:36px;right:56px;z-index:2;text-align:right;opacity:0;animation:riUp .9s 1.2s forwards}
+.vinfo dt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:var(--w30);margin-bottom:4px}
+.vinfo dd{font-family:var(--cg);font-size:13px;font-weight:300;color:var(--w55);letter-spacing:.08em;line-height:1.9}
+.shint{position:absolute;bottom:36px;left:60px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:riUp .8s 1.4s forwards}
+.shint-line{width:1px;height:48px;background:rgba(255,255,255,.2);position:relative;overflow:hidden}
+.shint-line::after{content:'';position:absolute;top:-100%;left:0;width:1px;height:100%;background:rgba(255,255,255,.65);animation:scanLine 2.2s 2.5s ease-in-out infinite}
+.shint-txt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:rgba(255,255,255,.22);writing-mode:vertical-rl}
+.sfade{position:absolute;bottom:0;left:0;right:0;height:70vh;background:linear-gradient(to bottom,transparent 0%,var(--off) 100%);pointer-events:none;opacity:0;z-index:2}
+
+/* TEXT PANEL */
+.tp{position:relative;width:100%;min-height:100vh;min-height:100dvh;background:var(--off);display:flex;align-items:center;justify-content:center;padding:100px 60px 120px;visibility:hidden}
+.tp.revealed{visibility:visible}
+.ti{max-width:680px;width:100%}
+.ti.wide{max-width:860px}
+.tlbl{font-family:var(--cg);font-size:15px;font-weight:300;letter-spacing:.55em;color:rgba(17,16,9,.45);display:block;margin-bottom:32px}
+.trule{width:40px;height:1px;background:var(--gold);opacity:.5;margin-bottom:36px}
+.th{font-family:var(--sm);font-weight:400;font-size:clamp(24px,3.4vw,44px);line-height:1.65;letter-spacing:.08em;color:var(--ink);margin-bottom:32px}
+.tbody{font-size:15px;line-height:2.6;color:rgba(17,16,9,.68)}
+.tbody p+p{margin-top:1.6em}
+.textra{margin-top:44px}
+.tnext{margin-top:64px;display:inline-flex;align-items:center;gap:14px;font-family:var(--cg);font-size:12px;font-weight:300;letter-spacing:.4em;color:rgba(17,16,9,.35);background:none;border:none;padding:0;cursor:none;transition:color .2s}
+.tnext:hover{color:var(--gold)}
+.tnext::after{content:'';display:block;width:40px;height:1px;background:currentColor;transition:width .3s}
+.tnext:hover::after{width:60px}
+@media(max-width:900px){.tnext{display:none}}
+
+/* ANIMATE */
+.ch{display:inline-block;opacity:0;transform:translateX(-22px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1)}
+.ch.in{opacity:1;transform:none}
+.bl{opacity:0;transform:translateX(-28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.bl.in{opacity:1;transform:none}
+
+/* 想いvpの見出しサイズ調整 */
+#sec-home .vp:nth-child(3) .vh{font-size:clamp(28px,3.8vw,54px)}
+.tp-inner{height:auto!important;min-height:auto!important;padding:80px 60px 100px!important;overflow:visible!important;visibility:visible!important;opacity:1!important}
+@media(max-width:900px){.tp-inner{padding:40px 20px 80px!important}}
+
+/* BG IMAGES */
+#sec-home .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_2825.jpeg');background-position:center 50%}
+#sec-menu .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5859.jpeg');background-position:center 40%}
+#sec-fac  .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_2302.jpeg');background-position:center 40%}
+#sec-ec   .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_1290.jpeg');background-position:center 50%}
+#sec-access .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/FD9E946E-4ACA-4A11-9C55-7682C059C3DA.jpeg');background-position:center 50%}
+#sec-en   .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/staff.jpg');background-position:center 30%}
+#sec-hito .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5861.jpeg');background-position:center 25%}
+
+/* 人セクション */
+#sec-hito .vp{background:var(--sea)}
+.hito-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(17,16,9,.1);margin-top:8px}
+.hito-card{display:flex;flex-direction:column;border-right:1px solid rgba(17,16,9,.1)}
+.hito-card:last-child{border-right:none}
+.hito-card-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .4s;opacity:.92}
+.hito-card:hover .hito-card-photo{transform:scale(1.03);opacity:1}
+.hito-card-body{padding:28px 24px 32px;flex:1;display:flex;flex-direction:column;background:var(--off)}
+.hito-role{font-family:var(--cg);font-style:italic;font-size:11px;letter-spacing:.45em;color:var(--gold);margin-bottom:8px}
+.hito-name{font-family:var(--sm);font-size:20px;font-weight:400;letter-spacing:.12em;color:var(--ink);margin-bottom:4px}
+.hito-name-en{font-family:var(--cg);font-size:12px;letter-spacing:.3em;color:rgba(17,16,9,.3);margin-bottom:16px}
+.hito-origin{font-family:var(--cg);font-size:10px;letter-spacing:.4em;color:rgba(17,16,9,.35);margin-bottom:16px;border-left:2px solid var(--gold);padding-left:10px}
+.hito-desc{font-size:12px;line-height:2.2;color:rgba(17,16,9,.6);flex:1}
+.hito-quote{margin-top:18px;padding:14px 16px;border-left:2px solid rgba(154,125,78,.3);background:rgba(154,125,78,.05)}
+.hito-quote p{font-family:var(--sm);font-size:12px;line-height:2.1;color:rgba(17,16,9,.6)}
+.hito-quote-label{font-family:var(--cg);font-size:9px;letter-spacing:.45em;color:rgba(17,16,9,.28);margin-bottom:6px}
+@media(max-width:900px){
+  .hito-cards{grid-template-columns:1fr}
+  .hito-card{border-right:none;border-bottom:1px solid rgba(17,16,9,.1)}
+  .hito-card:last-child{border-bottom:none}
+  .hito-card-photo{aspect-ratio:4/3;object-position:center 20%}
+}
+
+/* KEN BURNS — セクションがアクティブな間ずっと動き続ける */
+@-webkit-keyframes kb1{
+  0%  {-webkit-transform:scale(1.0) translate(0%,0%);transform:scale(1.0) translate(0%,0%)}
+  50% {-webkit-transform:scale(1.12) translate(-1.5%,-1%);transform:scale(1.12) translate(-1.5%,-1%)}
+  100%{-webkit-transform:scale(1.0) translate(0%,0%);transform:scale(1.0) translate(0%,0%)}
+}
+@keyframes kb1{
+  0%  {transform:scale(1.0) translate(0%,0%)}
+  50% {transform:scale(1.12) translate(-1.5%,-1%)}
+  100%{transform:scale(1.0) translate(0%,0%)}
+}
+@-webkit-keyframes kb2{
+  0%  {-webkit-transform:scale(1.08) translate(1%,0%);transform:scale(1.08) translate(1%,0%)}
+  50% {-webkit-transform:scale(1.0) translate(-1%,1.5%);transform:scale(1.0) translate(-1%,1.5%)}
+  100%{-webkit-transform:scale(1.08) translate(1%,0%);transform:scale(1.08) translate(1%,0%)}
+}
+@keyframes kb2{
+  0%  {transform:scale(1.08) translate(1%,0%)}
+  50% {transform:scale(1.0) translate(-1%,1.5%)}
+  100%{transform:scale(1.08) translate(1%,0%)}
+}
+@-webkit-keyframes kb3{
+  0%  {-webkit-transform:scale(1.0) translate(-1%,1%);transform:scale(1.0) translate(-1%,1%)}
+  50% {-webkit-transform:scale(1.1) translate(1.5%,-0.5%);transform:scale(1.1) translate(1.5%,-0.5%)}
+  100%{-webkit-transform:scale(1.0) translate(-1%,1%);transform:scale(1.0) translate(-1%,1%)}
+}
+@keyframes kb3{
+  0%  {transform:scale(1.0) translate(-1%,1%)}
+  50% {transform:scale(1.1) translate(1.5%,-0.5%)}
+  100%{transform:scale(1.0) translate(-1%,1%)}
+}
+/* 各vbgに異なるバリエーションを割り当て */
+.sec.active .vbg{
+  -webkit-animation:kb1 22s ease-in-out infinite;
+  animation:kb1 22s ease-in-out infinite;
+  transform-origin:center center;
+  -webkit-transform-origin:center center;
+}
+#sec-home .vp:nth-child(1) .vbg{-webkit-animation-name:kb1;animation-name:kb1;-webkit-animation-duration:24s;animation-duration:24s}
+#sec-home .vp:nth-child(3) .vbg{-webkit-animation-name:kb2;animation-name:kb2;-webkit-animation-duration:20s;animation-duration:20s}
+#sec-home .vp:nth-child(5) .vbg{-webkit-animation-name:kb3;animation-name:kb3;-webkit-animation-duration:26s;animation-duration:26s}
+#sec-home .vp:nth-child(7) .vbg{-webkit-animation-name:kb1;animation-name:kb1;-webkit-animation-duration:22s;animation-duration:22s}
+#sec-menu .vbg{-webkit-animation-name:kb2;animation-name:kb2;-webkit-animation-duration:20s;animation-duration:20s}
+#sec-fac  .vbg{-webkit-animation-name:kb3;animation-name:kb3;-webkit-animation-duration:28s;animation-duration:28s}
+#sec-ec   .vbg{-webkit-animation-name:kb1;animation-name:kb1;-webkit-animation-duration:22s;animation-duration:22s}
+#sec-access .vbg{-webkit-animation-name:kb2;animation-name:kb2;-webkit-animation-duration:26s;animation-duration:26s}
+#sec-hito .vbg{-webkit-animation-name:kb1;animation-name:kb1;-webkit-animation-duration:22s;animation-duration:22s}
+#sec-en   .vbg{-webkit-animation-name:kb3;animation-name:kb3;-webkit-animation-duration:24s;animation-duration:24s}
+
+/* ===== HOME ===== */
+.home-story{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(17,16,9,.1);margin-top:48px}
+.home-story-col{padding:40px 0}
+.home-story-col+.home-story-col{padding-left:48px;border-left:1px solid rgba(17,16,9,.1)}
+.hsc-label{font-family:var(--cg);font-style:italic;font-size:12px;letter-spacing:.45em;color:var(--gold);margin-bottom:16px}
+.hsc-title{font-family:var(--sm);font-size:18px;font-weight:400;letter-spacing:.1em;color:var(--ink);margin-bottom:16px;line-height:1.7}
+.hsc-body{font-size:13px;line-height:2.4;color:rgba(17,16,9,.6)}
+
+/* HISTORY TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:8px}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:0;padding:20px 0;border-bottom:1px solid rgba(17,16,9,.07)}
+.tl-item:first-child{border-top:1px solid rgba(17,16,9,.07)}
+.tl-year{font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);padding-top:3px}
+.tl-content{}
+.tl-head{font-family:var(--sm);font-size:14px;font-weight:400;letter-spacing:.06em;color:var(--ink);margin-bottom:6px}
+.tl-body{font-size:12px;line-height:2.1;color:rgba(17,16,9,.55)}
+
+/* KOTOWARI / PHI */
+.phi-quote{margin-top:36px;padding:36px 40px;border-left:3px solid var(--gold);background:rgba(154,125,78,.06)}
+.phi-quote p{font-family:var(--sm);font-size:17px;font-weight:400;line-height:2.4;letter-spacing:.08em;color:rgba(17,16,9,.75)}
+.phi-author{margin-top:14px;font-family:var(--cg);font-size:11px;letter-spacing:.45em;color:rgba(17,16,9,.35)}
+
+/* ===== MENU ===== */
+.menu-tabs{display:flex;gap:0;border-bottom:1px solid rgba(17,16,9,.12);margin-bottom:32px}
+.mtab{font-family:var(--sm);font-size:13px;letter-spacing:.2em;color:rgba(17,16,9,.4);padding:12px 24px;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;margin-bottom:-1px}
+.mtab.on{color:var(--ink);border-bottom-color:var(--gold)}
+.mtab:hover{color:var(--ink)}
+.mpanel{display:none}
+.mpanel.on{display:block}
+
+/* 画像スライダー（横長対応） */
+.menu-slider-wrap{position:relative;overflow:hidden;margin-top:8px}
+.menu-slider{display:flex;gap:8px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.menu-slide{flex:0 0 calc(50% - 4px);position:relative}
+.menu-slide img{width:100%;height:260px;object-fit:contain;object-position:center;background:rgba(17,16,9,.04);display:block;cursor:pointer;transition:opacity .3s;border:1px solid rgba(17,16,9,.07)}
+.menu-slide img:hover{opacity:.88}
+.menu-slide-lbl{font-family:var(--sm);font-size:11px;letter-spacing:.2em;color:rgba(17,16,9,.38);text-align:center;margin-top:6px}
+.menu-slider-nav{display:flex;align-items:center;gap:16px;margin-top:16px;justify-content:flex-end}
+.menu-snav{background:none;border:1px solid rgba(17,16,9,.18);padding:8px 20px;font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:rgba(17,16,9,.45);cursor:pointer;transition:all .2s}
+.menu-snav:hover{border-color:var(--gold);color:var(--gold)}
+.menu-snav:disabled{opacity:.2;pointer-events:none}
+.menu-scnt{font-family:var(--cg);font-size:11px;letter-spacing:.2em;color:rgba(17,16,9,.3)}
+@media(max-width:900px){.menu-slide{flex:0 0 calc(100% - 0px)}.menu-slide img{height:200px}}
+
+.drink-slider-wrap{overflow:hidden;position:relative;margin-top:8px}
+.drink-slider{display:flex;gap:8px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.drink-item{flex:0 0 calc(25% - 6px);text-align:center}
+.drink-item img{width:100%;aspect-ratio:3/4;object-fit:cover;opacity:.88}
+.drink-item p{font-family:var(--sm);font-size:11px;letter-spacing:.15em;color:rgba(17,16,9,.5);margin-top:6px}
+.slider-nav{display:flex;gap:12px;margin-top:16px;justify-content:flex-end}
+.snav-btn{background:none;border:1px solid rgba(17,16,9,.18);padding:8px 16px;font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:rgba(17,16,9,.45);cursor:pointer;transition:all .2s}
+.snav-btn:hover{border-color:var(--gold);color:var(--gold)}
+.menu-note{font-size:12px;color:rgba(17,16,9,.35);letter-spacing:.1em;margin-top:20px}
+@media(max-width:900px){.menu-grid{grid-template-columns:repeat(2,1fr)}.drink-item{flex:0 0 calc(50% - 4px)}}
+
+/* ===== FAC ===== */
+.fac-seats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(17,16,9,.1);margin-top:8px}
+.fac-seat{padding:28px 28px 28px 0;border-bottom:1px solid rgba(17,16,9,.1)}
+.fac-seat:nth-child(2){padding-left:28px;border-left:1px solid rgba(17,16,9,.1);border-right:1px solid rgba(17,16,9,.1)}
+.fac-seat:nth-child(3){padding-left:28px}
+.fac-en{font-family:var(--cg);font-style:italic;font-size:11px;letter-spacing:.4em;color:var(--gold);margin-bottom:8px}
+.fac-jp{font-family:var(--sm);font-size:15px;font-weight:400;color:var(--ink);margin-bottom:10px;letter-spacing:.06em}
+.fac-body{font-size:12px;line-height:2.1;color:rgba(17,16,9,.55)}
+.fac-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:36px}
+.fac-photo{width:100%;aspect-ratio:1/1;object-fit:cover;opacity:.85;cursor:pointer;transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1)}
+.fac-photo:hover{opacity:1;transform:scale(1.04)}
+.fac-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ftag{font-family:var(--cg);font-size:10px;letter-spacing:.22em;color:rgba(17,16,9,.4);border:1px solid rgba(17,16,9,.15);padding:6px 16px;transition:all .2s}
+.ftag:hover{color:var(--gold);border-color:var(--gold)}
+@media(max-width:900px){.fac-seats{grid-template-columns:1fr}.fac-seat{padding:20px 0!important;border-right:none!important;border-left:none!important}.fac-photos{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== EC ===== */
+.ec-body-text{font-size:15px;line-height:2.6;color:rgba(17,16,9,.68)}
+.ec-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:32px}
+.ec-photo{width:100%;aspect-ratio:4/3;object-fit:cover;opacity:.88;cursor:pointer;transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1)}
+.ec-photo:hover{opacity:1;transform:scale(1.02)}
+.ec-btn{display:inline-flex;align-items:center;gap:12px;margin-top:40px;padding:16px 36px;background:var(--sea);color:var(--w);font-family:var(--sm);font-size:13px;letter-spacing:.25em;text-decoration:none;transition:background .2s}
+.ec-btn:hover{background:var(--sea3)}
+.ec-btn::after{content:'→';font-family:var(--cg);font-size:16px}
+@media(max-width:900px){.ec-photos{grid-template-columns:1fr}}
+
+/* ===== ACCESS ===== */
+.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px}
+.acc-dl{display:flex;flex-direction:column;gap:18px}
+.acc-dl dt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:rgba(17,16,9,.28);margin-bottom:3px}
+.acc-dl dd{font-family:var(--sm);font-size:14px;font-weight:400;letter-spacing:.06em;color:rgba(17,16,9,.7);line-height:1.9}
+.acc-dl a{color:var(--gold)}
+.acc-map{aspect-ratio:4/3;overflow:hidden;border:1px solid rgba(17,16,9,.1)}
+.acc-map iframe{width:100%;height:100%;border:none;filter:saturate(.45) contrast(1.05)}
+.rsv-block{margin-top:48px;padding:36px 40px;background:var(--sea);display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px}
+.rsv-text h3{font-family:var(--sm);font-size:18px;font-weight:400;letter-spacing:.1em;color:var(--w);margin-bottom:8px}
+.rsv-text p{font-size:13px;line-height:2.2;color:var(--w55)}
+.rsv-btn{display:inline-block;padding:16px 36px;background:var(--gold);color:var(--w);font-family:var(--sm);font-size:13px;letter-spacing:.22em;text-decoration:none;white-space:nowrap;transition:background .2s}
+.rsv-btn:hover{background:var(--goldlt)}
+@media(max-width:900px){.acc-grid{grid-template-columns:1fr;gap:28px}.rsv-block{grid-template-columns:1fr;gap:16px}}
+
+/* ===== EN（縁）===== */
+.en-intro{font-size:15px;line-height:2.6;color:rgba(17,16,9,.68);margin-bottom:44px}
+.en-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(17,16,9,.1)}
+.en-card{display:flex;flex-direction:column;border-right:1px solid rgba(17,16,9,.1)}
+.en-card:last-child{border-right:none}
+.en-card-img{width:100%;aspect-ratio:16/9;object-fit:cover;opacity:.9;transition:opacity .4s,transform .6s cubic-bezier(.16,1,.3,1);display:block;overflow:hidden}
+.en-card:hover .en-card-img{opacity:1}
+.en-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.en-card:hover .en-card-img img{transform:scale(1.05)}
+.en-card-body{padding:28px 24px 32px;flex:1;display:flex;flex-direction:column}
+.en-card-en{font-family:var(--cg);font-style:italic;font-size:11px;letter-spacing:.45em;color:var(--gold);margin-bottom:10px}
+.en-card-name{font-family:var(--sm);font-size:16px;font-weight:400;letter-spacing:.1em;color:var(--ink);margin-bottom:12px}
+.en-card-desc{font-size:12px;line-height:2.1;color:rgba(17,16,9,.58);flex:1}
+.en-card-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--cg);font-size:11px;letter-spacing:.35em;color:rgba(17,16,9,.35);text-decoration:none;transition:color .2s}
+.en-card-link::after{content:'';display:block;width:24px;height:1px;background:currentColor;transition:width .3s}
+.en-card-link:hover{color:var(--gold)}
+.en-card-link:hover::after{width:40px}
+@media(max-width:900px){.en-cards{grid-template-columns:1fr}.en-card{border-right:none;border-bottom:1px solid rgba(17,16,9,.1)}.en-card:last-child{border-bottom:none}}
+
+/* FOOTER */
+.sfooter{background:var(--sea2);padding:22px 48px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--w06);flex-shrink:0;gap:12px}
+.sfooter a{font-family:var(--cg);font-size:11px;font-weight:300;letter-spacing:.22em;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
+.sfooter a:hover{color:rgba(255,255,255,.65)}
+.sfooter-links{display:flex;gap:24px;flex-wrap:wrap}
+.sfooter-c{font-family:var(--cg);font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.12);white-space:nowrap}
+@media(max-width:900px){.sfooter{flex-direction:column;gap:8px;padding:20px 20px 80px;text-align:center}.sfooter-links{justify-content:center;gap:16px}}
+
+/* MOBILE NAV */
+.mnav{position:fixed;bottom:0;left:0;right:0;z-index:700;display:flex;justify-content:space-between;align-items:center;padding:16px 52px 24px;background:linear-gradient(to top,rgba(10,14,20,.9) 0%,transparent 100%);pointer-events:none;transition:background .4s}
+.mnav.light{background:linear-gradient(to top,rgba(245,241,234,.98) 0%,rgba(245,241,234,.5) 100%)}
+.mbtn{pointer-events:all;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);font-family:var(--cg);font-size:11px;letter-spacing:.3em;padding:10px 24px;transition:all .2s;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.mbtn:hover{background:rgba(255,255,255,.18)}
+.mbtn:disabled{opacity:.2;pointer-events:none}
+.mnav.light .mbtn{background:rgba(17,16,9,.06);border-color:rgba(17,16,9,.18);color:rgba(17,16,9,.55)}
+.mnav.light .mbtn:hover{background:rgba(17,16,9,.12)}
+.mcnt{font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.4);transition:color .4s}
+.mnav.light .mcnt{color:rgba(17,16,9,.35)}
+@media(max-width:900px){.mnav{padding:12px 20px 20px}}
+
+/* LIGHTBOX */
+#lb{position:fixed;inset:0;z-index:2000;background:rgba(8,10,14,.94);display:none;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(12px)}
+#lb.open{display:flex}
+#lb-inner{max-width:760px;width:100%;position:relative;animation:lbIn .4s cubic-bezier(.16,1,.3,1)}
+#lb-img{width:100%;display:block;object-fit:contain;max-height:75vh}
+#lb-cap{margin-top:1rem;font-family:var(--sm);font-size:.75rem;letter-spacing:.3em;color:rgba(255,255,255,.3);text-align:center}
+#lb-close{position:absolute;top:-1.4rem;right:0;background:none;border:none;color:rgba(255,255,255,.4);font-size:1.5rem;cursor:pointer;line-height:1;font-family:var(--cg);transition:color .2s}
+#lb-close:hover{color:rgba(255,255,255,.85)}
+@media(max-width:900px){#lb{padding:1rem}#lb-img{max-height:65vh}}
+
+/* KEYFRAMES */
+@keyframes riLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+@keyframes riUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes scanLine{0%{top:-100%}100%{top:220%}}
+@keyframes lbIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes secIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes secOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-16px)}}
+/* home内スクロールvpはアニメーションをそのまま継続 */
+
+/* RESPONSIVE GENERAL */
+@media(max-width:900px){
+  .nav{padding:14px 20px}
+  .nav-links{display:none}.hamb{display:flex}
+  .vp{height:58vh;height:58dvh}
+  .vcatch{padding:72px 20px 32px}
+  .vh{font-size:clamp(26px,7vw,44px);line-height:1.6}
+  .vsub{font-size:13px}
+  .shint,.vinfo{display:none}
+  .sfade{display:none}
+  .tp{padding:40px 20px 100px;min-height:auto;visibility:visible!important}
+  .tlbl{font-size:18px!important;letter-spacing:.4em}
+  .tbody{font-size:16px!important;line-height:2.5!important}
+  .th{font-size:clamp(22px,5vw,32px)!important}
+  .home-story{grid-template-columns:1fr}
+  .home-story-col+.home-story-col{padding-left:0;border-left:none;border-top:1px solid rgba(17,16,9,.1);padding-top:28px}
+  .phi-quote{padding:24px 24px}
+  .acc-grid{grid-template-columns:1fr;gap:28px}
+  .rsv-block{grid-template-columns:1fr;gap:16px}
+  /* モバイルでケンバーンズを明示的に有効化 */
+  .vbg{-webkit-transform:translateZ(0);transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+  .sec.active .vbg{-webkit-animation-play-state:running;animation-play-state:running}
+}
+</style>
+</head>
+<body>
+<div id="cd"></div><div id="cr"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#" data-to="home">
+    <img src="https://epwds0626-oss.github.io/enya-otd/enya-logo.png" alt="えんやどっと丸"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-fb">えんやどっと丸</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" data-to="home">はじめに</a></li>
+    <li><a href="#" data-to="menu">献立</a></li>
+    <li><a href="#" data-to="hito">人</a></li>
+    <li><a href="#" data-to="fac">店内</a></li>
+    <li><a href="#" data-to="ec">通販</a></li>
+    <li><a href="#" data-to="access">道案内</a></li>
+    <li><a href="#" data-to="en">縁</a></li>
+    <li><a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" rel="noopener" class="nav-rsv">ご予約</a></li>
+  </ul>
+  <button class="hamb" id="hamb"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="dmask" id="dmask"></div>
+<div class="drawer" id="drawer">
+  <a href="#" data-to="home" class="da">はじめに</a>
+  <a href="#" data-to="menu" class="da">献立</a>
+  <a href="#" data-to="hito" class="da">人</a>
+  <a href="#" data-to="fac" class="da">店内</a>
+  <a href="#" data-to="ec" class="da">通販</a>
+  <a href="#" data-to="access" class="da">道案内</a>
+  <a href="#" data-to="en" class="da">縁</a>
+  <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" rel="noopener" class="da da-rsv">ご予約 →</a>
+</div>
+
+<!-- DOTS -->
+<div class="dots" id="dots">
+  <div class="dot on" data-to="home"><span class="dot-tip">はじめに</span></div>
+  <div class="dot" data-to="menu"><span class="dot-tip">献立</span></div>
+  <div class="dot" data-to="hito"><span class="dot-tip">人</span></div>
+  <div class="dot" data-to="fac"><span class="dot-tip">店内</span></div>
+  <div class="dot" data-to="ec"><span class="dot-tip">通販</span></div>
+  <div class="dot" data-to="access"><span class="dot-tip">道案内</span></div>
+  <div class="dot" data-to="en"><span class="dot-tip">縁</span></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="mnav" id="mnav">
+  <button class="mbtn" id="mprev">← 前へ</button>
+  <span class="mcnt" id="mcnt">1 / 6</span>
+  <button class="mbtn" id="mnext">次へ →</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="if(event.target===this)closeLb()">
+  <div id="lb-inner">
+    <button id="lb-close" onclick="closeLb()">✕</button>
+    <img id="lb-img" src="" alt="">
+    <p id="lb-cap"></p>
+  </div>
+</div>
+
+<!-- ========== HOME ========== -->
+<div class="sec active" id="sec-home">
+
+  <!-- はじめに -->
+  <div class="vp">
+    <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_2825.jpeg');background-position:center 50%"></div>
+    <div class="vov"></div>
+    <div class="sfade" id="sf-home"></div>
+    <div class="vcatch">
+      <p class="vlbl">Enya-dot-Maru — Oarai, Ibaraki · Est. 1907</p>
+      <h1 class="vh">大洗の海が、<br>今日も<em>届く。</em></h1>
+      <p class="vsub">茨城・大洗港。常磐の荒波が育んだ<br>旬の恵みを、丁寧な仕事で皿に表現する。</p>
+    </div>
+    <dl class="vinfo">
+      <dt>Lunch</dt><dd>11:00 — 14:00</dd>
+      <dt style="margin-top:10px">Dinner</dt><dd>17:30 — 20:30</dd>
+      <dt style="margin-top:10px">Closed</dt><dd>毎週木曜日</dd>
+    </dl>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+  <div class="tp">
+    <div class="ti">
+      <span class="tlbl">はじめに</span>
+      <div class="trule"></div>
+      <h2 class="th">百余年、海と向き合う<br>ということ。</h2>
+      <div class="tbody">
+        <p>明治四十年（1907年）、大洗港で水産加工業として産声を上げた清水商店。百年にわたる海との対話を礎に、大洗港直送の旬の魚介を丁寧な仕事で皿に表現する海鮮和食の店です。</p>
+        <p>素材の声に耳を傾け、余計なものをそぎ落とした先にある、ほんとうの美味しさを。一期一会の食の時間をご用意しています。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 想い -->
+  <div class="vp">
+    <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5036.jpeg');background-position:center 50%"></div>
+    <div class="vov"></div>
+    <div class="vcatch">
+      <p class="vlbl">想い</p>
+      <h2 class="vh">常磐の海が育む、<em>旬という名の贈りもの。</em></h2>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+  <div class="tp tp-inner">
+    <div class="ti">
+      <span class="tlbl">想い</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>茨城・大洗港。常磐の荒波が育んだ豊かな海の恵みを、その日の朝に選び、丁寧な仕事で皿の上に表現する。</p>
+        <p>素材の声に耳を傾け、余計なものをそぎ落とした先にある、ほんとうの美味しさを。一期一会の食の時間をご用意しています。</p>
+        <p style="margin-top:2em;font-family:var(--cg);font-style:italic;font-size:17px;color:var(--gold);line-height:2">「大洗の魚介の素晴らしさを、自らの手でお客様に伝えたい。」</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 歴史 -->
+  <div class="vp">
+    <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5592.jpeg');background-position:center 40%"></div>
+    <div class="vov"></div>
+    <div class="vcatch">
+      <p class="vlbl">歴史 · 創業 明治四十年</p>
+      <h2 class="vh">明治四十年、<br><em>大洗港から。</em></h2>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+  <div class="tp tp-inner">
+    <div class="ti">
+      <span class="tlbl">歴史</span>
+      <div class="trule"></div>
+      <div class="textra">
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-year">1907</span>
+            <div class="tl-content">
+              <p class="tl-head">清水商店、創業。</p>
+              <p class="tl-body">大洗港を拠点に水産加工業として産声を上げる。サバ・ニシン・海藻・干物など常磐の恵みを全国へ届けた。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">1950s</span>
+            <div class="tl-content">
+              <p class="tl-head">港町に、にぎわいを。</p>
+              <p class="tl-body">海水浴客で賑わう大洗海岸。変わりゆく時代の中でも、清水商店は大洗の海と向き合い続けた。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">2006</span>
+            <div class="tl-content">
+              <p class="tl-head">えんやどっと丸、開業。</p>
+              <p class="tl-body">百年の水産業の知見を食卓へ。大洗の魚介の素晴らしさを自らの手で伝えたい——その一念から海鮮和食えんやどっと丸が誕生した。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">Now</span>
+            <div class="tl-content">
+              <p class="tl-head">海と人をつなぐ、食の場として。</p>
+              <p class="tl-body">明治から続く水産業の魂と、現代の料理の技が交わるこの場所で、今日もお客様をお迎えする。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 心得 -->
+  <div class="vp">
+    <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5860.jpeg');background-position:center 30%"></div>
+    <div class="vov"></div>
+    <div class="vcatch">
+      <p class="vlbl">心得</p>
+      <h2 class="vh">お客様との時間が、<br><em>すべての原点。</em></h2>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+  <div class="tp tp-inner">
+    <div class="ti">
+      <span class="tlbl">心得</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>一皿一皿に向き合う誠実さと、お客様を迎えることへの敬意。その両方が重なり合う場所に、えんやどっと丸がある。</p>
+        <p>食材の美しさを引き出す技術も、空間を心地よく整えることも、すべてはお客様との時間のために。料理と、サービスと、場所が一体となったとき、ほんとうの「おもてなし」が生まれる。</p>
+      </div>
+      <div class="textra">
+        <div class="phi-quote">
+          <p>— 料理長 青木 優介</p>
+        </div>
+      </div>
+      <button class="tnext" data-to="menu">献立</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== MENU ========== -->
+<div class="sec" id="sec-menu">
+  <div class="vp">
+    <div class="vbg"></div>
+    <div class="vov"></div>
+    <div class="sfade" id="sf-menu"></div>
+    <div class="vcatch">
+      <p class="vlbl">Menu</p>
+      <h2 class="vh">この海の恵みを、<br><em>一皿に込めて。</em></h2>
+      <p class="vsub">大洗港に揚がった鮮魚を、職人の目利きで選び、その日だけの献立で表現します。</p>
+    </div>
+    <dl class="vinfo">
+      <dt>Lunch</dt><dd>11:00 — 14:00</dd>
+      <dt style="margin-top:10px">Dinner</dt><dd>17:30 — 20:30</dd>
+    </dl>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">献立</span>
+      <div class="trule"></div>
+      <div class="menu-tabs">
+        <button class="mtab on" data-tab="gozen">御膳</button>
+        <button class="mtab" data-tab="don">丼</button>
+        <button class="mtab" data-tab="ippin">一品</button>
+        <button class="mtab" data-tab="drink">お飲物</button>
+      </div>
+
+      <!-- 御膳 -->
+      <div class="mpanel on" id="tab-gozen">
+        <div class="menu-slider-wrap">
+          <div class="menu-slider" id="sliderGozen">
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031%20-%2029.png" alt="はまなす膳 福寿" loading="lazy" onclick="openLb(this.src,'はまなす膳 福寿')"><p class="menu-slide-lbl">はまなす膳 福寿</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20251205_094958000_iOS%205.png" alt="はまなす膳 椿寿" loading="lazy" onclick="openLb(this.src,'はまなす膳 椿寿')"><p class="menu-slide-lbl">はまなす膳 椿寿</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20251205_094958000_iOS%201.jpg" alt="はまなす膳 万寿" loading="lazy" onclick="openLb(this.src,'はまなす膳 万寿')"><p class="menu-slide-lbl">はまなす膳 万寿</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20260113_101804175_iOS.png" alt="お造り膳" loading="lazy" onclick="openLb(this.src,'お造り膳')"><p class="menu-slide-lbl">お造り膳</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031.png" alt="好々膳" loading="lazy" onclick="openLb(this.src,'好々膳')"><p class="menu-slide-lbl">好々膳</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031%20-%2025.png" alt="煮魚膳" loading="lazy" onclick="openLb(this.src,'煮魚膳')"><p class="menu-slide-lbl">煮魚膳</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031%20-%2023.png" alt="あら煮膳" loading="lazy" onclick="openLb(this.src,'あら煮膳')"><p class="menu-slide-lbl">あら煮膳</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031%20-%2037.png" alt="お子様膳" loading="lazy" onclick="openLb(this.src,'お子様膳')"><p class="menu-slide-lbl">お子様膳</p></div>
+          </div>
+        </div>
+        <div class="menu-slider-nav">
+          <button class="menu-snav" id="gozenPrev">← 前へ</button>
+          <span class="menu-scnt" id="gozenCnt">1 / 4</span>
+          <button class="menu-snav" id="gozenNext">次へ →</button>
+        </div>
+        <p class="menu-note">※ 献立は仕入れにより変わります。写真をタップで拡大表示。</p>
+      </div>
+
+      <!-- 丼 -->
+      <div class="mpanel" id="tab-don">
+        <div class="menu-slider-wrap">
+          <div class="menu-slider" id="sliderDon">
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031%20-%2033.png" alt="ほげほげ丼" loading="lazy" onclick="openLb(this.src,'ほげほげ丼')"><p class="menu-slide-lbl">ほげほげ丼</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20251205_094958000_iOS%203.png" alt="バラチラシ鮨" loading="lazy" onclick="openLb(this.src,'バラチラシ鮨')"><p class="menu-slide-lbl">バラチラシ鮨</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20251205_094958000_iOS%206.png" alt="地魚丼" loading="lazy" onclick="openLb(this.src,'地魚丼')"><p class="menu-slide-lbl">地魚丼</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20251205_094958000_iOS%207.jpg" alt="まぐろ丼" loading="lazy" onclick="openLb(this.src,'まぐろ丼')"><p class="menu-slide-lbl">まぐろ丼</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031%20-%2016.png" alt="三色海鮮丼" loading="lazy" onclick="openLb(this.src,'三色海鮮丼')"><p class="menu-slide-lbl">三色海鮮丼</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20241031%20-%2022.png" alt="海老天丼" loading="lazy" onclick="openLb(this.src,'海老天丼')"><p class="menu-slide-lbl">海老天丼</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20260320_060116654_iOS.jpg" alt="地魚漬け丼" loading="lazy" onclick="openLb(this.src,'地魚漬け丼')"><p class="menu-slide-lbl">地魚漬け丼</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/20260318_042630208_iOS.jpg" alt="海老いっぱい天丼" loading="lazy" onclick="openLb(this.src,'海老いっぱい天丼')"><p class="menu-slide-lbl">海老いっぱい天丼</p></div>
+          </div>
+        </div>
+        <div class="menu-slider-nav">
+          <button class="menu-snav" id="donPrev">← 前へ</button>
+          <span class="menu-scnt" id="donCnt">1 / 4</span>
+          <button class="menu-snav" id="donNext">次へ →</button>
+        </div>
+        <p class="menu-note">※ 献立は仕入れにより変わります。写真をタップで拡大表示。</p>
+      </div>
+
+      <!-- 一品 -->
+      <div class="mpanel" id="tab-ippin">
+        <div style="padding:48px 0;text-align:center;font-family:var(--cg);font-style:italic;font-size:15px;letter-spacing:.35em;color:rgba(17,16,9,.28)">写真準備中</div>
+        <p class="menu-note">旬の食材をシンプルに、丁寧に。その日の仕入れによる一品料理。</p>
+      </div>
+
+      <!-- お飲物 -->
+      <div class="mpanel" id="tab-drink">
+        <div class="menu-slider-wrap">
+          <div class="menu-slider" id="sliderDrink">
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-tukinoi.jpg" alt="月の井" loading="lazy" onclick="openLb(this.src,'月の井')"><p class="menu-slide-lbl">月の井</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-buyu.jpg" alt="武勇" loading="lazy" onclick="openLb(this.src,'武勇')"><p class="menu-slide-lbl">武勇</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-kiritukuba.jpg" alt="霧筑波" loading="lazy" onclick="openLb(this.src,'霧筑波')"><p class="menu-slide-lbl">霧筑波</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-jizakesansen.jpg" alt="地酒三撰" loading="lazy" onclick="openLb(this.src,'地酒三撰')"><p class="menu-slide-lbl">地酒三撰</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-sake-meisyusansen.png" alt="銘酒三撰" loading="lazy" onclick="openLb(this.src,'銘酒三撰')"><p class="menu-slide-lbl">銘酒三撰</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-sake-issyu.jpg" alt="逸酒三撰" loading="lazy" onclick="openLb(this.src,'逸酒三撰')"><p class="menu-slide-lbl">逸酒三撰</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-wisky-hinomaru.png" alt="日の丸ウイスキー" loading="lazy" onclick="openLb(this.src,'日の丸ウイスキー')"><p class="menu-slide-lbl">日の丸ウイスキー</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-wisky-takezo.png" alt="武蔵" loading="lazy" onclick="openLb(this.src,'武蔵')"><p class="menu-slide-lbl">武蔵</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-wine-white.png" alt="つくばブラン" loading="lazy" onclick="openLb(this.src,'つくばブラン')"><p class="menu-slide-lbl">つくばブラン</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-wine-red.png" alt="つくばルージュ" loading="lazy" onclick="openLb(this.src,'つくばルージュ')"><p class="menu-slide-lbl">つくばルージュ</p></div>
+            <div class="menu-slide"><img src="https://epwds0626-oss.github.io/enya-otd/drink-bar.png" alt="ドリンクバー" loading="lazy" onclick="openLb(this.src,'ドリンクバー')"><p class="menu-slide-lbl">ドリンクバー</p></div>
+          </div>
+        </div>
+        <div class="menu-slider-nav">
+          <button class="menu-snav" id="drinkPrev">← 前へ</button>
+          <span class="menu-scnt" id="drinkCnt">1 / 6</span>
+          <button class="menu-snav" id="drinkNext">次へ →</button>
+        </div>
+        <p class="menu-note" style="margin-top:12px">茨城の地酒・ビール・ソフトドリンクなど、料理に合わせてお選びください。</p>
+      </div>
+
+      <button class="tnext" data-to="fac">店内</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 人 ========== -->
+<div class="sec" id="sec-hito">
+  <div class="vp">
+    <div class="vbg"></div>
+    <div class="vov"></div>
+    <div class="sfade" id="sf-hito"></div>
+    <div class="vcatch">
+      <p class="vlbl">People</p>
+      <h2 class="vh">この店をつくる、<em>人。</em></h2>
+      <p class="vsub">それぞれの原点と、それぞれの仕事への想い。</p>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">人 — People</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>料理を通じてお客様と向き合う、えんやどっと丸のつくり手たちをご紹介します。</p>
+      </div>
+      <div class="textra">
+        <div class="hito-cards">
+
+          <!-- 青木 優介 -->
+          <div class="hito-card">
+            <img class="hito-card-photo" src="https://epwds0626-oss.github.io/enya-otd/20260429_063052642_iOS.jpg" alt="青木 優介">
+            <div class="hito-card-body">
+              <p class="hito-role">Head Chef / Manager</p>
+              <p class="hito-name">青木 優介</p>
+              <p class="hito-name-en">Yusuke Aoki</p>
+              <p class="hito-origin">茨城県水戸市出身</p>
+              <p class="hito-desc">幼いころから母の料理姿を眺めることが好きだった。丁寧で繊細な仕事ぶりと温厚な人柄で、厨房とフロアを静かに支える。</p>
+              <div class="hito-quote">
+                <p class="hito-quote-label">大事にしていること</p>
+                <p>料理のバランスをとること。そしてスタッフとお客様、その場にいる全員への気遣いを忘れないこと。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 原 孝志 -->
+          <div class="hito-card">
+            <img class="hito-card-photo" src="https://epwds0626-oss.github.io/enya-otd/20260429_062928691_iOS.jpg" alt="原 孝志">
+            <div class="hito-card-body">
+              <p class="hito-role">Sub Manager</p>
+              <p class="hito-name">原 孝志</p>
+              <p class="hito-name-en">Takashi Hara</p>
+              <p class="hito-origin">茨城県水戸市出身</p>
+              <p class="hito-desc">父の影響で飲食の世界へ。料理に対する想いと哲学は深く、厨房全体を見渡す冷静な眼差しを持つ。</p>
+              <div class="hito-quote">
+                <p class="hito-quote-label">大事にしていること</p>
+                <p>丁寧に、完璧に仕上げること。妥協のない一皿が、お客様の記憶に残ると信じている。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 小沼 太一 -->
+          <div class="hito-card">
+            <img class="hito-card-photo" src="https://epwds0626-oss.github.io/enya-otd/20260429_062804947_iOS.jpg" alt="小沼 太一">
+            <div class="hito-card-body">
+              <p class="hito-role">Chef</p>
+              <p class="hito-name">小沼 太一</p>
+              <p class="hito-name-en">Taichi Konuma</p>
+              <p class="hito-origin">茨城県鉾田市出身</p>
+              <p class="hito-desc">釣りが好きで、自分で釣った魚を料理したいという純粋な想いが原点。海と食への愛情が、仕事の根っこにある。</p>
+              <div class="hito-quote">
+                <p class="hito-quote-label">大事にしていること</p>
+                <p>早く、美しく。いちばん美味しい状態でお料理をお客様にお届けすること。</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="tnext" data-to="fac">店内</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FAC ========== -->
+<div class="sec" id="sec-fac">
+  <div class="vp">
+    <div class="vbg"></div>
+    <div class="vov"></div>
+    <div class="sfade" id="sf-fac"></div>
+    <div class="vcatch">
+      <p class="vlbl">Facility</p>
+      <h2 class="vh">それぞれの時間に寄り添う、<em>静かな席。</em></h2>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">店内案内</span>
+      <div class="trule"></div>
+      <div class="tbody">
+        <p>一枚板のカウンター、個室、お座敷席。それぞれ異なる表情を持つ空間で、非日常のひとときをお楽しみください。</p>
+      </div>
+      <div class="textra">
+        <div class="fac-seats">
+          <div class="fac-seat">
+            <p class="fac-en">Counter</p>
+            <p class="fac-jp">カウンター席</p>
+            <p class="fac-body">職人の仕事を間近に感じながら、静かに料理と向き合う特等席。</p>
+          </div>
+          <div class="fac-seat">
+            <p class="fac-en">Tatami</p>
+            <p class="fac-jp">お座敷席</p>
+            <p class="fac-body">ゆったりとくつろげる和の空間。ご家族やご友人との大切な時間に。</p>
+          </div>
+          <div class="fac-seat">
+            <p class="fac-en">Private</p>
+            <p class="fac-jp">個室</p>
+            <p class="fac-body">丸窓が印象的な個室。記念日や接待など、特別なシーンに。</p>
+          </div>
+        </div>
+        <div class="fac-photos">
+          <img class="fac-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_5254.jpeg" alt="カウンター席" loading="lazy" onclick="openLb(this.src,'カウンター席')">
+          <img class="fac-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_2765.jpeg" alt="テーブル席" loading="lazy" onclick="openLb(this.src,'テーブル席')">
+          <img class="fac-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_5250.jpeg" alt="お座敷席" loading="lazy" onclick="openLb(this.src,'お座敷席')">
+          <img class="fac-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_5253.jpeg" alt="個室" loading="lazy" onclick="openLb(this.src,'個室')">
+        </div>
+        <div class="fac-tags">
+          <span class="ftag">個室あり</span>
+          <span class="ftag">カウンター席</span>
+          <span class="ftag">お座敷席</span>
+          <span class="ftag">駐車場完備</span>
+          <span class="ftag">接待・記念日</span>
+          <span class="ftag">お子様連れ歓迎</span>
+        </div>
+      </div>
+      <button class="tnext" data-to="ec">通販</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== EC ========== -->
+<div class="sec" id="sec-ec">
+  <div class="vp">
+    <div class="vbg"></div>
+    <div class="vov"></div>
+    <div class="sfade" id="sf-ec"></div>
+    <div class="vcatch">
+      <p class="vlbl">Online Shop</p>
+      <h2 class="vh">大洗の恵みを、<br><em>全国へ。</em></h2>
+      <p class="vsub">えんやどっと丸が厳選した旬の品を<br>産地直送でお届けします。</p>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">通販</span>
+      <div class="trule"></div>
+      <div class="ec-body-text">
+        <p>大洗港直送の海の幸を、全国へお届けします。冬はあんこう鍋セット・金目鯛の煮付けセット。夏は岩牡蠣・お造りセット。年間通してたこの商品もご用意しています。贈りものにも、日々の食卓にも。</p>
+      </div>
+      <div class="textra">
+        <div class="ec-photos">
+          <img class="ec-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_1646.jpeg" alt="お料理" loading="lazy" onclick="openLb(this.src,'お料理')">
+          <img class="ec-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_0724.jpeg" alt="お弁当" loading="lazy" onclick="openLb(this.src,'お弁当')">
+          <img class="ec-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_0752.jpeg" alt="海鮮鍋" loading="lazy" onclick="openLb(this.src,'海鮮鍋')">
+          <img class="ec-photo" src="https://epwds0626-oss.github.io/enya-otd/IMG_0781.jpeg" alt="お造り" loading="lazy" onclick="openLb(this.src,'お造り')">
+        </div>
+        <a href="https://www.enya-otd.com/story-based-ec/" target="_blank" rel="noopener" class="ec-btn">オンラインショップへ</a>
+      </div>
+      <button class="tnext" data-to="access">道案内</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ACCESS ========== -->
+<div class="sec" id="sec-access">
+  <div class="vp">
+    <div class="vbg"></div>
+    <div class="vov"></div>
+    <div class="sfade" id="sf-access"></div>
+    <div class="vcatch">
+      <p class="vlbl">Access</p>
+      <h2 class="vh">初めての方も安心。<br><em>お店までのご案内。</em></h2>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">道案内</span>
+      <div class="trule"></div>
+      <div class="textra">
+        <div class="acc-grid">
+          <dl class="acc-dl">
+            <div><dt>Shop</dt><dd>えんやどっと丸</dd></div>
+            <div><dt>Address</dt><dd>〒311-1305<br>茨城県東茨城郡大洗町港中央9-4</dd></div>
+            <div><dt>Tel</dt><dd><a href="tel:0292672278">029-267-2278</a></dd></div>
+            <div><dt>Hours</dt><dd>ランチ 11:00 〜 14:00<br>ディナー 17:30 〜 20:30</dd></div>
+            <div><dt>Closed</dt><dd>毎週木曜日<br>水曜日はランチのみ</dd></div>
+            <div><dt>Parking</dt><dd>あり</dd></div>
+            <div><dt>Payment</dt><dd>クレジット各種 / QRコード決済 / 電子マネー各種</dd></div>
+          </dl>
+          <div class="acc-map">
+            <iframe src="https://maps.google.com/maps?q=茨城県東茨城郡大洗町港中央9-4&output=embed&hl=ja&z=16" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <!-- 予約ブロック -->
+        <div class="rsv-block">
+          <div class="rsv-text">
+            <h3>ご予約</h3>
+            <p>ご予約はトレタよりお気軽にどうぞ。<br>当日のご予約はお電話にてお承りします。</p>
+          </div>
+          <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" rel="noopener" class="rsv-btn">予約する → Toreta</a>
+        </div>
+      </div>
+      <button class="tnext" data-to="en">縁</button>
+    </div>
+  </div>
+  <div class="sfooter">
+    <div class="sfooter-links">
+      <a href="https://epwds0626-oss.github.io/pasta-marco/" target="_blank" rel="noopener">パスタのマルコ</a>
+      <a href="https://epwds0626-oss.github.io/fish-hack/" target="_blank" rel="noopener">Fish Hack</a>
+      <a href="https://epwds0626-oss.github.io/onetable-design/" target="_blank" rel="noopener">One Table Design</a>
+    </div>
+    <span class="sfooter-c">© 2025 えんやどっと丸 / One Table Design</span>
+  </div>
+</div>
+
+<!-- ========== EN（縁）========== -->
+<div class="sec" id="sec-en">
+  <div class="vp">
+    <div class="vbg"></div>
+    <div class="vov"></div>
+    <div class="sfade" id="sf-en"></div>
+    <div class="vcatch">
+      <p class="vlbl">縁 — En</p>
+      <h2 class="vh">ひとつの港から<br>広がる、<em>縁。</em></h2>
+      <p class="vsub">えんやどっと丸を起点に生まれた、<br>三つのブランドをご紹介します。</p>
+    </div>
+    <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
+  </div>
+
+  <div class="tp">
+    <div class="ti wide">
+      <span class="tlbl">縁</span>
+      <div class="trule"></div>
+      <p class="en-intro">大洗の海から生まれた食と仕事のつながり。<br>それぞれの場所で、それぞれの形で、人と海をつなぎ続けています。</p>
+
+      <div class="en-cards">
+        <!-- パスタのマルコ -->
+        <div class="en-card">
+          <div class="en-card-img">
+            <img src="https://epwds0626-oss.github.io/pasta-marco/IMG_4066.jpeg" alt="パスタのマルコ" loading="lazy">
+          </div>
+          <div class="en-card-body">
+            <p class="en-card-en">Pasta Marco</p>
+            <p class="en-card-name">パスタのマルコ</p>
+            <p class="en-card-desc">えんやどっと丸の姉妹店として2025年11月に誕生。大洗漁港そばのテラスのある小さなパスタ屋。地元の魚介とイタリアの技法が出会う、ここだけの一皿。</p>
+            <a href="https://epwds0626-oss.github.io/pasta-marco/" target="_blank" rel="noopener" class="en-card-link">Visit</a>
+          </div>
+        </div>
+
+        <!-- フィッシュハック -->
+        <div class="en-card">
+          <div class="en-card-img">
+            <img src="https://epwds0626-oss.github.io/enya-otd/20200207_041550263_iOS.jpg" alt="Fish Hack" loading="lazy">
+          </div>
+          <div class="en-card-body">
+            <p class="en-card-en">Fish Hack</p>
+            <p class="en-card-name">フィッシュハック</p>
+            <p class="en-card-desc">大洗港直送・高鮮度の地魚を料理人へ届けるサービス。放血神経締めの一次処理を行い、オーダーメイドのカットで仕入れ・下処理の手間を削減します。</p>
+            <a href="https://epwds0626-oss.github.io/fish-hack/" target="_blank" rel="noopener" class="en-card-link">Visit</a>
+          </div>
+        </div>
+
+        <!-- One Table Design -->
+        <div class="en-card">
+          <div class="en-card-img">
+            <img src="https://epwds0626-oss.github.io/enya-otd/20250521_030620553_iOS.png" alt="One Table Design" loading="lazy">
+          </div>
+          <div class="en-card-body">
+            <p class="en-card-en">One Table Design</p>
+            <p class="en-card-name">One Table Design</p>
+            <p class="en-card-desc">えんやどっと丸・パスタのマルコ・フィッシュハックを束ねる株式会社。食と場とデザインで、大洗から新しい価値を生み出します。</p>
+            <a href="https://epwds0626-oss.github.io/onetable-design/" target="_blank" rel="noopener" class="en-card-link">Visit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sfooter">
+    <div class="sfooter-links">
+      <a href="https://epwds0626-oss.github.io/pasta-marco/" target="_blank" rel="noopener">パスタのマルコ</a>
+      <a href="https://epwds0626-oss.github.io/fish-hack/" target="_blank" rel="noopener">Fish Hack</a>
+      <a href="https://epwds0626-oss.github.io/onetable-design/" target="_blank" rel="noopener">One Table Design</a>
+    </div>
+    <span class="sfooter-c">© 2025 えんやどっと丸 / One Table Design</span>
+  </div>
+</div>
+
+<script>
+/* LIGHTBOX */
+function openLb(src,cap){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-cap').textContent=cap||'';
+  document.getElementById('lb').classList.add('open');
+}
+function closeLb(){document.getElementById('lb').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+
+/* SECTIONS */
+const SECS=['home','menu','hito','fac','ec','access','en'];
+let cur='home',busy=false;
+const isMob=()=>window.innerWidth<=900;
+
+/* CURSOR */
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+document.addEventListener('mousemove',e=>{
+  cd.style.left=e.clientX+'px';cd.style.top=e.clientY+'px';
+  cr.style.left=e.clientX+'px';cr.style.top=e.clientY+'px';
+});
+document.querySelectorAll('a,button,.dot,.ftag,.menu-img,.fac-photo,.ec-photo,.en-card,.mtab').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cd.style.width='12px';cd.style.height='12px';cr.style.opacity='.2';cr.style.width='52px';cr.style.height='52px'});
+  el.addEventListener('mouseleave',()=>{cd.style.width='6px';cd.style.height='6px';cr.style.opacity='1';cr.style.width='36px';cr.style.height='36px'});
+});
+
+/* GO TO SECTION */
+function goTo(id){
+  if(id===cur||busy)return;busy=true;
+  const from=document.getElementById('sec-'+cur);
+  const to=document.getElementById('sec-'+id);
+  from.style.animation='secOut .5s cubic-bezier(.76,0,.24,1) forwards';
+  setTimeout(()=>{
+    from.classList.remove('active');from.style.animation='';
+    from.scrollTop=0;from._bot=false;from._top=true;
+    to.classList.add('active');to.style.animation='secIn .8s cubic-bezier(.16,1,.3,1) forwards';
+    to.scrollTop=0;to._bot=false;to._top=true;
+    requestAnimationFrame(()=>{to.scrollTop=0;});
+    const toTp=to.querySelector('.tp');
+    if(toTp){
+      toTp.classList.remove('revealed');
+      toTp.querySelectorAll('.ch').forEach(ch=>ch.classList.remove('in'));
+      toTp.querySelectorAll('.bl').forEach(bl=>bl.classList.remove('in'));
+      toTp.querySelectorAll('.tnext').forEach(el=>el.classList.remove('in'));
+    }
+    delete to.dataset.revealed;
+    const sf=document.getElementById('sf-'+id);if(sf)sf.style.opacity=0;
+    if(isMob()&&toTp){setTimeout(()=>{to.dataset.revealed='1';toTp.classList.add('revealed');revealSection(to);},500);}
+    setTimeout(()=>{
+      to.querySelectorAll('.vlbl,.vh,.vsub,.vinfo,.shint').forEach(el=>{
+        el.style.animation='none';el.style.opacity='0';void el.offsetHeight;el.style.animation='';
+      });
+    },50);
+    setTimeout(()=>{to.style.animation='';busy=false;},900);
+  },460);
+  cur=id;updateUI();
+}
+
+function updateUI(){
+  document.querySelectorAll('.dot').forEach(d=>d.classList.toggle('on',d.dataset.to===cur));
+  updateMnav();
+}
+
+/* CHAR SPLIT */
+function splitChars(el){
+  if(el.dataset.split)return;el.dataset.split='1';
+  const txt=el.textContent||'';el.innerHTML='';
+  txt.split('').forEach(ch=>{
+    const s=document.createElement('span');s.className='ch';
+    s.textContent=(ch===' '||ch==='\u00a0')?'\u00a0':ch;
+    el.appendChild(s);
+  });
+}
+function prepBlock(el){if(el.dataset.split)return;el.dataset.split='1';el.classList.add('bl');}
+function prepSection(sec){
+  const tp=sec.querySelector('.tp');if(!tp||tp.dataset.prepped)return;tp.dataset.prepped='1';
+  tp.querySelectorAll('.tlbl').forEach(el=>splitChars(el));
+  tp.querySelectorAll('.tbody p,.ec-body-text p,.en-intro').forEach(el=>{
+    if(!el.closest('.rform'))splitChars(el);
+  });
+  tp.querySelectorAll('.trule,.textra,.tnext,.phi-quote,.home-story,.en-cards').forEach(el=>prepBlock(el));
+}
+
+/* SCROLL REVEAL */
+function setupScroll(id){
+  const sec=document.getElementById('sec-'+id);
+  const sf=document.getElementById('sf-'+id);
+  const tp=sec?sec.querySelector('.tp'):null;
+  if(!sec)return;
+  prepSection(sec);
+  sec._top=true;sec._bot=false;
+  if(isMob()&&tp&&!sec.dataset.revealed){sec.dataset.revealed='1';tp.classList.add('revealed');revealSection(sec);}
+  sec.addEventListener('scroll',()=>{
+    const sy=sec.scrollTop,vh=window.innerHeight;
+    if(!isMob()){
+      const fadeP=Math.min(sy/(vh*0.6),1);
+      if(sf)sf.style.opacity=fadeP;
+      if(fadeP>=0.95&&!sec.dataset.revealed&&tp){sec.dataset.revealed='1';tp.classList.add('revealed');revealSection(sec);updateMnav();}
+    }
+    sec._bot=(sy+sec.clientHeight>=sec.scrollHeight-10);
+    sec._top=(sy<=0);
+  },{passive:true});
+}
+
+function revealSection(sec){
+  const tp=sec.querySelector('.tp');if(!tp)return;
+  let t=0;const step=38,blockStep=180;
+  tp.querySelectorAll('.tlbl .ch').forEach(ch=>{setTimeout(()=>ch.classList.add('in'),t);t+=step;});
+  t+=100;
+  const rule=tp.querySelector('.trule');
+  if(rule){setTimeout(()=>rule.classList.add('in'),t);t+=blockStep;}
+  tp.querySelectorAll('.tbody p,.ec-body-text p').forEach(p=>{
+    p.querySelectorAll('.ch').forEach(ch=>{setTimeout(()=>ch.classList.add('in'),t);t+=step*0.85;});
+    t+=180;
+  });
+  const ei=tp.querySelector('.en-intro');
+  if(ei){ei.querySelectorAll('.ch').forEach(ch=>{setTimeout(()=>ch.classList.add('in'),t);t+=step*0.8;});t+=160;}
+  const extra=tp.querySelector('.textra');
+  if(extra){setTimeout(()=>extra.classList.add('in'),t);t+=blockStep;}
+  const hs=tp.querySelector('.home-story');
+  if(hs){setTimeout(()=>hs.classList.add('in'),t);t+=blockStep;}
+  const ec=tp.querySelector('.en-cards');
+  if(ec){setTimeout(()=>ec.classList.add('in'),t);}
+  const next=tp.querySelector('.tnext');
+  if(next){setTimeout(()=>next.classList.add('in'),t+200);}
+}
+
+SECS.forEach(setupScroll);
+
+/* CLICK ROUTING */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-to]');if(!el)return;
+  e.preventDefault();goTo(el.dataset.to);closeDrawer();
+});
+
+/* KEYBOARD */
+document.addEventListener('keydown',e=>{
+  if(busy)return;
+  const i=SECS.indexOf(cur);
+  if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();goTo(SECS[Math.min(i+1,SECS.length-1)]);}
+  if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();goTo(SECS[Math.max(i-1,0)]);}
+});
+
+/* BOTTOM NAV */
+const mnav=document.getElementById('mnav'),mprev=document.getElementById('mprev'),mnext=document.getElementById('mnext'),mcnt=document.getElementById('mcnt');
+function updateMnav(){
+  const i=SECS.indexOf(cur);
+  mcnt.textContent=(i+1)+' / '+SECS.length;
+  mprev.disabled=(i===0);mnext.disabled=(i===SECS.length-1);
+  const sec=document.getElementById('sec-'+cur);
+  mnav.classList.toggle('light',!!(sec&&sec.dataset.revealed==='1'));
+}
+mprev.addEventListener('click',()=>{const i=SECS.indexOf(cur);if(i>0)goTo(SECS[i-1]);});
+mnext.addEventListener('click',()=>{const i=SECS.indexOf(cur);if(i<SECS.length-1)goTo(SECS[i+1]);});
+window.addEventListener('resize',updateMnav);
+updateMnav();
+
+/* DRAWER */
+const hamb=document.getElementById('hamb'),drawer=document.getElementById('drawer'),dmask=document.getElementById('dmask');
+function closeDrawer(){drawer.classList.remove('open');dmask.classList.remove('open');hamb.classList.remove('open');}
+hamb.addEventListener('click',()=>{const o=drawer.classList.toggle('open');dmask.classList.toggle('open',o);hamb.classList.toggle('open',o);});
+dmask.addEventListener('click',closeDrawer);
+
+/* MENU TABS */
+document.querySelectorAll('.mtab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('on'));
+    document.querySelectorAll('.mpanel').forEach(p=>p.classList.remove('on'));
+    tab.classList.add('on');
+    const panel=document.getElementById('tab-'+tab.dataset.tab);
+    if(panel)panel.classList.add('on');
+  });
+  tab.dataset.tab=tab.textContent==='御膳'?'gozen':tab.textContent==='丼'?'don':tab.textContent==='一品'?'ippin':'drink';
+});
+
+/* MENU SLIDERS */
+function makeMenuSlider(sliderId, prevId, nextId, cntId){
+  const slider = document.getElementById(sliderId);
+  if(!slider) return;
+  const slides = slider.querySelectorAll('.menu-slide');
+  const prev = document.getElementById(prevId);
+  const next = document.getElementById(nextId);
+  const cnt = document.getElementById(cntId);
+  let idx = 0;
+  const vis = () => window.innerWidth <= 900 ? 1 : 2;
+  function update(){
+    const v = vis();
+    const max = Math.max(0, slides.length - v);
+    idx = Math.min(idx, max);
+    const w = slider.parentElement.offsetWidth / v;
+    slider.style.transform = `translateX(-${idx * (w + 8)}px)`;
+    if(prev) prev.disabled = idx === 0;
+    if(next) next.disabled = idx >= max;
+    if(cnt) cnt.textContent = `${idx + 1} / ${Math.ceil(slides.length / v)}`;
+  }
+  if(prev) prev.addEventListener('click', () => { idx = Math.max(0, idx - 1); update(); });
+  if(next) next.addEventListener('click', () => { idx++; update(); });
+  window.addEventListener('resize', update);
+  update();
+}
+makeMenuSlider('sliderGozen','gozenPrev','gozenNext','gozenCnt');
+makeMenuSlider('sliderDon','donPrev','donNext','donCnt');
+makeMenuSlider('sliderDrink','drinkPrev','drinkNext','drinkCnt');
+
+/* PARALLAX */
+function updateParallax(){
+  const sec=document.getElementById('sec-'+cur);
+  if(!sec)return;
+  const vps=sec.querySelectorAll('.vp');
+  vps.forEach(vp=>{
+    const bg=vp.querySelector('.vbg');
+    if(!bg)return;
+    const rect=vp.getBoundingClientRect();
+    const vy=rect.top;
+    const ratio=vy/window.innerHeight;
+    // セクション入場後のズームは維持しつつ、スクロールでY位置をずらす
+    const py=Math.round(ratio*18);
+    bg.style.backgroundPositionY=`calc(${bg.dataset.baseY||'50%'} + ${py}px)`;
+  });
+}
+// 各vbgのベースY位置を保存
+document.querySelectorAll('.vbg').forEach(bg=>{
+  const pos=bg.style.backgroundPosition||'center 50%';
+  const match=pos.match(/(\d+%)/g);
+  bg.dataset.baseY=match?match[match.length-1]:'50%';
+});
+SECS.forEach(id=>{
+  const sec=document.getElementById('sec-'+id);
+  if(sec)sec.addEventListener('scroll',updateParallax,{passive:true});
+});
+
+</script>
+</body>
+</html>
