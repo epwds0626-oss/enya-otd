@@ -23,13 +23,11 @@ html{font-size:16px;scroll-behavior:smooth}
 body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);overflow:hidden;cursor:none;width:100%;height:100vh}
 @media(max-width:900px){body{cursor:auto;overflow:hidden}}
 
-/* CURSOR */
 #cd,#cr{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
 #cd{width:6px;height:6px;background:#fff;mix-blend-mode:difference;transition:width .2s,height .2s}
 #cr{width:36px;height:36px;border:1px solid rgba(255,255,255,.28);transition:left .13s cubic-bezier(.23,1,.32,1),top .13s cubic-bezier(.23,1,.32,1),width .3s,height .3s}
 @media(max-width:900px){#cd,#cr{display:none}}
 
-/* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;justify-content:space-between;align-items:center;padding:22px 52px;background:rgba(12,16,24,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--w06);transition:padding .3s}
 .nav-logo{display:flex;align-items:center;text-decoration:none;height:48px}
 .nav-logo img{height:42px;width:auto;filter:invert(1);opacity:.88;max-width:180px}
@@ -52,7 +50,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .drawer a:hover{color:var(--w)}
 .drawer .da-rsv{color:var(--goldlt)!important}
 
-/* DOTS */
 .dots{position:fixed;right:26px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px;z-index:500}
 .dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);cursor:none;transition:background .3s,transform .3s;position:relative}
 .dot.on{background:var(--gold);transform:scale(1.7)}
@@ -60,13 +57,10 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .dot:hover .dot-tip,.dot.on .dot-tip{opacity:1}
 @media(max-width:900px){.dots{display:none}}
 
-/* SECTION BASE */
 .sec{position:fixed;inset:0;display:none;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:var(--sea)}
 .sec.active{display:flex}
 
-/* VISUAL PANEL */
 .vp{position:relative;width:100%;height:100vh;height:100dvh;flex-shrink:0;overflow:hidden;background:var(--sea)}
-/* VISUAL BG */
 .vbg{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform;transform-origin:center center}
 .vbg{will-change:transform}
 .sec.active .vbg{transform:scale(1)}
@@ -85,9 +79,7 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .shint-txt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:rgba(255,255,255,.22);writing-mode:vertical-rl}
 .sfade{display:none}
 
-/* TEXT PANEL */
 .tp{position:relative;width:100%;min-height:auto;background:var(--off);display:flex;align-items:center;justify-content:center;padding:100px 60px 120px}
-.tp.revealed{}
 .ti{max-width:680px;width:100%}
 .ti.wide{max-width:860px}
 .tlbl{font-family:var(--cg);font-size:15px;font-weight:300;letter-spacing:.55em;color:rgba(17,16,9,.45);display:block;margin-bottom:32px}
@@ -102,18 +94,15 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .tnext:hover::after{width:60px}
 @media(max-width:900px){.tnext{display:none}}
 
-/* ANIMATE */
 .ch{display:inline-block;opacity:0;transform:translateX(-22px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1)}
 .ch.in{opacity:1;transform:none}
 .bl{opacity:0;transform:translateX(-28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
 .bl.in{opacity:1;transform:none}
 
-/* 想いvpの見出しサイズ調整 */
 #sec-home .vp:nth-child(3) .vh{font-size:clamp(28px,3.8vw,54px)}
 .tp-inner{height:auto!important;min-height:auto!important;padding:80px 60px 100px!important;overflow:visible!important;visibility:visible!important;opacity:1!important}
 @media(max-width:900px){.tp-inner{padding:40px 20px 80px!important}}
 
-/* BG IMAGES */
 #sec-home .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_2825.jpeg');background-position:center 50%}
 #sec-menu .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5859.jpeg');background-position:center 40%}
 #sec-news .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/20240529_015204972_iOS.png');background-position:center 50%}
@@ -125,7 +114,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 #sec-hito .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5861.jpeg');background-position:center 25%}
 #sec-recruit .vbg{background-image:url('https://epwds0626-oss.github.io/enya-otd/20260429_032133148_iOS.jpg');background-position:center 30%}
 
-/* 人セクション */
 #sec-hito .tp{position:relative;z-index:10}
 #sec-hito .sfade{display:none}
 .hito-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(17,16,9,.1);margin-top:8px}
@@ -149,44 +137,37 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   .hito-card-photo{aspect-ratio:4/3;object-position:center 20%}
 }
 
-/* KEN BURNS — セクションがアクティブな間ずっと動き続ける */
 @-webkit-keyframes kb1{
-  0%  {-webkit-transform:scale(1.0) translate(0%,0%);transform:scale(1.0) translate(0%,0%)}
-  50% {-webkit-transform:scale(1.12) translate(-1.5%,-1%);transform:scale(1.12) translate(-1.5%,-1%)}
+  0%{-webkit-transform:scale(1.0) translate(0%,0%);transform:scale(1.0) translate(0%,0%)}
+  50%{-webkit-transform:scale(1.12) translate(-1.5%,-1%);transform:scale(1.12) translate(-1.5%,-1%)}
   100%{-webkit-transform:scale(1.0) translate(0%,0%);transform:scale(1.0) translate(0%,0%)}
 }
 @keyframes kb1{
-  0%  {transform:scale(1.0) translate(0%,0%)}
-  50% {transform:scale(1.12) translate(-1.5%,-1%)}
+  0%{transform:scale(1.0) translate(0%,0%)}
+  50%{transform:scale(1.12) translate(-1.5%,-1%)}
   100%{transform:scale(1.0) translate(0%,0%)}
 }
 @-webkit-keyframes kb2{
-  0%  {-webkit-transform:scale(1.08) translate(1%,0%);transform:scale(1.08) translate(1%,0%)}
-  50% {-webkit-transform:scale(1.0) translate(-1%,1.5%);transform:scale(1.0) translate(-1%,1.5%)}
+  0%{-webkit-transform:scale(1.08) translate(1%,0%);transform:scale(1.08) translate(1%,0%)}
+  50%{-webkit-transform:scale(1.0) translate(-1%,1.5%);transform:scale(1.0) translate(-1%,1.5%)}
   100%{-webkit-transform:scale(1.08) translate(1%,0%);transform:scale(1.08) translate(1%,0%)}
 }
 @keyframes kb2{
-  0%  {transform:scale(1.08) translate(1%,0%)}
-  50% {transform:scale(1.0) translate(-1%,1.5%)}
+  0%{transform:scale(1.08) translate(1%,0%)}
+  50%{transform:scale(1.0) translate(-1%,1.5%)}
   100%{transform:scale(1.08) translate(1%,0%)}
 }
 @-webkit-keyframes kb3{
-  0%  {-webkit-transform:scale(1.0) translate(-1%,1%);transform:scale(1.0) translate(-1%,1%)}
-  50% {-webkit-transform:scale(1.1) translate(1.5%,-0.5%);transform:scale(1.1) translate(1.5%,-0.5%)}
+  0%{-webkit-transform:scale(1.0) translate(-1%,1%);transform:scale(1.0) translate(-1%,1%)}
+  50%{-webkit-transform:scale(1.1) translate(1.5%,-0.5%);transform:scale(1.1) translate(1.5%,-0.5%)}
   100%{-webkit-transform:scale(1.0) translate(-1%,1%);transform:scale(1.0) translate(-1%,1%)}
 }
 @keyframes kb3{
-  0%  {transform:scale(1.0) translate(-1%,1%)}
-  50% {transform:scale(1.1) translate(1.5%,-0.5%)}
+  0%{transform:scale(1.0) translate(-1%,1%)}
+  50%{transform:scale(1.1) translate(1.5%,-0.5%)}
   100%{transform:scale(1.0) translate(-1%,1%)}
 }
-/* 各vbgに異なるバリエーションを割り当て */
-.sec.active .vbg{
-  -webkit-animation:kb1 22s ease-in-out infinite;
-  animation:kb1 22s ease-in-out infinite;
-  transform-origin:center center;
-  -webkit-transform-origin:center center;
-}
+.sec.active .vbg{-webkit-animation:kb1 22s ease-in-out infinite;animation:kb1 22s ease-in-out infinite;transform-origin:center center;-webkit-transform-origin:center center;}
 #sec-home .vp:nth-child(1) .vbg{-webkit-animation-name:kb1;animation-name:kb1;-webkit-animation-duration:24s;animation-duration:24s}
 #sec-home .vp:nth-child(3) .vbg{-webkit-animation-name:kb2;animation-name:kb2;-webkit-animation-duration:20s;animation-duration:20s}
 #sec-home .vp:nth-child(5) .vbg{-webkit-animation-name:kb3;animation-name:kb3;-webkit-animation-duration:26s;animation-duration:26s}
@@ -199,7 +180,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 #sec-hito .vbg{-webkit-animation-name:kb1;animation-name:kb1;-webkit-animation-duration:22s;animation-duration:22s}
 #sec-en   .vbg{-webkit-animation-name:kb3;animation-name:kb3;-webkit-animation-duration:24s;animation-duration:24s}
 
-/* ===== HOME ===== */
 .home-story{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(17,16,9,.1);margin-top:48px}
 .home-story-col{padding:40px 0}
 .home-story-col+.home-story-col{padding-left:48px;border-left:1px solid rgba(17,16,9,.1)}
@@ -207,21 +187,17 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .hsc-title{font-family:var(--sm);font-size:18px;font-weight:400;letter-spacing:.1em;color:var(--ink);margin-bottom:16px;line-height:1.7}
 .hsc-body{font-size:13px;line-height:2.4;color:rgba(17,16,9,.6)}
 
-/* HISTORY TIMELINE */
 .timeline{display:flex;flex-direction:column;gap:0;margin-top:8px}
 .tl-item{display:grid;grid-template-columns:80px 1fr;gap:0;padding:20px 0;border-bottom:1px solid rgba(17,16,9,.07)}
 .tl-item:first-child{border-top:1px solid rgba(17,16,9,.07)}
 .tl-year{font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);padding-top:3px}
-.tl-content{}
 .tl-head{font-family:var(--sm);font-size:14px;font-weight:400;letter-spacing:.06em;color:var(--ink);margin-bottom:6px}
 .tl-body{font-size:12px;line-height:2.1;color:rgba(17,16,9,.55)}
 
-/* KOTOWARI / PHI */
 .phi-quote{margin-top:36px;padding:36px 40px;border-left:3px solid var(--gold);background:rgba(154,125,78,.06)}
 .phi-quote p{font-family:var(--sm);font-size:17px;font-weight:400;line-height:2.4;letter-spacing:.08em;color:rgba(17,16,9,.75)}
 .phi-author{margin-top:14px;font-family:var(--cg);font-size:11px;letter-spacing:.45em;color:rgba(17,16,9,.35)}
 
-/* ===== MENU ===== */
 .menu-tabs{display:flex;gap:0;border-bottom:1px solid rgba(17,16,9,.12);margin-bottom:32px}
 .mtab{font-family:var(--sm);font-size:13px;letter-spacing:.2em;color:rgba(17,16,9,.4);padding:12px 24px;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;margin-bottom:-1px}
 .mtab.on{color:var(--ink);border-bottom-color:var(--gold)}
@@ -229,7 +205,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .mpanel{display:none}
 .mpanel.on{display:block}
 
-/* 画像スライダー（横長対応） */
 .menu-slider-wrap{position:relative;overflow:hidden;margin-top:8px}
 .menu-slider{display:flex;gap:8px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
 .menu-slide{flex:0 0 calc(50% - 4px);position:relative}
@@ -254,7 +229,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .menu-note{font-size:12px;color:rgba(17,16,9,.35);letter-spacing:.1em;margin-top:20px}
 @media(max-width:900px){.menu-grid{grid-template-columns:repeat(2,1fr)}.drink-item{flex:0 0 calc(50% - 4px)}}
 
-/* ===== NEWS ===== */
 .news-list{display:flex;flex-direction:column;gap:0;margin-top:8px}
 .news-item{display:grid;grid-template-columns:160px 1fr;gap:0 32px;padding:24px 0;border-bottom:1px solid rgba(17,16,9,.1);align-items:baseline}
 .news-item:first-child{border-top:1px solid rgba(17,16,9,.1)}
@@ -263,7 +237,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .news-body{font-family:var(--sm);font-size:14px;line-height:1.9;color:rgba(17,16,9,.72);letter-spacing:.05em;margin-top:4px;grid-column:2}
 @media(max-width:900px){.news-item{grid-template-columns:1fr;gap:6px}.news-date{font-size:11px}.news-body{grid-column:1;margin-top:2px}}
 
-/* ===== FAC ===== */
 .fac-seats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(17,16,9,.1);margin-top:8px}
 .fac-seat{padding:28px 28px 28px 0;border-bottom:1px solid rgba(17,16,9,.1)}
 .fac-seat:nth-child(2){padding-left:28px;border-left:1px solid rgba(17,16,9,.1);border-right:1px solid rgba(17,16,9,.1)}
@@ -279,7 +252,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .ftag:hover{color:var(--gold);border-color:var(--gold)}
 @media(max-width:900px){.fac-seats{grid-template-columns:1fr}.fac-seat{padding:20px 0!important;border-right:none!important;border-left:none!important}.fac-photos{grid-template-columns:repeat(2,1fr)}}
 
-/* ===== EC ===== */
 .ec-body-text{font-size:15px;line-height:2.6;color:rgba(17,16,9,.68)}
 .ec-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:32px}
 .ec-photo{width:100%;aspect-ratio:4/3;object-fit:cover;opacity:.88;cursor:pointer;transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1)}
@@ -289,7 +261,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .ec-btn::after{content:'→';font-family:var(--cg);font-size:16px}
 @media(max-width:900px){.ec-photos{grid-template-columns:1fr}}
 
-/* ===== ACCESS ===== */
 .acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px}
 .acc-dl{display:flex;flex-direction:column;gap:18px}
 .acc-dl dt{font-family:var(--cg);font-size:9px;letter-spacing:.55em;color:rgba(17,16,9,.28);margin-bottom:3px}
@@ -304,7 +275,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .rsv-btn:hover{background:var(--goldlt)}
 @media(max-width:900px){.acc-grid{grid-template-columns:1fr;gap:28px}.rsv-block{grid-template-columns:1fr;gap:16px}}
 
-/* ===== EN（縁）===== */
 .en-intro{font-size:15px;line-height:2.6;color:rgba(17,16,9,.68);margin-bottom:44px}
 .en-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(17,16,9,.1)}
 .en-card{display:flex;flex-direction:column;border-right:1px solid rgba(17,16,9,.1)}
@@ -323,7 +293,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .en-card-link:hover::after{width:40px}
 @media(max-width:900px){.rec-grid{grid-template-columns:1fr!important;gap:0!important}.en-cards{grid-template-columns:1fr}.en-card{border-right:none;border-bottom:1px solid rgba(17,16,9,.1)}.en-card:last-child{border-bottom:none}}
 
-/* FOOTER */
 .sfooter{background:var(--sea2);padding:22px 48px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--w06);flex-shrink:0;gap:12px}
 .sfooter a{font-family:var(--cg);font-size:11px;font-weight:300;letter-spacing:.22em;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
 .sfooter a:hover{color:rgba(255,255,255,.65)}
@@ -331,7 +300,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .sfooter-c{font-family:var(--cg);font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.12);white-space:nowrap}
 @media(max-width:900px){.sfooter{flex-direction:column;gap:8px;padding:20px 20px 80px;text-align:center}.sfooter-links{justify-content:center;gap:16px}}
 
-/* MOBILE NAV */
 .mnav{position:fixed;bottom:0;left:0;right:0;z-index:700;display:flex;justify-content:space-between;align-items:center;padding:16px 52px 24px;background:linear-gradient(to top,rgba(10,14,20,.9) 0%,transparent 100%);pointer-events:none;transition:background .4s}
 .mnav.light{background:linear-gradient(to top,rgba(245,241,234,.98) 0%,rgba(245,241,234,.5) 100%)}
 .mbtn{pointer-events:all;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);font-family:var(--cg);font-size:11px;letter-spacing:.3em;padding:10px 24px;transition:all .2s;-webkit-tap-highlight-color:transparent;cursor:pointer}
@@ -343,7 +311,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .mnav.light .mcnt{color:rgba(17,16,9,.35)}
 @media(max-width:900px){.mnav{padding:12px 20px 20px}}
 
-/* LIGHTBOX */
 #lb{position:fixed;inset:0;z-index:2000;background:rgba(8,10,14,.94);display:none;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(12px)}
 #lb.open{display:flex}
 #lb-inner{max-width:760px;width:100%;position:relative;animation:lbIn .4s cubic-bezier(.16,1,.3,1)}
@@ -353,16 +320,13 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 #lb-close:hover{color:rgba(255,255,255,.85)}
 @media(max-width:900px){#lb{padding:1rem}#lb-img{max-height:65vh}}
 
-/* KEYFRAMES */
 @keyframes riLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
 @keyframes riUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes scanLine{0%{top:-100%}100%{top:220%}}
 @keyframes lbIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes secIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes secOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-16px)}}
-/* home内スクロールvpはアニメーションをそのまま継続 */
 
-/* RESPONSIVE GENERAL */
 @media(max-width:900px){
   .nav{padding:14px 20px}
   .nav-links{display:none}.hamb{display:flex}
@@ -381,7 +345,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   .phi-quote{padding:24px 24px}
   .acc-grid{grid-template-columns:1fr;gap:28px}
   .rsv-block{grid-template-columns:1fr;gap:16px}
-  /* モバイルでケンバーンズを明示的に有効化 */
   .vbg{-webkit-transform:translateZ(0);transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden}
   .sec.active .vbg{-webkit-animation-play-state:running;animation-play-state:running}
 }
@@ -390,7 +353,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 <body>
 <div id="cd"></div><div id="cr"></div>
 
-<!-- NAV -->
 <nav class="nav">
   <a class="nav-logo" href="#" data-to="home">
     <img src="https://epwds0626-oss.github.io/enya-otd/enya-logo.png" alt="えんやどっと丸"
@@ -426,7 +388,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" rel="noopener" class="da da-rsv">ご予約 →</a>
 </div>
 
-<!-- DOTS -->
 <div class="dots" id="dots">
   <div class="dot on" data-to="home"><span class="dot-tip">はじめに</span></div>
   <div class="dot" data-to="menu"><span class="dot-tip">献立</span></div>
@@ -439,14 +400,12 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   <div class="dot" data-to="recruit"><span class="dot-tip">採用</span></div>
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="mnav" id="mnav">
   <button class="mbtn" id="mprev">← 前へ</button>
   <span class="mcnt" id="mcnt">1 / 6</span>
   <button class="mbtn" id="mnext">次へ →</button>
 </div>
 
-<!-- LIGHTBOX -->
 <div id="lb" onclick="if(event.target===this)closeLb()">
   <div id="lb-inner">
     <button id="lb-close" onclick="closeLb()">✕</button>
@@ -455,10 +414,8 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   </div>
 </div>
 
-<!-- ========== HOME ========== -->
+<!-- HOME -->
 <div class="sec active" id="sec-home">
-
-  <!-- はじめに -->
   <div class="vp">
     <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_2825.jpeg');background-position:center 50%"></div>
     <div class="vov"></div>
@@ -487,7 +444,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
   </div>
 
-  <!-- 想い -->
   <div class="vp">
     <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5036.jpeg');background-position:center 50%"></div>
     <div class="vov"></div>
@@ -509,7 +465,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
   </div>
 
-  <!-- 歴史 -->
   <div class="vp">
     <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5592.jpeg');background-position:center 40%"></div>
     <div class="vov"></div>
@@ -533,6 +488,20 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
             </div>
           </div>
           <div class="tl-item">
+            <span class="tl-year">1945</span>
+            <div class="tl-content">
+              <p class="tl-head">清水洋治、生まれる。</p>
+              <p class="tl-body">終戦の年に生を受けた洋治は、幼い頃から港の潮風の中で育つ。父の背中を追いながら、海と商いの道を歩んだ。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">1965</span>
+            <div class="tl-content">
+              <p class="tl-head">二十歳で、家業を継ぐ。</p>
+              <p class="tl-body">父を二十歳で亡くした洋治は、悲しむ間もなく清水商店の舵を取った。若い肩に重い責任を担いながらも、温厚で思慮深い人柄で会社を守り続けた。</p>
+            </div>
+          </div>
+          <div class="tl-item">
             <span class="tl-year">1950s</span>
             <div class="tl-content">
               <p class="tl-head">港町に、にぎわいを。</p>
@@ -547,6 +516,20 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
             </div>
           </div>
           <div class="tl-item">
+            <span class="tl-year">2023</span>
+            <div class="tl-content">
+              <p class="tl-head">清水洋治、逝去。享年七十八歳。</p>
+              <p class="tl-body">二十歳で家業を継ぎ、苦労の多い人生を歩みながらも、危うい判断を避け、誠実に商いを続けた。その温かく思慮深い生き方は、えんやどっと丸の礎として今も生き続けている。</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">2025</span>
+            <div class="tl-content">
+              <p class="tl-head">パスタのマルコ、開業。</p>
+              <p class="tl-body">えんやどっと丸の姉妹店として、2025年11月に誕生。大洗漁港そばに佇む小さなパスタ屋で、新たな縁を紡ぎ続けている。</p>
+            </div>
+          </div>
+          <div class="tl-item">
             <span class="tl-year">Now</span>
             <div class="tl-content">
               <p class="tl-head">海と人をつなぐ、食の場として。</p>
@@ -558,7 +541,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
   </div>
 
-  <!-- 心得 -->
   <div class="vp">
     <div class="vbg" style="background-image:url('https://epwds0626-oss.github.io/enya-otd/IMG_5860.jpeg');background-position:center 30%"></div>
     <div class="vov"></div>
@@ -584,10 +566,9 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
       <button class="tnext" data-to="menu">献立</button>
     </div>
   </div>
-
 </div>
 
-<!-- ========== MENU ========== -->
+<!-- MENU -->
 <div class="sec" id="sec-menu">
   <div class="vp">
     <div class="vbg"></div>
@@ -604,7 +585,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </dl>
     <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
   </div>
-
   <div class="tp">
     <div class="ti wide">
       <span class="tlbl">献立</span>
@@ -614,8 +594,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
         <button class="mtab" data-tab="don">丼</button>
         <button class="mtab" data-tab="drink">お飲物</button>
       </div>
-
-      <!-- 御膳 -->
       <div class="mpanel on" id="tab-gozen">
         <div class="menu-slider-wrap">
           <div class="menu-slider" id="sliderGozen">
@@ -636,8 +614,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
         </div>
         <p class="menu-note">※ 献立は仕入れにより変わります。写真をタップで拡大表示。</p>
       </div>
-
-      <!-- 丼 -->
       <div class="mpanel" id="tab-don">
         <div class="menu-slider-wrap">
           <div class="menu-slider" id="sliderDon">
@@ -658,8 +634,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
         </div>
         <p class="menu-note">※ 献立は仕入れにより変わります。写真をタップで拡大表示。</p>
       </div>
-
-      <!-- お飲物 -->
       <div class="mpanel" id="tab-drink">
         <div class="menu-slider-wrap">
           <div class="menu-slider" id="sliderDrink">
@@ -683,13 +657,12 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
         </div>
         <p class="menu-note" style="margin-top:12px">茨城の地酒・ビール・ソフトドリンクなど、料理に合わせてお選びください。</p>
       </div>
-
       <button class="tnext" data-to="news">お知らせ</button>
     </div>
   </div>
 </div>
 
-<!-- ========== お知らせ ========== -->
+<!-- NEWS -->
 <div class="sec" id="sec-news">
   <div class="vp">
     <div class="vbg"></div>
@@ -709,20 +682,20 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
       <div class="news-list">
         <div class="news-item">
           <div>
-            <span class="news-date">2026.06.05</span>
+            <span class="news-date">2026.07.03</span>
             <span class="news-cat">営業カレンダー</span>
           </div>
-          <p class="news-body">6月・7月の営業日程です。ご来店の際はご確認ください。</p>
+          <p class="news-body">7月・8月の営業日程です。ご来店の際はご確認ください。</p>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px">
         <div>
-          <p style="font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);margin-bottom:10px">JUNE — 六月</p>
-          <img src="https://epwds0626-oss.github.io/enya-otd/20260511_023430879_iOS.jpg" alt="6月営業カレンダー" style="width:100%;display:block;border:1px solid rgba(17,16,9,.1)">
-        </div>
-        <div>
           <p style="font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);margin-bottom:10px">JULY — 七月</p>
           <img src="https://epwds0626-oss.github.io/enya-otd/F41E5D4D-C480-4D6D-9167-B2FEDFF97CD3.png" alt="7月営業カレンダー" style="width:100%;display:block;border:1px solid rgba(17,16,9,.1)">
+        </div>
+        <div>
+          <p style="font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);margin-bottom:10px">AUGUST — 葉月</p>
+          <img src="https://epwds0626-oss.github.io/enya-otd/20260703_065426000_iOS%201.png" alt="8月営業カレンダー" style="width:100%;display:block;border:1px solid rgba(17,16,9,.1)">
         </div>
       </div>
       <div style="margin-top:52px;border-top:1px solid rgba(17,16,9,.1);padding-top:40px">
@@ -754,7 +727,7 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   </div>
 </div>
 
-<!-- ========== 人 ========== -->
+<!-- 人 -->
 <div class="sec" id="sec-hito">
   <div class="vp">
     <div class="vbg"></div>
@@ -767,7 +740,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
     <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
   </div>
-
   <div class="tp">
     <div class="ti wide">
       <span class="tlbl">人 — People</span>
@@ -777,8 +749,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
       </div>
       <div class="textra">
         <div class="hito-cards">
-
-          <!-- 青木 優介 -->
           <div class="hito-card">
             <img class="hito-card-photo" src="https://epwds0626-oss.github.io/enya-otd/20260429_063052642_iOS.jpg" alt="青木 優介">
             <div class="hito-card-body">
@@ -793,8 +763,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
               </div>
             </div>
           </div>
-
-          <!-- 原 孝志 -->
           <div class="hito-card">
             <img class="hito-card-photo" src="https://epwds0626-oss.github.io/enya-otd/20260429_062928691_iOS.jpg" alt="原 孝志">
             <div class="hito-card-body">
@@ -809,8 +777,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
               </div>
             </div>
           </div>
-
-          <!-- 小沼 太一 -->
           <div class="hito-card">
             <img class="hito-card-photo" src="https://epwds0626-oss.github.io/enya-otd/20260429_062804947_iOS.jpg" alt="小沼 太一">
             <div class="hito-card-body">
@@ -825,7 +791,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <button class="tnext" data-to="fac">店内</button>
@@ -833,7 +798,7 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   </div>
 </div>
 
-<!-- ========== FAC ========== -->
+<!-- FAC -->
 <div class="sec" id="sec-fac">
   <div class="vp">
     <div class="vbg"></div>
@@ -845,7 +810,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
     <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
   </div>
-
   <div class="tp">
     <div class="ti wide">
       <span class="tlbl">店内案内</span>
@@ -891,7 +855,7 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   </div>
 </div>
 
-<!-- ========== EC ========== -->
+<!-- EC -->
 <div class="sec" id="sec-ec">
   <div class="vp">
     <div class="vbg"></div>
@@ -904,7 +868,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
     <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
   </div>
-
   <div class="tp">
     <div class="ti wide">
       <span class="tlbl">通販</span>
@@ -926,7 +889,7 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   </div>
 </div>
 
-<!-- ========== ACCESS ========== -->
+<!-- ACCESS -->
 <div class="sec" id="sec-access">
   <div class="vp">
     <div class="vbg"></div>
@@ -938,7 +901,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
     <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
   </div>
-
   <div class="tp">
     <div class="ti wide">
       <span class="tlbl">道案内</span>
@@ -958,8 +920,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
             <iframe src="https://maps.google.com/maps?q=茨城県東茨城郡大洗町港中央9-4&output=embed&hl=ja&z=16" allowfullscreen="" loading="lazy"></iframe>
           </div>
         </div>
-
-        <!-- 予約ブロック -->
         <div class="rsv-block">
           <div class="rsv-text">
             <h3>ご予約</h3>
@@ -981,7 +941,7 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
   </div>
 </div>
 
-<!-- ========== EN（縁）========== -->
+<!-- EN -->
 <div class="sec" id="sec-en">
   <div class="vp">
     <div class="vbg"></div>
@@ -994,15 +954,12 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
     </div>
     <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
   </div>
-
   <div class="tp">
     <div class="ti wide">
       <span class="tlbl">縁</span>
       <div class="trule"></div>
       <p class="en-intro">大洗の海から生まれた食と仕事のつながり。<br>それぞれの場所で、それぞれの形で、人と海をつなぎ続けています。</p>
-
       <div class="en-cards">
-        <!-- パスタのマルコ -->
         <div class="en-card">
           <div class="en-card-img">
             <img src="https://epwds0626-oss.github.io/pasta-marco/IMG_4066.jpeg" alt="パスタのマルコ" loading="lazy">
@@ -1014,8 +971,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
             <a href="https://epwds0626-oss.github.io/pasta-marco/" target="_blank" rel="noopener" class="en-card-link">Visit</a>
           </div>
         </div>
-
-        <!-- フィッシュハック -->
         <div class="en-card">
           <div class="en-card-img">
             <img src="https://epwds0626-oss.github.io/enya-otd/20200207_041550263_iOS.jpg" alt="Fish Hack" loading="lazy">
@@ -1027,8 +982,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
             <a href="https://epwds0626-oss.github.io/fish-hack/" target="_blank" rel="noopener" class="en-card-link">Visit</a>
           </div>
         </div>
-
-        <!-- One Table Design -->
         <div class="en-card">
           <div class="en-card-img">
             <img src="https://epwds0626-oss.github.io/enya-otd/20250521_030620553_iOS.png" alt="One Table Design" loading="lazy">
@@ -1054,7 +1007,6 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 </div>
 
 <script>
-/* LIGHTBOX */
 function openLb(src,cap){
   document.getElementById('lb-img').src=src;
   document.getElementById('lb-cap').textContent=cap||'';
@@ -1063,12 +1015,10 @@ function openLb(src,cap){
 function closeLb(){document.getElementById('lb').classList.remove('open');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
 
-/* SECTIONS */
 const SECS=['home','menu','news','hito','fac','ec','access','en','recruit'];
 let cur='home',busy=false;
 const isMob=()=>window.innerWidth<=900;
 
-/* CURSOR */
 const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 document.addEventListener('mousemove',e=>{
   cd.style.left=e.clientX+'px';cd.style.top=e.clientY+'px';
@@ -1079,7 +1029,6 @@ document.querySelectorAll('a,button,.dot,.ftag,.menu-img,.fac-photo,.ec-photo,.e
   el.addEventListener('mouseleave',()=>{cd.style.width='6px';cd.style.height='6px';cr.style.opacity='1';cr.style.width='36px';cr.style.height='36px'});
 });
 
-/* GO TO SECTION */
 function goTo(id){
   if(id===cur||busy)return;busy=true;
   const from=document.getElementById('sec-'+cur);
@@ -1115,7 +1064,6 @@ function updateUI(){
   updateMnav();
 }
 
-/* CHAR SPLIT */
 function splitChars(el){
   if(el.dataset.split)return;el.dataset.split='1';
   const txt=el.textContent||'';el.innerHTML='';
@@ -1135,7 +1083,6 @@ function prepSection(sec){
   tp.querySelectorAll('.trule,.textra,.tnext,.phi-quote,.home-story,.en-cards').forEach(el=>prepBlock(el));
 }
 
-/* SCROLL REVEAL */
 function setupScroll(id){
   const sec=document.getElementById('sec-'+id);
   const sf=document.getElementById('sf-'+id);
@@ -1148,7 +1095,6 @@ function setupScroll(id){
     if(!isMob()){
       const fadeP=Math.min(sy/(vh*0.6),1);
       if(sf)sf.style.opacity=fadeP;
-      // vpを超えてtpエリアに入ったらrevealed
       if(sy>=vh*0.9&&!sec.dataset.revealed&&tp){sec.dataset.revealed='1';tp.classList.add('revealed');revealSection(sec);updateMnav();}
     } else {
       if(!sec.dataset.revealed&&tp){sec.dataset.revealed='1';tp.classList.add('revealed');revealSection(sec);}
@@ -1182,46 +1128,32 @@ function revealSection(sec){
 }
 
 SECS.forEach(setupScroll);
-// モバイルは全セクションのtpを即時表示
 if(isMob()){
   SECS.forEach(id=>{
     const sec=document.getElementById('sec-'+id);
     if(!sec)return;
-    // homeはtp-innerが複数あるので全て処理
     const tps=sec.querySelectorAll('.tp');
     tps.forEach(tp=>{
-      if(!tp.dataset.revealed){
-        tp.dataset.revealed='1';
-        tp.classList.add('revealed');
-      }
+      if(!tp.dataset.revealed){tp.dataset.revealed='1';tp.classList.add('revealed');}
     });
-    if(!sec.dataset.revealed){
-      sec.dataset.revealed='1';
-      revealSection(sec);
-    }
+    if(!sec.dataset.revealed){sec.dataset.revealed='1';revealSection(sec);}
   });
 }
-// モバイルでhome初期表示：最初のtpをスクロール前に即時reveal
 if(isMob()){
   const homeEl=document.getElementById('sec-home');
   if(homeEl){
     setTimeout(()=>{
       const firstTp=homeEl.querySelector('.tp');
-      if(firstTp&&!firstTp.classList.contains('revealed')){
-        firstTp.classList.add('revealed');
-        revealSection(homeEl);
-      }
+      if(firstTp&&!firstTp.classList.contains('revealed')){firstTp.classList.add('revealed');revealSection(homeEl);}
     },300);
   }
 }
 
-/* CLICK ROUTING */
 document.addEventListener('click',e=>{
   const el=e.target.closest('[data-to]');if(!el)return;
   e.preventDefault();goTo(el.dataset.to);closeDrawer();
 });
 
-/* KEYBOARD */
 document.addEventListener('keydown',e=>{
   if(busy)return;
   const i=SECS.indexOf(cur);
@@ -1229,7 +1161,6 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();goTo(SECS[Math.max(i-1,0)]);}
 });
 
-/* BOTTOM NAV */
 const mnav=document.getElementById('mnav'),mprev=document.getElementById('mprev'),mnext=document.getElementById('mnext'),mcnt=document.getElementById('mcnt');
 function updateMnav(){
   const i=SECS.indexOf(cur);
@@ -1243,13 +1174,11 @@ mnext.addEventListener('click',()=>{const i=SECS.indexOf(cur);if(i<SECS.length-1
 window.addEventListener('resize',updateMnav);
 updateMnav();
 
-/* DRAWER */
 const hamb=document.getElementById('hamb'),drawer=document.getElementById('drawer'),dmask=document.getElementById('dmask');
 function closeDrawer(){drawer.classList.remove('open');dmask.classList.remove('open');hamb.classList.remove('open');}
 hamb.addEventListener('click',()=>{const o=drawer.classList.toggle('open');dmask.classList.toggle('open',o);hamb.classList.toggle('open',o);});
 dmask.addEventListener('click',closeDrawer);
 
-/* MENU TABS */
 document.querySelectorAll('.mtab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('on'));
@@ -1261,35 +1190,34 @@ document.querySelectorAll('.mtab').forEach(tab=>{
   tab.dataset.tab=tab.textContent==='御膳'?'gozen':tab.textContent==='丼'?'don':'drink';
 });
 
-function makeMenuSlider(sliderId, prevId, nextId, cntId){
-  const slider = document.getElementById(sliderId);
-  if(!slider) return;
-  const slides = slider.querySelectorAll('.menu-slide');
-  const prev = document.getElementById(prevId);
-  const next = document.getElementById(nextId);
-  const cnt = document.getElementById(cntId);
-  let idx = 0;
-  const vis = () => window.innerWidth <= 900 ? 1 : 2;
+function makeMenuSlider(sliderId,prevId,nextId,cntId){
+  const slider=document.getElementById(sliderId);
+  if(!slider)return;
+  const slides=slider.querySelectorAll('.menu-slide');
+  const prev=document.getElementById(prevId);
+  const next=document.getElementById(nextId);
+  const cnt=document.getElementById(cntId);
+  let idx=0;
+  const vis=()=>window.innerWidth<=900?1:2;
   function update(){
-    const v = vis();
-    const max = Math.max(0, slides.length - v);
-    idx = Math.min(idx, max);
-    const w = slider.parentElement.offsetWidth / v;
-    slider.style.transform = `translateX(-${idx * (w + 8)}px)`;
-    if(prev) prev.disabled = idx === 0;
-    if(next) next.disabled = idx >= max;
-    if(cnt) cnt.textContent = `${idx + 1} / ${Math.ceil(slides.length / v)}`;
+    const v=vis();
+    const max=Math.max(0,slides.length-v);
+    idx=Math.min(idx,max);
+    const w=slider.parentElement.offsetWidth/v;
+    slider.style.transform=`translateX(-${idx*(w+8)}px)`;
+    if(prev)prev.disabled=(idx===0);
+    if(next)next.disabled=(idx>=max);
+    if(cnt)cnt.textContent=`${idx+1} / ${Math.ceil(slides.length/v)}`;
   }
-  if(prev) prev.addEventListener('click', () => { idx = Math.max(0, idx - 1); update(); });
-  if(next) next.addEventListener('click', () => { idx++; update(); });
-  window.addEventListener('resize', update);
+  if(prev)prev.addEventListener('click',()=>{idx=Math.max(0,idx-1);update();});
+  if(next)next.addEventListener('click',()=>{idx++;update();});
+  window.addEventListener('resize',update);
   update();
 }
 makeMenuSlider('sliderGozen','gozenPrev','gozenNext','gozenCnt');
 makeMenuSlider('sliderDon','donPrev','donNext','donCnt');
 makeMenuSlider('sliderDrink','drinkPrev','drinkNext','drinkCnt');
 
-/* PARALLAX */
 function updateParallax(){
   const sec=document.getElementById('sec-'+cur);
   if(!sec)return;
@@ -1300,12 +1228,10 @@ function updateParallax(){
     const rect=vp.getBoundingClientRect();
     const vy=rect.top;
     const ratio=vy/window.innerHeight;
-    // セクション入場後のズームは維持しつつ、スクロールでY位置をずらす
     const py=Math.round(ratio*18);
     bg.style.backgroundPositionY=`calc(${bg.dataset.baseY||'50%'} + ${py}px)`;
   });
 }
-// 各vbgのベースY位置を保存
 document.querySelectorAll('.vbg').forEach(bg=>{
   const pos=bg.style.backgroundPosition||'center 50%';
   const match=pos.match(/(\d+%)/g);
@@ -1315,10 +1241,9 @@ SECS.forEach(id=>{
   const sec=document.getElementById('sec-'+id);
   if(sec)sec.addEventListener('scroll',updateParallax,{passive:true});
 });
-
 </script>
 
-<!-- ========== RECRUIT ========== -->
+<!-- RECRUIT -->
 <div class="sec" id="sec-recruit">
   <div class="vp">
     <div class="vbg"></div>
@@ -1331,7 +1256,6 @@ SECS.forEach(id=>{
     </div>
     <div class="shint"><div class="shint-line"></div><span class="shint-txt">Scroll</span></div>
   </div>
-
   <div class="tp">
     <div class="ti wide">
       <span class="tlbl">採用情報</span>
@@ -1339,9 +1263,7 @@ SECS.forEach(id=>{
       <div class="tbody">
         <p>大洗の海の恵みを、お客様に届ける仕事。料理・接客・仕込み、それぞれの持ち場で一緒に店をつくってくれる仲間を募集しています。</p>
       </div>
-
       <div class="textra">
-        <!-- パート・アルバイト -->
         <div style="margin-bottom:48px;padding:36px 40px;background:var(--cream)">
           <p style="font-family:var(--cg);font-size:10px;letter-spacing:.5em;color:var(--gold);margin-bottom:16px">Part-time</p>
           <h3 style="font-family:var(--sm);font-size:20px;font-weight:400;letter-spacing:.1em;color:var(--ink);margin-bottom:24px">パート・アルバイト</h3>
@@ -1354,8 +1276,6 @@ SECS.forEach(id=>{
             <span>扶養内・Wワーク・学生歓迎！<br>ライフスタイルに合わせて無理なく働けます。</span>
           </div>
         </div>
-
-        <!-- 正社員 -->
         <div style="margin-bottom:48px;padding:36px 40px;background:var(--cream)">
           <p style="font-family:var(--cg);font-size:10px;letter-spacing:.5em;color:var(--gold);margin-bottom:16px">Full-time</p>
           <h3 style="font-family:var(--sm);font-size:20px;font-weight:400;letter-spacing:.1em;color:var(--ink);margin-bottom:24px">正社員</h3>
@@ -1372,8 +1292,6 @@ SECS.forEach(id=>{
             <span>料理や接客をしっかり学びたい方、将来的にお店を持ちたい方にもぴったりです。</span>
           </div>
         </div>
-
-        <!-- お問い合わせ -->
         <div style="padding:36px 40px;background:var(--sea);display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px">
           <div>
             <p style="font-family:var(--sm);font-size:18px;font-weight:400;letter-spacing:.1em;color:var(--w);margin-bottom:12px">お問い合わせ</p>
@@ -1384,7 +1302,6 @@ SECS.forEach(id=>{
       </div>
     </div>
   </div>
-
   <div class="sfooter">
     <div class="sfooter-links">
       <a href="https://epwds0626-oss.github.io/pasta-marco/" target="_blank" rel="noopener">パスタのマルコ</a>
