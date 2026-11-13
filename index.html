@@ -235,6 +235,8 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
 .news-date{font-family:var(--cg);font-size:12px;letter-spacing:.25em;color:var(--gold);white-space:nowrap}
 .news-cat{display:inline-block;font-family:var(--cg);font-size:10px;letter-spacing:.3em;color:var(--w55);background:rgba(154,125,78,.15);border:1px solid rgba(154,125,78,.3);padding:3px 10px;margin-left:12px;vertical-align:middle}
 .news-body{font-family:var(--sm);font-size:14px;line-height:1.9;color:rgba(17,16,9,.72);letter-spacing:.05em;margin-top:4px;grid-column:2}
+.cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+@media(max-width:900px){.cal-grid{grid-template-columns:1fr}}
 @media(max-width:900px){.news-item{grid-template-columns:1fr;gap:6px}.news-date{font-size:11px}.news-body{grid-column:1;margin-top:2px}}
 
 .fac-seats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(17,16,9,.1);margin-top:8px}
@@ -680,20 +682,34 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
       <div class="news-list">
         <div class="news-item">
           <div>
-            <span class="news-date">2026.10.01</span>
-            <span class="news-cat">季節のお知らせ</span>
+            <span class="news-date">2026.11.13</span>
+            <span class="news-cat">ご予約</span>
           </div>
-          <p class="news-body">茨城郷土料理「あんこう料理」を10月より提供開始します。あんこう鍋・御膳・鮟鱇どぶ汁・どぶ汁コースをご用意。ご予約なしでもご提供できます。</p>
+          <p class="news-body">年末年始のご予約を承っております。忘年会・新年会・ご家族のお集まりに。混み合いますので、お早めにご予約ください。</p>
         </div>
         <div class="news-item">
           <div>
-            <span class="news-date">2026.11.03</span>
+            <span class="news-date">2026.11.13</span>
+            <span class="news-cat">通販</span>
+          </div>
+          <p class="news-body">オンラインショップで、あんこう鍋セット・金目鯛の煮付けセットなど冬の味覚を販売中。お歳暮・年末年始のご贈答にどうぞ。</p>
+        </div>
+        <div class="news-item">
+          <div>
+            <span class="news-date">2026.10.01</span>
+            <span class="news-cat">季節のお知らせ</span>
+          </div>
+          <p class="news-body">茨城郷土料理「あんこう料理」を提供中です。あんこう鍋・御膳・鮟鱇どぶ汁・どぶ汁コースをご用意。ご予約なしでもご提供できます。</p>
+        </div>
+        <div class="news-item">
+          <div>
+            <span class="news-date">2026.11.13</span>
             <span class="news-cat">営業カレンダー</span>
           </div>
-          <p class="news-body">11月・12月の営業日程です。ご来店の際はご確認ください。</p>
+          <p class="news-body">11月・12月・1月の営業日程です。ご来店の際はご確認ください。</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px">
+      <div class="cal-grid">
         <div>
           <p style="font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);margin-bottom:10px">NOVEMBER — 霜月</p>
           <img src="https://epwds0626-oss.github.io/enya-otd/20261103_004602451_iOS%5B1%5D.png" alt="11月営業カレンダー（霜月）" style="width:100%;display:block;border:1px solid rgba(17,16,9,.1)">
@@ -702,14 +718,22 @@ body{font-family:var(--ns);font-weight:200;background:var(--sea);color:var(--w);
           <p style="font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);margin-bottom:10px">DECEMBER — 師走</p>
           <img src="https://epwds0626-oss.github.io/enya-otd/20261103_004602460_iOS%5B1%5D.png" alt="12月営業カレンダー（師走）" style="width:100%;display:block;border:1px solid rgba(17,16,9,.1)">
         </div>
+        <div>
+          <p style="font-family:var(--cg);font-size:11px;letter-spacing:.3em;color:var(--gold);margin-bottom:10px">JANUARY — 睦月</p>
+          <img src="https://epwds0626-oss.github.io/enya-otd/20261113_132409144_iOS.png" alt="2027年1月営業カレンダー（睦月）" style="width:100%;display:block;border:1px solid rgba(17,16,9,.1)">
+        </div>
       </div>
       <div style="margin-top:52px;border-top:1px solid rgba(17,16,9,.1);padding-top:40px">
-        <p style="font-family:var(--cg);font-size:10px;letter-spacing:.4em;color:var(--gold);margin-bottom:6px">Seasonal</p>
-        <h3 style="font-family:var(--sm);font-size:clamp(18px,2.2vw,26px);letter-spacing:.12em;color:rgba(17,16,9,.82);font-weight:400;margin-bottom:16px">あんこう料理、はじまります。</h3>
-        <p style="font-family:var(--sm);font-size:14px;line-height:2.1;letter-spacing:.08em;color:rgba(17,16,9,.65);margin-bottom:20px">茨城の郷土料理、あんこう。大洗前浜のあんこうを、鍋・御膳・濃厚などぶ汁・全7品のコースで。<strong style="color:rgba(17,16,9,.82);font-weight:600">10月スタート</strong>。ご予約なしでもご提供できます。</p>
-        <a href="https://epwds0626-oss.github.io/enya-otd/anko_start_A4.png" target="_blank" rel="noopener" style="display:block">
-          <img src="https://epwds0626-oss.github.io/enya-otd/anko_start_A4.png" alt="あんこう料理 10月スタート — 大洗前浜のあんこう鍋・御膳・どぶ汁・コース" loading="lazy" style="width:100%;display:block;border:1px solid rgba(17,16,9,.1)">
-        </a>
+        <p style="font-family:var(--cg);font-size:10px;letter-spacing:.4em;color:var(--gold);margin-bottom:6px">Year-end &amp; New Year</p>
+        <h3 style="font-family:var(--sm);font-size:clamp(18px,2.2vw,26px);letter-spacing:.12em;color:rgba(17,16,9,.82);font-weight:400;margin-bottom:16px">年末年始のご予約、承っております。</h3>
+        <p style="font-family:var(--sm);font-size:14px;line-height:2.1;letter-spacing:.08em;color:rgba(17,16,9,.65);margin-bottom:20px">忘年会・新年会、ご家族でのお集まりに。大洗港の海鮮と、旬のあんこう料理でおもてなしいたします。年末年始は混み合いますので、お早めのご予約をおすすめします。営業日は上のカレンダーをご確認ください。</p>
+        <a href="https://yoyaku.toreta.in/enya-maru/#/" target="_blank" rel="noopener" style="display:inline-block;font-family:var(--cg);font-size:12px;letter-spacing:.3em;color:var(--gold);border:1px solid var(--gold);padding:12px 32px;text-decoration:none">ご予約はこちら</a>
+      </div>
+      <div style="margin-top:52px;border-top:1px solid rgba(17,16,9,.1);padding-top:40px">
+        <p style="font-family:var(--cg);font-size:10px;letter-spacing:.4em;color:var(--gold);margin-bottom:6px">Online Shop</p>
+        <h3 style="font-family:var(--sm);font-size:clamp(18px,2.2vw,26px);letter-spacing:.12em;color:rgba(17,16,9,.82);font-weight:400;margin-bottom:16px">大洗の冬を、贈りものに。</h3>
+        <p style="font-family:var(--sm);font-size:14px;line-height:2.1;letter-spacing:.08em;color:rgba(17,16,9,.65);margin-bottom:20px">オンラインショップでは、あんこう鍋セット・金目鯛の煮付けセットなど冬の味覚をご用意しています。お歳暮や年末年始のご贈答、ご自宅でのお正月にもどうぞ。</p>
+        <a href="https://enyamaru0626.thebase.in/" target="_blank" rel="noopener" style="display:inline-block;font-family:var(--cg);font-size:12px;letter-spacing:.3em;color:var(--gold);border:1px solid var(--gold);padding:12px 32px;text-decoration:none">オンラインショップへ</a>
       </div>
       <div style="margin-top:52px;border-top:1px solid rgba(17,16,9,.1);padding-top:40px">
         <p style="font-family:var(--cg);font-size:10px;letter-spacing:.4em;color:var(--gold);margin-bottom:6px">Movie</p>
